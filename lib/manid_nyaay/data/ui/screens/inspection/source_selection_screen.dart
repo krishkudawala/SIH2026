@@ -1,0 +1,249 @@
+import 'package:flutter/material.dart';
+import 'package:sih2631/manid_nyaay/data/domain/model/inspection_session.dart';
+import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
+import 'package:sih2631/manid_nyaay/data/ui/screens/inspection/inspection_view_model.dart';
+
+// --- Theme Constants Placeholder ---
+const Color backgroundGray = Color(0xFFF4F5F7);
+const Color surfaceWhite = Colors.white;
+const Color blueLight = Color(0xFFE1F5FE);
+const Color institutionalBlue = Color(0xFF1565C0);
+const Color textPrimary = Color(0xFF1E293B);
+const Color textSecondary = Color(0xFF64748B);
+const Color textOnBlue = Colors.white;
+const Color dividerGray = Color(0xFFE2E8F0);
+const Color statusGreenLight = Color(0xFFE8F5E9);
+const Color statusGreen = Color(0xFF4CAF50);
+
+class SourceSelectionScreen extends StatefulWidget {
+  final InspectionUiState uiState;
+  final void Function(int, BagTier) onBagSelected;
+  final VoidCallback onBack;
+
+  const SourceSelectionScreen({
+    super.key,
+    required this.uiState,
+    required this.onBagSelected,
+    required this.onBack,
+  });
+
+  @override
+  State<SourceSelectionScreen> createState() => _SourceSelectionScreenState();
+}
+
+class _SourceSelectionScreenState extends State<SourceSelectionScreen> {
+  int? _selectedBagNum;
+  BagTier _selectedTier = BagTier.middle;
+
+  @override
+  Widget build(BuildContext context) {
+    final bagNumbers = [8, 15, 22, 31];
+
+    return Scaffold(
+      backgroundColor: backgroundGray,
+      appBar: MandiTopAppBar(
+        title: "Select Source Bag",
+        subtitle: widget.uiState.lotId,
+        showBack: true,
+        onBack: widget.onBack,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Card(
+              margin: EdgeInsets.zero,
+              elevation: 0.0,
+              color: blueLight,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.info, color: institutionalBlue, size: 18.0),
+                    const SizedBox(width: 8.0),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "SELECT SOURCE BAG",
+                            style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: institutionalBlue,
+                            ),
+                          ),
+                          Text(
+                            "Physically locate the bag and select its position below. The inspector selects the bag — the app does not choose automatically.",
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 12.0),
+
+            Text(
+              "Bag Number",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w500,
+                color: textPrimary,
+              ),
+            ),
+            const SizedBox(height: 12.0),
+            Row(
+              children: bagNumbers.map((num) {
+                final isSelected = _selectedBagNum == num;
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedBagNum = num;
+                      });
+                    },
+                    child: Container(
+                      width: 44.0,
+                      height: 44.0,
+                      decoration: BoxDecoration(
+                        color: isSelected ? institutionalBlue : surfaceWhite,
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(
+                          color: isSelected ? institutionalBlue : dividerGray,
+                          width: 1.0,
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        num.toString(),
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: isSelected ? textOnBlue : textPrimary,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 12.0),
+
+            Text(
+              "Bag Tier",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w500,
+                color: textPrimary,
+              ),
+            ),
+            const SizedBox(height: 12.0),
+            Wrap(
+              spacing: 8.0,
+              children: BagTier.values.map((tier) {
+                final isSelected = _selectedTier == tier;
+                return ChoiceChip(
+                  label: Text(
+                    tier.displayLabel,
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: isSelected ? textOnBlue : textPrimary,
+                    ),
+                  ),
+                  selected: isSelected,
+                  onSelected: (selected) {
+                    if (selected) {
+                      setState(() {
+                        _selectedTier = tier;
+                      });
+                    }
+                  },
+                  selectedColor: institutionalBlue,
+                  backgroundColor: surfaceWhite,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    side: BorderSide(
+                      color: isSelected ? institutionalBlue : dividerGray,
+                    ),
+                  ),
+                  showCheckmark: false,
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 12.0),
+
+            if (_selectedBagNum != null)
+              Card(
+                margin: EdgeInsets.zero,
+                elevation: 0.0,
+                color: statusGreenLight,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.check_circle, color: statusGreen, size: 20.0),
+                      const SizedBox(width: 8.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "BAG $_selectedBagNum · ${_selectedTier.displayLabel}",
+                            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: statusGreen,
+                            ),
+                          ),
+                          Text(
+                            "Selected by inspector",
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+            const Spacer(),
+
+            SizedBox(
+              width: double.infinity,
+              height: 48.0,
+              child: ElevatedButton(
+                onPressed: _selectedBagNum != null
+                    ? () => widget.onBagSelected(_selectedBagNum!, _selectedTier)
+                    : null,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: institutionalBlue,
+                  disabledBackgroundColor: dividerGray,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: Text(
+                  "PROCEED TO CAPTURE",
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: _selectedBagNum != null ? textOnBlue : textSecondary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
