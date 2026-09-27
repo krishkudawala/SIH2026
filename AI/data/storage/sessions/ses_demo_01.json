@@ -1,0 +1,1157 @@
+{
+  "aggregation": {
+    "aggregation_id": "agg_bae58361",
+    "aggregation_mode": "COUNT_BASED",
+    "class_conflict_count": 1,
+    "count_distribution": {
+      "CLASS_CONFLICT": {
+        "count": 1,
+        "percentage": 4.76
+      },
+      "DAMAGED": {
+        "count": 3,
+        "percentage": 14.29
+      },
+      "HEALTHY": {
+        "count": 12,
+        "percentage": 57.14
+      },
+      "ROTTEN": {
+        "count": 5,
+        "percentage": 23.81
+      }
+    },
+    "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+    "damaged_count": 3,
+    "disclaimer": "Aggregation is based strictly on physical bulb count. Calibrated individual bulb mass is UNVALIDATED and cannot be used for procurement settlement.",
+    "healthy_count": 12,
+    "mass_distribution": null,
+    "mass_status": "UNVALIDATED",
+    "rotten_count": 5,
+    "sprouted_count": 0,
+    "status": "VALID",
+    "total_count": 21,
+    "total_observations": 21,
+    "unresolved_identity_count": 21,
+    "version": "0.1.0-phase0.dev"
+  },
+  "captures": [
+    {
+      "calibration_status": "CALIBRATION_NOT_AVAILABLE",
+      "capture_id": "cap_primary_01",
+      "capture_role": "PRIMARY_SAMPLE_CAPTURE",
+      "captured_at_iso": "2026-09-25T22:00:00Z",
+      "conflict_count": 0,
+      "image_path": "data\\raw\\01_mixed_damaged_rotten_healthy.jpg",
+      "image_sha256": "6da64e0755bf437e26fbeb69b1ac3ae029e86fe3f410bb8844610aa9aba2f869",
+      "mapping_status": "VERIFIED",
+      "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+      "model_version": null,
+      "observation_ids": [],
+      "provenance": {},
+      "quality_status": "PASS",
+      "raw_detection_count": 17,
+      "reconciled_observation_count": 17,
+      "status": "SUCCESS",
+      "visible_condition_counts": {}
+    }
+  ],
+  "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+  "decision": {
+    "blocking_reasons": [],
+    "decided_at_iso": "2026-09-25T17:15:55.081648+00:00",
+    "decision_id": "dec_4c144d00",
+    "decision_reasons": [
+      "Rotten proportion (23.8%) exceeds maximum allowable limit (2.0%)."
+    ],
+    "decision_rule_version": "AGMARK_ONION_2024_V1_1.0.0",
+    "input_capture_ids": [
+      "cap_primary_01",
+      "cap_primary_02"
+    ],
+    "input_observation_ids": [
+      "obs_cap_primary_01_0",
+      "obs_cap_primary_01_1",
+      "obs_cap_primary_01_2",
+      "obs_cap_primary_01_3",
+      "obs_cap_primary_01_4",
+      "obs_cap_primary_01_5",
+      "obs_cap_primary_01_6",
+      "obs_cap_primary_01_7",
+      "obs_cap_primary_01_8",
+      "obs_cap_primary_01_9",
+      "obs_cap_primary_01_10",
+      "obs_cap_primary_01_11",
+      "obs_cap_primary_01_12",
+      "obs_cap_primary_01_13",
+      "obs_cap_primary_01_14",
+      "obs_cap_primary_01_15",
+      "obs_cap_primary_01_16",
+      "obs_cap_primary_02_0",
+      "obs_cap_primary_02_1",
+      "obs_cap_primary_02_2",
+      "obs_cap_primary_02_3"
+    ],
+    "override_info": null,
+    "procurement_grade": "REJECT",
+    "review_signals": [
+      {
+        "code": "CALIBRATION_UNAVAILABLE",
+        "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+        "message": "Planar calibration marker state is 'CALIBRATION_NOT_AVAILABLE'. Metric millimeter scaling is unavailable. This is a review signal, not proof of fraud.",
+        "requires_action": false,
+        "severity": "INFO",
+        "signal_id": "sig_26ee78f3",
+        "source": "marker_calibration"
+      },
+      {
+        "code": "ONION_DIAMETER_UNVALIDATED",
+        "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+        "message": "3D bulb equatorial diameter estimation from 2D bounding boxes is unvalidated in field conditions. This is a review signal, not proof of fraud.",
+        "requires_action": false,
+        "severity": "INFO",
+        "signal_id": "sig_45fd6d00",
+        "source": "measurement_engine"
+      },
+      {
+        "code": "MASS_UNVALIDATED",
+        "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+        "message": "Volumetric mass estimation is unvalidated. Grading must remain count-based and not mass-based. This is a review signal, not proof of fraud.",
+        "requires_action": false,
+        "severity": "INFO",
+        "signal_id": "sig_5bdf9c6f",
+        "source": "aggregation_engine"
+      }
+    ],
+    "rule_pack_id": "AGMARK_ONION_2024_V1",
+    "rule_pack_version": "1.0.0",
+    "status": "DECIDED"
+  },
+  "evidence_summary": {
+    "calibration_status": "CALIBRATION_NOT_AVAILABLE",
+    "capture_ids": [
+      "cap_primary_01",
+      "cap_primary_02"
+    ],
+    "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+    "decision": {
+      "blocking_reasons": [],
+      "decided_at_iso": "2026-09-25T17:15:55.081648+00:00",
+      "decision_id": "dec_4c144d00",
+      "decision_reasons": [
+        "Rotten proportion (23.8%) exceeds maximum allowable limit (2.0%)."
+      ],
+      "decision_rule_version": "AGMARK_ONION_2024_V1_1.0.0",
+      "input_capture_ids": [
+        "cap_primary_01",
+        "cap_primary_02"
+      ],
+      "input_observation_ids": [
+        "obs_cap_primary_01_0",
+        "obs_cap_primary_01_1",
+        "obs_cap_primary_01_2",
+        "obs_cap_primary_01_3",
+        "obs_cap_primary_01_4",
+        "obs_cap_primary_01_5",
+        "obs_cap_primary_01_6",
+        "obs_cap_primary_01_7",
+        "obs_cap_primary_01_8",
+        "obs_cap_primary_01_9",
+        "obs_cap_primary_01_10",
+        "obs_cap_primary_01_11",
+        "obs_cap_primary_01_12",
+        "obs_cap_primary_01_13",
+        "obs_cap_primary_01_14",
+        "obs_cap_primary_01_15",
+        "obs_cap_primary_01_16",
+        "obs_cap_primary_02_0",
+        "obs_cap_primary_02_1",
+        "obs_cap_primary_02_2",
+        "obs_cap_primary_02_3"
+      ],
+      "override_info": null,
+      "procurement_grade": "REJECT",
+      "review_signals": [
+        {
+          "code": "CALIBRATION_UNAVAILABLE",
+          "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+          "message": "Planar calibration marker state is 'CALIBRATION_NOT_AVAILABLE'. Metric millimeter scaling is unavailable. This is a review signal, not proof of fraud.",
+          "requires_action": false,
+          "severity": "INFO",
+          "signal_id": "sig_26ee78f3",
+          "source": "marker_calibration"
+        },
+        {
+          "code": "ONION_DIAMETER_UNVALIDATED",
+          "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+          "message": "3D bulb equatorial diameter estimation from 2D bounding boxes is unvalidated in field conditions. This is a review signal, not proof of fraud.",
+          "requires_action": false,
+          "severity": "INFO",
+          "signal_id": "sig_45fd6d00",
+          "source": "measurement_engine"
+        },
+        {
+          "code": "MASS_UNVALIDATED",
+          "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+          "message": "Volumetric mass estimation is unvalidated. Grading must remain count-based and not mass-based. This is a review signal, not proof of fraud.",
+          "requires_action": false,
+          "severity": "INFO",
+          "signal_id": "sig_5bdf9c6f",
+          "source": "aggregation_engine"
+        }
+      ],
+      "rule_pack_id": "AGMARK_ONION_2024_V1",
+      "rule_pack_version": "1.0.0",
+      "status": "DECIDED"
+    },
+    "evidence_id": "evi_demo_01",
+    "evidence_ledger_term": "tamper-evident/replayable",
+    "evidence_root_hash": "b52c63ba5003d8c6e13f7cab59e268f04154252b799a227e52eb335f85deb87c",
+    "image_hashes": [
+      "6da64e0755bf437e26fbeb69b1ac3ae029e86fe3f410bb8844610aa9aba2f869"
+    ],
+    "lot_id": "LOT_NASHIK_2026_09_001",
+    "mapping_version": "VERIFIED",
+    "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+    "model_version": "YOLO26n-ONNX_v7",
+    "observation_ids": [
+      "obs_cap_primary_01_0",
+      "obs_cap_primary_01_1",
+      "obs_cap_primary_01_2",
+      "obs_cap_primary_01_3",
+      "obs_cap_primary_01_4",
+      "obs_cap_primary_01_5",
+      "obs_cap_primary_01_6",
+      "obs_cap_primary_01_7",
+      "obs_cap_primary_01_8",
+      "obs_cap_primary_01_9",
+      "obs_cap_primary_01_10",
+      "obs_cap_primary_01_11",
+      "obs_cap_primary_01_12",
+      "obs_cap_primary_01_13",
+      "obs_cap_primary_01_14",
+      "obs_cap_primary_01_15",
+      "obs_cap_primary_01_16",
+      "obs_cap_primary_02_0",
+      "obs_cap_primary_02_1",
+      "obs_cap_primary_02_2",
+      "obs_cap_primary_02_3"
+    ],
+    "override_information": null,
+    "review_signals": [
+      {
+        "code": "CALIBRATION_UNAVAILABLE",
+        "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+        "message": "Planar calibration marker state is 'CALIBRATION_NOT_AVAILABLE'. Metric millimeter scaling is unavailable. This is a review signal, not proof of fraud.",
+        "requires_action": false,
+        "severity": "INFO",
+        "signal_id": "sig_26ee78f3",
+        "source": "marker_calibration"
+      },
+      {
+        "code": "ONION_DIAMETER_UNVALIDATED",
+        "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+        "message": "3D bulb equatorial diameter estimation from 2D bounding boxes is unvalidated in field conditions. This is a review signal, not proof of fraud.",
+        "requires_action": false,
+        "severity": "INFO",
+        "signal_id": "sig_45fd6d00",
+        "source": "measurement_engine"
+      },
+      {
+        "code": "MASS_UNVALIDATED",
+        "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+        "message": "Volumetric mass estimation is unvalidated. Grading must remain count-based and not mass-based. This is a review signal, not proof of fraud.",
+        "requires_action": false,
+        "severity": "INFO",
+        "signal_id": "sig_5bdf9c6f",
+        "source": "aggregation_engine"
+      }
+    ],
+    "rule_version": "AGMARK_ONION_2024_V1_1.0.0",
+    "sampling_version": "MANDI_NYAAY_SAMPLING_V1.0",
+    "session_id": "ses_demo_01",
+    "status": "RECORDED"
+  },
+  "lot_id": "LOT_NASHIK_2026_09_001",
+  "observation_set": {
+    "capture_ids": [
+      "cap_primary_01",
+      "cap_primary_02"
+    ],
+    "conflict_count": 0,
+    "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+    "observation_set_id": "obs_set_demo",
+    "observations": [
+      {
+        "bbox": [
+          364.88,
+          350.73,
+          421.52,
+          382.63
+        ],
+        "candidate_classes": [
+          "HEALTHY"
+        ],
+        "candidate_confidences": [
+          0.7572
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "HEALTHY",
+        "confidence": 0.7572,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "No modeled visible defect detected.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_0",
+        "observation_status": "OBSERVED",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 0,
+          "raw_class_name": "healthy"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": false,
+        "source_detection_ids": [
+          "cap_primary_01_det_0"
+        ],
+        "source_observation": "cap_primary_01_det_0",
+        "title": "Healthy",
+        "visibility_status": "OBSERVED"
+      },
+      {
+        "bbox": [
+          461.18,
+          352.41,
+          510.8,
+          385.02
+        ],
+        "candidate_classes": [
+          "ROTTEN"
+        ],
+        "candidate_confidences": [
+          0.7038
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "ROTTEN",
+        "confidence": 0.7038,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "Visible rotten-condition pattern detected. Externally visible condition only.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_1",
+        "observation_status": "OBSERVED",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 3,
+          "raw_class_name": "rotten"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": false,
+        "source_detection_ids": [
+          "cap_primary_01_det_1"
+        ],
+        "source_observation": "cap_primary_01_det_1",
+        "title": "Visible rotten condition",
+        "visibility_status": "OBSERVED"
+      },
+      {
+        "bbox": [
+          21.59,
+          93.65,
+          98.19,
+          133.73
+        ],
+        "candidate_classes": [
+          "HEALTHY"
+        ],
+        "candidate_confidences": [
+          0.673
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "HEALTHY",
+        "confidence": 0.673,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "No modeled visible defect detected.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_2",
+        "observation_status": "OBSERVED",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 0,
+          "raw_class_name": "healthy"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": false,
+        "source_detection_ids": [
+          "cap_primary_01_det_2"
+        ],
+        "source_observation": "cap_primary_01_det_2",
+        "title": "Healthy",
+        "visibility_status": "OBSERVED"
+      },
+      {
+        "bbox": [
+          166.85,
+          271.02,
+          237.18,
+          308.55
+        ],
+        "candidate_classes": [
+          "HEALTHY"
+        ],
+        "candidate_confidences": [
+          0.6447
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "HEALTHY",
+        "confidence": 0.6447,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "No modeled visible defect detected.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_3",
+        "observation_status": "OBSERVED",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 0,
+          "raw_class_name": "healthy"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": false,
+        "source_detection_ids": [
+          "cap_primary_01_det_3"
+        ],
+        "source_observation": "cap_primary_01_det_3",
+        "title": "Healthy",
+        "visibility_status": "OBSERVED"
+      },
+      {
+        "bbox": [
+          99.12,
+          177.02,
+          165.77,
+          213.72
+        ],
+        "candidate_classes": [
+          "HEALTHY"
+        ],
+        "candidate_confidences": [
+          0.5858
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "HEALTHY",
+        "confidence": 0.5858,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "No modeled visible defect detected.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_4",
+        "observation_status": "OBSERVED",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 0,
+          "raw_class_name": "healthy"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": false,
+        "source_detection_ids": [
+          "cap_primary_01_det_4"
+        ],
+        "source_observation": "cap_primary_01_det_4",
+        "title": "Healthy",
+        "visibility_status": "OBSERVED"
+      },
+      {
+        "bbox": [
+          244.45,
+          346.46,
+          337.97,
+          396.35
+        ],
+        "candidate_classes": [
+          "HEALTHY"
+        ],
+        "candidate_confidences": [
+          0.5643
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "HEALTHY",
+        "confidence": 0.5643,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "No modeled visible defect detected.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_5",
+        "observation_status": "OBSERVED",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 0,
+          "raw_class_name": "healthy"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": false,
+        "source_detection_ids": [
+          "cap_primary_01_det_5"
+        ],
+        "source_observation": "cap_primary_01_det_5",
+        "title": "Healthy",
+        "visibility_status": "OBSERVED"
+      },
+      {
+        "bbox": [
+          42.73,
+          221.02,
+          100.31,
+          253.93
+        ],
+        "candidate_classes": [
+          "HEALTHY"
+        ],
+        "candidate_confidences": [
+          0.5073
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "HEALTHY",
+        "confidence": 0.5073,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "No modeled visible defect detected.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_6",
+        "observation_status": "OBSERVED",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 0,
+          "raw_class_name": "healthy"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": false,
+        "source_detection_ids": [
+          "cap_primary_01_det_6"
+        ],
+        "source_observation": "cap_primary_01_det_6",
+        "title": "Healthy",
+        "visibility_status": "OBSERVED"
+      },
+      {
+        "bbox": [
+          274.85,
+          241.9,
+          336.25,
+          267.1
+        ],
+        "candidate_classes": [
+          "ROTTEN"
+        ],
+        "candidate_confidences": [
+          0.4412
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "ROTTEN",
+        "confidence": 0.4412,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "Visible rotten-condition pattern detected. Externally visible condition only.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_7",
+        "observation_status": "OBSERVED",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 3,
+          "raw_class_name": "rotten"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": false,
+        "source_detection_ids": [
+          "cap_primary_01_det_7"
+        ],
+        "source_observation": "cap_primary_01_det_7",
+        "title": "Visible rotten condition",
+        "visibility_status": "OBSERVED"
+      },
+      {
+        "bbox": [
+          334.13,
+          66.26,
+          390.62,
+          96.88
+        ],
+        "candidate_classes": [
+          "HEALTHY"
+        ],
+        "candidate_confidences": [
+          0.4046
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "HEALTHY",
+        "confidence": 0.4046,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "No modeled visible defect detected.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_8",
+        "observation_status": "OBSERVED",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 0,
+          "raw_class_name": "healthy"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": false,
+        "source_detection_ids": [
+          "cap_primary_01_det_8"
+        ],
+        "source_observation": "cap_primary_01_det_8",
+        "title": "Healthy",
+        "visibility_status": "OBSERVED"
+      },
+      {
+        "bbox": [
+          400.59,
+          256.36,
+          453.09,
+          286.28
+        ],
+        "candidate_classes": [
+          "HEALTHY"
+        ],
+        "candidate_confidences": [
+          0.3818
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "HEALTHY",
+        "confidence": 0.3818,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "Detection confidence is below reliable operational threshold. Externally visible condition only.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_9",
+        "observation_status": "LOW_CONFIDENCE",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 0,
+          "raw_class_name": "healthy"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": true,
+        "source_detection_ids": [
+          "cap_primary_01_det_9"
+        ],
+        "source_observation": "cap_primary_01_det_9",
+        "title": "Review required",
+        "visibility_status": "LOW_CONFIDENCE"
+      },
+      {
+        "bbox": [
+          165.17,
+          218.1,
+          222.78,
+          249.87
+        ],
+        "candidate_classes": [
+          "HEALTHY"
+        ],
+        "candidate_confidences": [
+          0.3716
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "HEALTHY",
+        "confidence": 0.3716,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "Detection confidence is below reliable operational threshold. Externally visible condition only.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_10",
+        "observation_status": "LOW_CONFIDENCE",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 0,
+          "raw_class_name": "healthy"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": true,
+        "source_detection_ids": [
+          "cap_primary_01_det_10"
+        ],
+        "source_observation": "cap_primary_01_det_10",
+        "title": "Review required",
+        "visibility_status": "LOW_CONFIDENCE"
+      },
+      {
+        "bbox": [
+          132.17,
+          108.25,
+          191.4,
+          138.5
+        ],
+        "candidate_classes": [
+          "HEALTHY"
+        ],
+        "candidate_confidences": [
+          0.3638
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "HEALTHY",
+        "confidence": 0.3638,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "Detection confidence is below reliable operational threshold. Externally visible condition only.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_11",
+        "observation_status": "LOW_CONFIDENCE",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 0,
+          "raw_class_name": "healthy"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": true,
+        "source_detection_ids": [
+          "cap_primary_01_det_11"
+        ],
+        "source_observation": "cap_primary_01_det_11",
+        "title": "Review required",
+        "visibility_status": "LOW_CONFIDENCE"
+      },
+      {
+        "bbox": [
+          270.4,
+          150.22,
+          325.87,
+          180.56
+        ],
+        "candidate_classes": [
+          "HEALTHY"
+        ],
+        "candidate_confidences": [
+          0.3517
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "HEALTHY",
+        "confidence": 0.3517,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "Detection confidence is below reliable operational threshold. Externally visible condition only.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_12",
+        "observation_status": "LOW_CONFIDENCE",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 0,
+          "raw_class_name": "healthy"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": true,
+        "source_detection_ids": [
+          "cap_primary_01_det_12"
+        ],
+        "source_observation": "cap_primary_01_det_12",
+        "title": "Review required",
+        "visibility_status": "LOW_CONFIDENCE"
+      },
+      {
+        "bbox": [
+          146.97,
+          359.78,
+          221.74,
+          402.47
+        ],
+        "candidate_classes": [
+          "ROTTEN"
+        ],
+        "candidate_confidences": [
+          0.3099
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "ROTTEN",
+        "confidence": 0.3099,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "Detection confidence is below reliable operational threshold. Externally visible condition only.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_13",
+        "observation_status": "LOW_CONFIDENCE",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.989160+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 3,
+          "raw_class_name": "rotten"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": true,
+        "source_detection_ids": [
+          "cap_primary_01_det_13"
+        ],
+        "source_observation": "cap_primary_01_det_13",
+        "title": "Review required",
+        "visibility_status": "LOW_CONFIDENCE"
+      },
+      {
+        "bbox": [
+          12.56,
+          143.02,
+          71.24,
+          164.35
+        ],
+        "candidate_classes": [
+          "ROTTEN"
+        ],
+        "candidate_confidences": [
+          0.2837
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "ROTTEN",
+        "confidence": 0.2837,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "Detection confidence is below reliable operational threshold. Externally visible condition only.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_14",
+        "observation_status": "LOW_CONFIDENCE",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.990581+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 3,
+          "raw_class_name": "rotten"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": true,
+        "source_detection_ids": [
+          "cap_primary_01_det_14"
+        ],
+        "source_observation": "cap_primary_01_det_14",
+        "title": "Review required",
+        "visibility_status": "LOW_CONFIDENCE"
+      },
+      {
+        "bbox": [
+          183.77,
+          317.13,
+          234.52,
+          346.16
+        ],
+        "candidate_classes": [
+          "ROTTEN"
+        ],
+        "candidate_confidences": [
+          0.275
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "ROTTEN",
+        "confidence": 0.275,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "Detection confidence is below reliable operational threshold. Externally visible condition only.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_15",
+        "observation_status": "LOW_CONFIDENCE",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.990581+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 3,
+          "raw_class_name": "rotten"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": true,
+        "source_detection_ids": [
+          "cap_primary_01_det_15"
+        ],
+        "source_observation": "cap_primary_01_det_15",
+        "title": "Review required",
+        "visibility_status": "LOW_CONFIDENCE"
+      },
+      {
+        "bbox": [
+          252.39,
+          205.8,
+          286.33,
+          232.1
+        ],
+        "candidate_classes": [
+          "HEALTHY"
+        ],
+        "candidate_confidences": [
+          0.2593
+        ],
+        "capture_id": "cap_primary_01",
+        "class_semantic": "HEALTHY",
+        "confidence": 0.2593,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "Detection confidence is below reliable operational threshold. Externally visible condition only.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_01_16",
+        "observation_status": "LOW_CONFIDENCE",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:54.990581+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 0,
+          "raw_class_name": "healthy"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": true,
+        "source_detection_ids": [
+          "cap_primary_01_det_16"
+        ],
+        "source_observation": "cap_primary_01_det_16",
+        "title": "Review required",
+        "visibility_status": "LOW_CONFIDENCE"
+      },
+      {
+        "bbox": [
+          188.1,
+          310.64,
+          349.5,
+          498.64
+        ],
+        "candidate_classes": [
+          "HEALTHY"
+        ],
+        "candidate_confidences": [
+          0.9348
+        ],
+        "capture_id": "cap_primary_02",
+        "class_semantic": "HEALTHY",
+        "confidence": 0.9348,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "No modeled visible defect detected.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_02_0",
+        "observation_status": "OBSERVED",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:55.080646+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 0,
+          "raw_class_name": "healthy"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": false,
+        "source_detection_ids": [
+          "cap_primary_02_det_0"
+        ],
+        "source_observation": "cap_primary_02_det_0",
+        "title": "Healthy",
+        "visibility_status": "OBSERVED"
+      },
+      {
+        "bbox": [
+          337.25,
+          410.42,
+          475.02,
+          511.98
+        ],
+        "candidate_classes": [
+          "DAMAGED"
+        ],
+        "candidate_confidences": [
+          0.8051
+        ],
+        "capture_id": "cap_primary_02",
+        "class_semantic": "DAMAGED",
+        "confidence": 0.8051,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "Visible damaged condition detected. Externally visible condition only.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_02_1",
+        "observation_status": "OBSERVED",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 1,
+          "raw_class_name": "damaged"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": false,
+        "source_detection_ids": [
+          "cap_primary_02_det_1"
+        ],
+        "source_observation": "cap_primary_02_det_1",
+        "title": "Visible damage",
+        "visibility_status": "OBSERVED"
+      },
+      {
+        "bbox": [
+          211.73,
+          46.42,
+          388.71,
+          258.53
+        ],
+        "candidate_classes": [
+          "DAMAGED"
+        ],
+        "candidate_confidences": [
+          0.8044
+        ],
+        "capture_id": "cap_primary_02",
+        "class_semantic": "DAMAGED",
+        "confidence": 0.8044,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "Visible damaged condition detected. Externally visible condition only.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_02_2",
+        "observation_status": "OBSERVED",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 1,
+          "raw_class_name": "damaged"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": false,
+        "source_detection_ids": [
+          "cap_primary_02_det_2"
+        ],
+        "source_observation": "cap_primary_02_det_2",
+        "title": "Visible damage",
+        "visibility_status": "OBSERVED"
+      },
+      {
+        "bbox": [
+          360.52,
+          302.84,
+          499.9,
+          412.22
+        ],
+        "candidate_classes": [
+          "DAMAGED"
+        ],
+        "candidate_confidences": [
+          0.7915
+        ],
+        "capture_id": "cap_primary_02",
+        "class_semantic": "DAMAGED",
+        "confidence": 0.7915,
+        "cross_view_identity_status": "CROSS_VIEW_IDENTITY_UNRESOLVED",
+        "defect_disclaimer": "Externally visible condition only.",
+        "explanation": "Visible damaged condition detected. Externally visible condition only.",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_id": "obs_cap_primary_02_3",
+        "observation_status": "OBSERVED",
+        "provenance": {
+          "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+          "model_checkpoint": "onion-grading-v7.onnx",
+          "model_version": "0.1.0-phase0.dev",
+          "raw_class_id": 1,
+          "raw_class_name": "damaged"
+        },
+        "reconciliation_iou": null,
+        "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained",
+        "review_required": false,
+        "source_detection_ids": [
+          "cap_primary_02_det_3"
+        ],
+        "source_observation": "cap_primary_02_det_3",
+        "title": "Visible damage",
+        "visibility_status": "OBSERVED"
+      }
+    ],
+    "status": "VALID",
+    "total_raw_detections": 21,
+    "total_reconciled_observations": 21,
+    "version": "0.1.0-phase0.dev",
+    "visible_condition_counts": {}
+  },
+  "pipeline_version": "0.1.0-phase0.dev",
+  "review_signals": [
+    {
+      "code": "CALIBRATION_UNAVAILABLE",
+      "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+      "message": "Planar calibration marker state is 'CALIBRATION_NOT_AVAILABLE'. Metric millimeter scaling is unavailable. This is a review signal, not proof of fraud.",
+      "requires_action": false,
+      "severity": "INFO",
+      "signal_id": "sig_26ee78f3",
+      "source": "marker_calibration"
+    },
+    {
+      "code": "ONION_DIAMETER_UNVALIDATED",
+      "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+      "message": "3D bulb equatorial diameter estimation from 2D bounding boxes is unvalidated in field conditions. This is a review signal, not proof of fraud.",
+      "requires_action": false,
+      "severity": "INFO",
+      "signal_id": "sig_45fd6d00",
+      "source": "measurement_engine"
+    },
+    {
+      "code": "MASS_UNVALIDATED",
+      "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+      "message": "Volumetric mass estimation is unvalidated. Grading must remain count-based and not mass-based. This is a review signal, not proof of fraud.",
+      "requires_action": false,
+      "severity": "INFO",
+      "signal_id": "sig_5bdf9c6f",
+      "source": "aggregation_engine"
+    }
+  ],
+  "sampling_result": {
+    "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+    "limitations": [
+      "Bulb mass and 3D volumetric sizing are UNVALIDATED in current field conditions.",
+      "Sampling sufficiency is determined strictly from unique physical SampleUnit counts, not image or detection count."
+    ],
+    "observed_sample_size": 21,
+    "reason": "Observed sample size (21) meets or exceeds the target sample size (20) with zero unresolved cross-class conflicts.",
+    "sampling_id": "smp_945a973d",
+    "sampling_rule_version": "MANDI_NYAAY_SAMPLING_V1.0",
+    "status": "SUFFICIENT",
+    "target_sample_size": 20
+  },
+  "session_id": "ses_demo_01",
+  "status": "COMPLETED",
+  "updated_at_iso": "2026-09-25T17:15:55.081648+00:00"
+}

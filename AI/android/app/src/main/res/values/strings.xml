@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mandi Nyaay AI</string>
+    <string name="title_inspection">Produce Inspection</string>
+    <string name="btn_capture_primary">Capture Tray (Primary)</string>
+    <string name="btn_capture_detail">Capture Detail (Side/Top)</string>
+    <string name="btn_review_summary">Review &amp; Grade Lot</string>
+</resources>

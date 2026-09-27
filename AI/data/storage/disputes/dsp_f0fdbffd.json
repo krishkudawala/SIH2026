@@ -1,0 +1,51 @@
+{
+  "arbitration_notes": "Secondary sampling confirms border defect condition. Re-sorting allowed under URS utility grade.",
+  "comparison": {
+    "comparison_method": "DETERMINISTIC_ABSOLUTE_DIFFERENCE",
+    "condition_differences": {
+      "CLASS_CONFLICT": {
+        "absolute_diff_pct": 4.76,
+        "primary_pct": 4.76,
+        "secondary_pct": 0.0
+      },
+      "DAMAGED": {
+        "absolute_diff_pct": 60.71,
+        "primary_pct": 14.29,
+        "secondary_pct": 75.0
+      },
+      "HEALTHY": {
+        "absolute_diff_pct": 32.14,
+        "primary_pct": 57.14,
+        "secondary_pct": 25.0
+      },
+      "ROTTEN": {
+        "absolute_diff_pct": 23.81,
+        "primary_pct": 23.81,
+        "secondary_pct": 0.0
+      }
+    },
+    "disclaimer": "Comparison is deterministic. No statistical hypothesis significance is claimed due to finite non-parametric agricultural lot sample constraints.",
+    "divergence_threshold_pct": 5.0,
+    "max_condition_divergence_pct": 60.71,
+    "primary_sample_size": 21,
+    "requires_arbitration": true,
+    "secondary_sample_size": 4,
+    "statistical_significance_claimed": false,
+    "total_defect_diff_pct": 36.9
+  },
+  "dispute_id": "dsp_f0fdbffd",
+  "dispute_reason": "Producer challenges rot percentage determination",
+  "final_resolution_grade": "URS",
+  "lot_id": "LOT_NASHIK_2026_09_001",
+  "opened_at_iso": "2026-09-25T17:11:15.635813+00:00",
+  "opened_by": "PRODUCER_RAMESH_PATIL",
+  "primary_decision_grade": "REJECT",
+  "primary_evidence_hash": "b52c63ba5003d8c6e13f7cab59e268f04154252b799a227e52eb335f85deb87c",
+  "primary_session_id": "ses_demo_01",
+  "resolved_at_iso": "2026-09-25T17:11:15.741718+00:00",
+  "resolved_by": "APMC_ARBITRATION_BOARD_CHAIR",
+  "secondary_decision_grade": "REJECT",
+  "secondary_evidence_hash": "aabbcc11223344556677889900",
+  "secondary_session_id": "sec_sess_30af1c9f",
+  "status": "RESOLVED"
+}

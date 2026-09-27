@@ -1,0 +1,5 @@
+path: C:/Users/S/OneDrive/Desktop/AI/artifacts/class_mapping_audit/variant_B
+train: images
+val: images
+nc: 4
+names: ['healthy', 'damaged', 'sprouted', 'rotten']

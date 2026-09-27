@@ -1,0 +1,41 @@
+# Mandi Nyaay Inspection Core Configuration
+# ==============================================================================
+# WARNING: All quality and detection thresholds below are EXPERIMENTAL.
+# They will be calibrated and validated against real mandi field imagery in Phase 1+.
+# Do NOT treat these values as verified production thresholds.
+# ==============================================================================
+
+version: "0.1.0"
+
+marker:
+  expected_marker_id: 0
+  marker_family: "DICT_4X4_50"
+  physical_size_mm: 50.0  # Physical edge length of reference square in millimeters
+  min_corner_perimeter_px: 80.0  # EXPERIMENTAL: Minimum marker perimeter to reject distant/unreadable markers
+
+quality:
+  blur:
+    threshold_status: "EXPERIMENTAL"
+    # Variance of the Laplacian below this threshold triggers a potential blur warning
+    min_laplacian_variance: 100.0
+
+  brightness:
+    threshold_status: "EXPERIMENTAL"
+    # Mean image luminance (0-255 scale)
+    min_mean_luma: 35.0
+    max_mean_luma: 225.0
+
+  exposure:
+    threshold_status: "EXPERIMENTAL"
+    # Max allowed fraction of pixels that are pure black (<= 2) or saturated white (>= 253)
+    max_clipped_ratio: 0.08
+
+processing:
+  preserve_raw_evidence: true
+  max_dimension_px: 4096
+
+dataset:
+  dataset_id: "external_onion_v2"
+  external_dataset_path: "Onion_grading_system/training/merged_v2/train/images"
+  manifest_output_path: "data/processed/dataset_manifest.json"
+

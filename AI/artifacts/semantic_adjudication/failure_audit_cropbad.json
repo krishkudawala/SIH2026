@@ -1,0 +1,75 @@
+{
+  "target_image": "cropbad_20230121_084837_train_4551f94b_1.jpg",
+  "image_path": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\training\\merged_v2\\valid\\images\\cropbad_20230121_084837_train_4551f94b_1.jpg",
+  "sha256": "a28232b50b1b177d950c66d329a536e40e7d9e7f8d2371fe17cd3b42d7a312db",
+  "image_quality_metrics": {
+    "width": 256,
+    "height": 256,
+    "mean_luminance": 78.93,
+    "blur_score": 47.98,
+    "exposure_clipped_ratio": 0.0011
+  },
+  "ground_truth_annotations": [
+    {
+      "class_id": 3,
+      "canonical_meaning": "sprouted",
+      "bbox_norm": [
+        0.5,
+        0.5,
+        0.92,
+        0.92
+      ],
+      "bbox_xyxy": [
+        10.24,
+        10.24,
+        245.76,
+        245.76
+      ]
+    }
+  ],
+  "predicted_detections": [
+    {
+      "class_id_external": 1,
+      "class_name_external": "damaged",
+      "canonical_label": "DAMAGED",
+      "confidence": 0.4902,
+      "bbox_xyxy": [
+        0.42,
+        0.04,
+        255.23,
+        250.45
+      ]
+    },
+    {
+      "class_id_external": 2,
+      "class_name_external": "sprouted",
+      "canonical_label": "SPROUTED",
+      "confidence": 0.48,
+      "bbox_xyxy": [
+        1.44,
+        0.0,
+        256.0,
+        251.51
+      ]
+    }
+  ],
+  "prediction_pairwise_ious": [
+    {
+      "pred_a_idx": 0,
+      "pred_a_class": "damaged",
+      "pred_a_conf": 0.4902,
+      "pred_b_idx": 1,
+      "pred_b_class": "sprouted",
+      "pred_b_conf": 0.48,
+      "iou": 0.9887
+    }
+  ],
+  "investigation_analysis": {
+    "duplicate_detection": true,
+    "cross_class_disagreement": true,
+    "poor_image_failure": true,
+    "dataset_label_ambiguity": false,
+    "unresolved": false,
+    "detailed_findings": "The smoke test image is a low-resolution (256x256), borderline-blurry capture (blur score 47.98). The external v7 detector emits two almost identical bounding boxes (IoU = 0.9854) covering the entire bulb. The detector displays cross-class disagreement with nearly identical split confidences: Box 0 predicts 'damaged' (conf=0.4902) while Box 1 predicts 'sprouted' (conf=0.4800). Because class-agnostic NMS was not enabled in standard Ultralytics NMS (which defaults to per-class NMS), both boxes survived filtering. Ground-truth annotation is single-class (class 3: sprouted). The image displays both visible peeling/blemish (damage) and an apical shoot (sprout), causing the single-label detector to output competing predictions."
+  }
+}

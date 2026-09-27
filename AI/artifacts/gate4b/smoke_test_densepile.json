@@ -1,0 +1,522 @@
+{
+  "pipeline_version": "0.1.0-phase0.dev",
+  "capture_id": "gate4b_dense_valid_0000",
+  "image_path": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\training\\merged_v2\\valid\\images\\densepile_valid_0000.jpg",
+  "image_metadata": {
+    "width": 640,
+    "height": 640,
+    "channels": 3,
+    "sha256": "6de8cbb2206d4c5977acec4690a7b1582299e1eed209176c4e6940a7c00ef7ab"
+  },
+  "quality": {
+    "width": 640,
+    "height": 640,
+    "mean_luminance": 85.87,
+    "blur_score": 40.81,
+    "exposure_clipped_ratio": 0.0058,
+    "grade": "WARN",
+    "reasons": [
+      "Borderline sharpness: blur score 40.8 < threshold 100.0"
+    ]
+  },
+  "raw_detection_count": 10,
+  "reconciled_observation_count": 10,
+  "conflict_count": 0,
+  "detections": [
+    {
+      "detection_id": "gate4b_dense_valid_0000_det_0",
+      "class_id_external": 2,
+      "class_name_external": "sprouted",
+      "canonical_label": "SPROUTED",
+      "mapping_status": "VERIFIED",
+      "confidence": 0.881,
+      "x1": 58.65,
+      "y1": 510.74,
+      "x2": 184.62,
+      "y2": 635.95,
+      "width_px": 125.97,
+      "height_px": 125.2
+    },
+    {
+      "detection_id": "gate4b_dense_valid_0000_det_1",
+      "class_id_external": 3,
+      "class_name_external": "rotten",
+      "canonical_label": "ROTTEN",
+      "mapping_status": "VERIFIED",
+      "confidence": 0.8142,
+      "x1": 337.0,
+      "y1": 230.64,
+      "x2": 529.25,
+      "y2": 420.72,
+      "width_px": 192.26,
+      "height_px": 190.08
+    },
+    {
+      "detection_id": "gate4b_dense_valid_0000_det_2",
+      "class_id_external": 0,
+      "class_name_external": "healthy",
+      "canonical_label": "HEALTHY",
+      "mapping_status": "VERIFIED",
+      "confidence": 0.8029,
+      "x1": 328.45,
+      "y1": 371.53,
+      "x2": 542.47,
+      "y2": 584.47,
+      "width_px": 214.02,
+      "height_px": 212.94
+    },
+    {
+      "detection_id": "gate4b_dense_valid_0000_det_3",
+      "class_id_external": 1,
+      "class_name_external": "damaged",
+      "canonical_label": "DAMAGED",
+      "mapping_status": "VERIFIED",
+      "confidence": 0.8023,
+      "x1": 231.67,
+      "y1": 165.03,
+      "x2": 414.96,
+      "y2": 344.68,
+      "width_px": 183.29,
+      "height_px": 179.65
+    },
+    {
+      "detection_id": "gate4b_dense_valid_0000_det_4",
+      "class_id_external": 3,
+      "class_name_external": "rotten",
+      "canonical_label": "ROTTEN",
+      "mapping_status": "VERIFIED",
+      "confidence": 0.8002,
+      "x1": 373.31,
+      "y1": 495.44,
+      "x2": 495.28,
+      "y2": 617.8,
+      "width_px": 121.97,
+      "height_px": 122.37
+    },
+    {
+      "detection_id": "gate4b_dense_valid_0000_det_5",
+      "class_id_external": 1,
+      "class_name_external": "damaged",
+      "canonical_label": "DAMAGED",
+      "mapping_status": "VERIFIED",
+      "confidence": 0.786,
+      "x1": 437.0,
+      "y1": 130.06,
+      "x2": 631.51,
+      "y2": 323.68,
+      "width_px": 194.51,
+      "height_px": 193.62
+    },
+    {
+      "detection_id": "gate4b_dense_valid_0000_det_6",
+      "class_id_external": 0,
+      "class_name_external": "healthy",
+      "canonical_label": "HEALTHY",
+      "mapping_status": "VERIFIED",
+      "confidence": 0.782,
+      "x1": 41.73,
+      "y1": 260.92,
+      "x2": 268.16,
+      "y2": 487.09,
+      "width_px": 226.43,
+      "height_px": 226.17
+    },
+    {
+      "detection_id": "gate4b_dense_valid_0000_det_7",
+      "class_id_external": 3,
+      "class_name_external": "rotten",
+      "canonical_label": "ROTTEN",
+      "mapping_status": "VERIFIED",
+      "confidence": 0.7307,
+      "x1": 38.3,
+      "y1": 311.31,
+      "x2": 199.45,
+      "y2": 487.13,
+      "width_px": 161.15,
+      "height_px": 175.81
+    },
+    {
+      "detection_id": "gate4b_dense_valid_0000_det_8",
+      "class_id_external": 1,
+      "class_name_external": "damaged",
+      "canonical_label": "DAMAGED",
+      "mapping_status": "VERIFIED",
+      "confidence": 0.7231,
+      "x1": 68.79,
+      "y1": 315.7,
+      "x2": 168.24,
+      "y2": 412.52,
+      "width_px": 99.45,
+      "height_px": 96.82
+    },
+    {
+      "detection_id": "gate4b_dense_valid_0000_det_9",
+      "class_id_external": 0,
+      "class_name_external": "healthy",
+      "canonical_label": "HEALTHY",
+      "mapping_status": "VERIFIED",
+      "confidence": 0.6575,
+      "x1": 0.0,
+      "y1": 285.91,
+      "x2": 153.06,
+      "y2": 496.6,
+      "width_px": 153.06,
+      "height_px": 210.69
+    }
+  ],
+  "observations": [
+    {
+      "observation_id": "obs_gate4b_dense_valid_0000_0",
+      "capture_id": "gate4b_dense_valid_0000",
+      "bbox": [
+        58.65,
+        510.74,
+        184.62,
+        635.95
+      ],
+      "class_semantic": "SPROUTED",
+      "confidence": 0.881,
+      "observation_status": "OBSERVED",
+      "visibility_status": "OBSERVED",
+      "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+      "provenance": {
+        "model_checkpoint": "onion-grading-v7.pt",
+        "model_version": "0.1.0-phase0.dev",
+        "raw_class_id": 2,
+        "raw_class_name": "sprouted",
+        "created_at_iso": "2026-09-24T17:08:17.034844+00:00"
+      },
+      "candidate_classes": [
+        "SPROUTED"
+      ],
+      "candidate_confidences": [
+        0.881
+      ],
+      "source_detection_ids": [
+        "gate4b_dense_valid_0000_det_0"
+      ],
+      "reconciliation_iou": null,
+      "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained"
+    },
+    {
+      "observation_id": "obs_gate4b_dense_valid_0000_1",
+      "capture_id": "gate4b_dense_valid_0000",
+      "bbox": [
+        337.0,
+        230.64,
+        529.25,
+        420.72
+      ],
+      "class_semantic": "ROTTEN",
+      "confidence": 0.8142,
+      "observation_status": "OBSERVED",
+      "visibility_status": "OBSERVED",
+      "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+      "provenance": {
+        "model_checkpoint": "onion-grading-v7.pt",
+        "model_version": "0.1.0-phase0.dev",
+        "raw_class_id": 3,
+        "raw_class_name": "rotten",
+        "created_at_iso": "2026-09-24T17:08:17.034844+00:00"
+      },
+      "candidate_classes": [
+        "ROTTEN"
+      ],
+      "candidate_confidences": [
+        0.8142
+      ],
+      "source_detection_ids": [
+        "gate4b_dense_valid_0000_det_1"
+      ],
+      "reconciliation_iou": null,
+      "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained"
+    },
+    {
+      "observation_id": "obs_gate4b_dense_valid_0000_2",
+      "capture_id": "gate4b_dense_valid_0000",
+      "bbox": [
+        328.45,
+        371.53,
+        542.47,
+        584.47
+      ],
+      "class_semantic": "HEALTHY",
+      "confidence": 0.8029,
+      "observation_status": "OBSERVED",
+      "visibility_status": "OBSERVED",
+      "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+      "provenance": {
+        "model_checkpoint": "onion-grading-v7.pt",
+        "model_version": "0.1.0-phase0.dev",
+        "raw_class_id": 0,
+        "raw_class_name": "healthy",
+        "created_at_iso": "2026-09-24T17:08:17.034844+00:00"
+      },
+      "candidate_classes": [
+        "HEALTHY"
+      ],
+      "candidate_confidences": [
+        0.8029
+      ],
+      "source_detection_ids": [
+        "gate4b_dense_valid_0000_det_2"
+      ],
+      "reconciliation_iou": null,
+      "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained"
+    },
+    {
+      "observation_id": "obs_gate4b_dense_valid_0000_3",
+      "capture_id": "gate4b_dense_valid_0000",
+      "bbox": [
+        231.67,
+        165.03,
+        414.96,
+        344.68
+      ],
+      "class_semantic": "DAMAGED",
+      "confidence": 0.8023,
+      "observation_status": "OBSERVED",
+      "visibility_status": "OBSERVED",
+      "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+      "provenance": {
+        "model_checkpoint": "onion-grading-v7.pt",
+        "model_version": "0.1.0-phase0.dev",
+        "raw_class_id": 1,
+        "raw_class_name": "damaged",
+        "created_at_iso": "2026-09-24T17:08:17.034844+00:00"
+      },
+      "candidate_classes": [
+        "DAMAGED"
+      ],
+      "candidate_confidences": [
+        0.8023
+      ],
+      "source_detection_ids": [
+        "gate4b_dense_valid_0000_det_3"
+      ],
+      "reconciliation_iou": null,
+      "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained"
+    },
+    {
+      "observation_id": "obs_gate4b_dense_valid_0000_4",
+      "capture_id": "gate4b_dense_valid_0000",
+      "bbox": [
+        373.31,
+        495.44,
+        495.28,
+        617.8
+      ],
+      "class_semantic": "ROTTEN",
+      "confidence": 0.8002,
+      "observation_status": "OBSERVED",
+      "visibility_status": "OBSERVED",
+      "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+      "provenance": {
+        "model_checkpoint": "onion-grading-v7.pt",
+        "model_version": "0.1.0-phase0.dev",
+        "raw_class_id": 3,
+        "raw_class_name": "rotten",
+        "created_at_iso": "2026-09-24T17:08:17.034844+00:00"
+      },
+      "candidate_classes": [
+        "ROTTEN"
+      ],
+      "candidate_confidences": [
+        0.8002
+      ],
+      "source_detection_ids": [
+        "gate4b_dense_valid_0000_det_4"
+      ],
+      "reconciliation_iou": null,
+      "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained"
+    },
+    {
+      "observation_id": "obs_gate4b_dense_valid_0000_5",
+      "capture_id": "gate4b_dense_valid_0000",
+      "bbox": [
+        437.0,
+        130.06,
+        631.51,
+        323.68
+      ],
+      "class_semantic": "DAMAGED",
+      "confidence": 0.786,
+      "observation_status": "OBSERVED",
+      "visibility_status": "OBSERVED",
+      "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+      "provenance": {
+        "model_checkpoint": "onion-grading-v7.pt",
+        "model_version": "0.1.0-phase0.dev",
+        "raw_class_id": 1,
+        "raw_class_name": "damaged",
+        "created_at_iso": "2026-09-24T17:08:17.034844+00:00"
+      },
+      "candidate_classes": [
+        "DAMAGED"
+      ],
+      "candidate_confidences": [
+        0.786
+      ],
+      "source_detection_ids": [
+        "gate4b_dense_valid_0000_det_5"
+      ],
+      "reconciliation_iou": null,
+      "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained"
+    },
+    {
+      "observation_id": "obs_gate4b_dense_valid_0000_6",
+      "capture_id": "gate4b_dense_valid_0000",
+      "bbox": [
+        41.73,
+        260.92,
+        268.16,
+        487.09
+      ],
+      "class_semantic": "HEALTHY",
+      "confidence": 0.782,
+      "observation_status": "OBSERVED",
+      "visibility_status": "OBSERVED",
+      "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+      "provenance": {
+        "model_checkpoint": "onion-grading-v7.pt",
+        "model_version": "0.1.0-phase0.dev",
+        "raw_class_id": 0,
+        "raw_class_name": "healthy",
+        "created_at_iso": "2026-09-24T17:08:17.034844+00:00"
+      },
+      "candidate_classes": [
+        "HEALTHY"
+      ],
+      "candidate_confidences": [
+        0.782
+      ],
+      "source_detection_ids": [
+        "gate4b_dense_valid_0000_det_6"
+      ],
+      "reconciliation_iou": null,
+      "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained"
+    },
+    {
+      "observation_id": "obs_gate4b_dense_valid_0000_7",
+      "capture_id": "gate4b_dense_valid_0000",
+      "bbox": [
+        38.3,
+        311.31,
+        199.45,
+        487.13
+      ],
+      "class_semantic": "ROTTEN",
+      "confidence": 0.7307,
+      "observation_status": "OBSERVED",
+      "visibility_status": "OBSERVED",
+      "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+      "provenance": {
+        "model_checkpoint": "onion-grading-v7.pt",
+        "model_version": "0.1.0-phase0.dev",
+        "raw_class_id": 3,
+        "raw_class_name": "rotten",
+        "created_at_iso": "2026-09-24T17:08:17.034844+00:00"
+      },
+      "candidate_classes": [
+        "ROTTEN"
+      ],
+      "candidate_confidences": [
+        0.7307
+      ],
+      "source_detection_ids": [
+        "gate4b_dense_valid_0000_det_7"
+      ],
+      "reconciliation_iou": null,
+      "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained"
+    },
+    {
+      "observation_id": "obs_gate4b_dense_valid_0000_8",
+      "capture_id": "gate4b_dense_valid_0000",
+      "bbox": [
+        68.79,
+        315.7,
+        168.24,
+        412.52
+      ],
+      "class_semantic": "DAMAGED",
+      "confidence": 0.7231,
+      "observation_status": "OBSERVED",
+      "visibility_status": "OBSERVED",
+      "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+      "provenance": {
+        "model_checkpoint": "onion-grading-v7.pt",
+        "model_version": "0.1.0-phase0.dev",
+        "raw_class_id": 1,
+        "raw_class_name": "damaged",
+        "created_at_iso": "2026-09-24T17:08:17.034844+00:00"
+      },
+      "candidate_classes": [
+        "DAMAGED"
+      ],
+      "candidate_confidences": [
+        0.7231
+      ],
+      "source_detection_ids": [
+        "gate4b_dense_valid_0000_det_8"
+      ],
+      "reconciliation_iou": null,
+      "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained"
+    },
+    {
+      "observation_id": "obs_gate4b_dense_valid_0000_9",
+      "capture_id": "gate4b_dense_valid_0000",
+      "bbox": [
+        0.0,
+        285.91,
+        153.06,
+        496.6
+      ],
+      "class_semantic": "HEALTHY",
+      "confidence": 0.6575,
+      "observation_status": "OBSERVED",
+      "visibility_status": "OBSERVED",
+      "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+      "provenance": {
+        "model_checkpoint": "onion-grading-v7.pt",
+        "model_version": "0.1.0-phase0.dev",
+        "raw_class_id": 0,
+        "raw_class_name": "healthy",
+        "created_at_iso": "2026-09-24T17:08:17.035841+00:00"
+      },
+      "candidate_classes": [
+        "HEALTHY"
+      ],
+      "candidate_confidences": [
+        0.6575
+      ],
+      "source_detection_ids": [
+        "gate4b_dense_valid_0000_det_9"
+      ],
+      "reconciliation_iou": null,
+      "reconciliation_rule": "gate4b.reconcile.v1.single_detection_retained"
+    }
+  ],
+  "calibration_status": "CALIBRATION_NOT_AVAILABLE",
+  "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+  "onion_diameter_feasibility": "ONION_DIAMETER_UNVALIDATED",
+  "mapping_status": "VERIFIED",
+  "model_metadata": {
+    "checkpoint_path": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\onion-grading-v7.pt",
+    "task": "detect",
+    "architecture": "DetectionModel",
+    "classes_exposed": {
+      "0": "healthy",
+      "1": "damaged",
+      "2": "sprouted",
+      "3": "rotten"
+    },
+    "num_classes": 4
+  },
+  "pipeline_status": "QUALITY_WARN",
+  "limitations": [
+    "2D planar bounding boxes only; 3D height/elevation geometry is unmodeled.",
+    "Defect and bulb classification subject to experimental class mapping validation.",
+    "Image quality has warnings (blur or clipping). Proceed with manual inspection review.",
+    "Physical calibration marker not configured or detected; metric millimetres unavailable."
+  ]
+}

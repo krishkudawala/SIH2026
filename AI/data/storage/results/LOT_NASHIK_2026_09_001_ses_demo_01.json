@@ -1,0 +1,66 @@
+{
+  "blocking_reasons": [],
+  "class_conflict_count": 1,
+  "damaged_count": 3,
+  "damaged_pct": 14.29,
+  "decision": "REJECT",
+  "decision_reasons": [
+    "Rotten proportion (23.8%) exceeds maximum allowable limit (2.0%)."
+  ],
+  "decision_status": "DECIDED",
+  "estimated_lot_mass_kg": null,
+  "evidence_available": true,
+  "evidence_root_hash": "b52c63ba5003d8c6e13f7cab59e268f04154252b799a227e52eb335f85deb87c",
+  "healthy_count": 12,
+  "healthy_pct": 57.14,
+  "inspection_timestamp": "2026-09-25T17:15:55.081648+00:00",
+  "lot_id": "LOT_NASHIK_2026_09_001",
+  "mass_status": "UNVALIDATED",
+  "remaining_sample_size": 0,
+  "review_signals": [
+    {
+      "code": "CALIBRATION_UNAVAILABLE",
+      "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+      "message": "Planar calibration marker state is 'CALIBRATION_NOT_AVAILABLE'. Metric millimeter scaling is unavailable. This is a review signal, not proof of fraud.",
+      "requires_action": false,
+      "severity": "INFO",
+      "signal_id": "sig_26ee78f3",
+      "source": "marker_calibration"
+    },
+    {
+      "code": "ONION_DIAMETER_UNVALIDATED",
+      "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+      "message": "3D bulb equatorial diameter estimation from 2D bounding boxes is unvalidated in field conditions. This is a review signal, not proof of fraud.",
+      "requires_action": false,
+      "severity": "INFO",
+      "signal_id": "sig_45fd6d00",
+      "source": "measurement_engine"
+    },
+    {
+      "code": "MASS_UNVALIDATED",
+      "created_at_iso": "2026-09-25T17:15:55.081648+00:00",
+      "message": "Volumetric mass estimation is unvalidated. Grading must remain count-based and not mass-based. This is a review signal, not proof of fraud.",
+      "requires_action": false,
+      "severity": "INFO",
+      "signal_id": "sig_5bdf9c6f",
+      "source": "aggregation_engine"
+    }
+  ],
+  "rotten_count": 5,
+  "rotten_pct": 23.81,
+  "rule_pack_id": "AGMARK_ONION_2024_V1",
+  "rule_pack_version": "1.0.0",
+  "sample_size": 21,
+  "sampling_reason": "Observed sample size (21) meets or exceeds the target sample size (20) with zero unresolved cross-class conflicts.",
+  "sampling_status": "SUFFICIENT",
+  "session_id": "ses_demo_01",
+  "size_status": "ONION_DIAMETER_UNVALIDATED",
+  "source_reference": "BAG_INSPECTOR_SELECTED_TRAY_A",
+  "source_selection_note": "Source selected by inspector. Physical bag identity is not independently verified.",
+  "sprouted_count": 0,
+  "sprouted_pct": 0.0,
+  "target_sample_size": 20,
+  "total_defect_pct": 38.1,
+  "undersized_count": 0,
+  "undersized_pct": 0.0
+}

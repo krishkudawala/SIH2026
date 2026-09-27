@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Mandi Nyaay - Gate 4A Semantic Adjudication Review</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #0f172a; color: #f8fafc; padding: 24px; margin: 0; }
+h1, h2, h3 { color: #f1f5f9; }
+.header-box { background: #1e293b; padding: 20px; border-radius: 8px; margin-bottom: 24px; border: 1px solid #334155; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.card { background: #1e293b; border-radius: 8px; padding: 12px; border: 1px solid #334155; display: flex; flex-direction: column; }
+.card img { width: 100%; height: 200px; object-fit: contain; background: #000; border-radius: 4px; }
+.card-meta { font-size: 12px; margin-top: 8px; line-height: 1.4; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 11px; margin-right: 4px; }
+.badge-gt2 { background: #ef4444; color: white; }
+.badge-gt3 { background: #10b981; color: white; }
+.badge-match { background: #059669; color: white; }
+.badge-mismatch { background: #dc2626; color: white; }
+.badge-unverified { background: #f59e0b; color: black; }
+.table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13px; }
+.table th, .table td { border: 1px solid #334155; padding: 8px 12px; text-align: left; }
+.table th { background: #1e293b; color: #94a3b8; }
+</style>
+</head>
+<body>
+<div class='header-box'>
+<h1>Gate 4A: Semantic Adjudication & Detector Error Audit</h1>
+<p>Stratified sample of 60 validation instances (30 Class 2, 30 Class 3) to adjudicate semantic interpretation of external v7 detector.</p>
+<p><strong>Note:</strong> Ground truth candidate labels are derived from canonical dataset data.yaml (2 = rotten, 3 = sprouted). Candidate status is <strong>UNDER_REVIEW</strong> (not automatically VERIFIED).</p>
+</div>
+<h2>Visual Review: Class 2 Ground Truth (Candidate: ROTTEN)</h2>
+<div class='grid'>
+
+        <div class='card'>
+            <img src='crops/c2_01_cropbad_20230121_084932_train_3205d0ff_4_0_crop.jpg' alt='c2_01_cropbad_20230121_084932_train_3205d0ff_4_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_01_cropbad_20230121_084932_train_3205d0ff_4_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084932_train_3205d0ff_4.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.1991 | <strong>IoU:</strong> 0.8617</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_02_cropbad_20230121_085016_train_4e2d34ba_9_augflip_h_0_crop.jpg' alt='c2_02_cropbad_20230121_085016_train_4e2d34ba_9_augflip_h_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_02_cropbad_20230121_085016_train_4e2d34ba_9_augflip_h_0</div>
+                <div><strong>File:</strong> cropbad_20230121_085016_train_4e2d34ba_9_augflip_h.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.264 | <strong>IoU:</strong> 0.8824</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_03_cropbad_20230121_090808_train_62799429_2_augflip_h_0_crop.jpg' alt='c2_03_cropbad_20230121_090808_train_62799429_2_augflip_h_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_03_cropbad_20230121_090808_train_62799429_2_augflip_h_0</div>
+                <div><strong>File:</strong> cropbad_20230121_090808_train_62799429_2_augflip_h.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.8672 | <strong>IoU:</strong> 0.8824</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_04_cropbad_20230121_090808_train_62799429_2_augflip_v_0_crop.jpg' alt='c2_04_cropbad_20230121_090808_train_62799429_2_augflip_v_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_04_cropbad_20230121_090808_train_62799429_2_augflip_v_0</div>
+                <div><strong>File:</strong> cropbad_20230121_090808_train_62799429_2_augflip_v.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.8667 | <strong>IoU:</strong> 0.8643</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_05_cropbad_20230121_090808_train_c6d70ac5_4_augflip_h_0_crop.jpg' alt='c2_05_cropbad_20230121_090808_train_c6d70ac5_4_augflip_h_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_05_cropbad_20230121_090808_train_c6d70ac5_4_augflip_h_0</div>
+                <div><strong>File:</strong> cropbad_20230121_090808_train_c6d70ac5_4_augflip_h.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.2096 | <strong>IoU:</strong> 0.8749</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_06_veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425_2_crop.jpg' alt='c2_06_veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425_2'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_06_veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425_2</div>
+                <div><strong>File:</strong> veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.3174 | <strong>IoU:</strong> 0.6165</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_07_veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425_4_crop.jpg' alt='c2_07_veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425_4'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_07_veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425_4</div>
+                <div><strong>File:</strong> veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.7218 | <strong>IoU:</strong> 0.6998</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_08_veg1_WhatsApp-Image-2024-10-14-at-1-55-46-PM_jpeg.rf.35ee81575c29f403df04a101c5028773_1_crop.jpg' alt='c2_08_veg1_WhatsApp-Image-2024-10-14-at-1-55-46-PM_jpeg.rf.35ee81575c29f403df04a101c5028773_1'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_08_veg1_WhatsApp-Image-2024-10-14-at-1-55-46-PM_jpeg.rf.35ee81575c29f403df04a101c5028773_1</div>
+                <div><strong>File:</strong> veg1_WhatsApp-Image-2024-10-14-at-1-55-46-PM_jpeg.rf.35ee81575c29f403df04a101c5028773.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.4693 | <strong>IoU:</strong> 0.857</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_09_veg1_WhatsApp-Image-2024-10-14-at-1-55-46-PM_jpeg.rf.35ee81575c29f403df04a101c5028773_2_crop.jpg' alt='c2_09_veg1_WhatsApp-Image-2024-10-14-at-1-55-46-PM_jpeg.rf.35ee81575c29f403df04a101c5028773_2'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_09_veg1_WhatsApp-Image-2024-10-14-at-1-55-46-PM_jpeg.rf.35ee81575c29f403df04a101c5028773_2</div>
+                <div><strong>File:</strong> veg1_WhatsApp-Image-2024-10-14-at-1-55-46-PM_jpeg.rf.35ee81575c29f403df04a101c5028773.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.315 | <strong>IoU:</strong> 0.8478</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_10_densepile_valid_0000_2_crop.jpg' alt='c2_10_densepile_valid_0000_2'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_10_densepile_valid_0000_2</div>
+                <div><strong>File:</strong> densepile_valid_0000.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8002 | <strong>IoU:</strong> 0.9663</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_11_densepile_valid_0000_4_crop.jpg' alt='c2_11_densepile_valid_0000_4'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_11_densepile_valid_0000_4</div>
+                <div><strong>File:</strong> densepile_valid_0000.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8142 | <strong>IoU:</strong> 0.9712</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_12_densepile_valid_0001_6_crop.jpg' alt='c2_12_densepile_valid_0001_6'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_12_densepile_valid_0001_6</div>
+                <div><strong>File:</strong> densepile_valid_0001.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8987 | <strong>IoU:</strong> 0.9526</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_13_densepile_valid_0001_7_crop.jpg' alt='c2_13_densepile_valid_0001_7'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_13_densepile_valid_0001_7</div>
+                <div><strong>File:</strong> densepile_valid_0001.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.9152 | <strong>IoU:</strong> 0.9833</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_14_densepile_valid_0002_2_crop.jpg' alt='c2_14_densepile_valid_0002_2'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_14_densepile_valid_0002_2</div>
+                <div><strong>File:</strong> densepile_valid_0002.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8851 | <strong>IoU:</strong> 0.9615</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_15_densepile_valid_0002_3_crop.jpg' alt='c2_15_densepile_valid_0002_3'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_15_densepile_valid_0002_3</div>
+                <div><strong>File:</strong> densepile_valid_0002.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.9037 | <strong>IoU:</strong> 0.9458</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_16_densepile_valid_0003_3_crop.jpg' alt='c2_16_densepile_valid_0003_3'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_16_densepile_valid_0003_3</div>
+                <div><strong>File:</strong> densepile_valid_0003.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.7708 | <strong>IoU:</strong> 0.9344</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_17_densepile_valid_0003_4_crop.jpg' alt='c2_17_densepile_valid_0003_4'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_17_densepile_valid_0003_4</div>
+                <div><strong>File:</strong> densepile_valid_0003.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.1828 | <strong>IoU:</strong> 0.6133</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_18_densepile_valid_0005_6_crop.jpg' alt='c2_18_densepile_valid_0005_6'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_18_densepile_valid_0005_6</div>
+                <div><strong>File:</strong> densepile_valid_0005.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8461 | <strong>IoU:</strong> 0.6536</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_19_densepile_valid_0006_9_crop.jpg' alt='c2_19_densepile_valid_0006_9'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_19_densepile_valid_0006_9</div>
+                <div><strong>File:</strong> densepile_valid_0006.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8931 | <strong>IoU:</strong> 0.9721</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_20_densepile_valid_0007_11_crop.jpg' alt='c2_20_densepile_valid_0007_11'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_20_densepile_valid_0007_11</div>
+                <div><strong>File:</strong> densepile_valid_0007.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.9015 | <strong>IoU:</strong> 0.814</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_21_densepile_valid_0008_16_crop.jpg' alt='c2_21_densepile_valid_0008_16'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_21_densepile_valid_0008_16</div>
+                <div><strong>File:</strong> densepile_valid_0008.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8198 | <strong>IoU:</strong> 0.8156</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_22_densepile_valid_0009_7_crop.jpg' alt='c2_22_densepile_valid_0009_7'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_22_densepile_valid_0009_7</div>
+                <div><strong>File:</strong> densepile_valid_0009.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8139 | <strong>IoU:</strong> 0.8705</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_23_densepile_valid_0009_9_crop.jpg' alt='c2_23_densepile_valid_0009_9'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_23_densepile_valid_0009_9</div>
+                <div><strong>File:</strong> densepile_valid_0009.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.5693 | <strong>IoU:</strong> 0.932</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_24_densepile_valid_0010_5_crop.jpg' alt='c2_24_densepile_valid_0010_5'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_24_densepile_valid_0010_5</div>
+                <div><strong>File:</strong> densepile_valid_0010.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.254 | <strong>IoU:</strong> 0.8824</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_25_densepile_valid_0010_10_crop.jpg' alt='c2_25_densepile_valid_0010_10'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_25_densepile_valid_0010_10</div>
+                <div><strong>File:</strong> densepile_valid_0010.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8984 | <strong>IoU:</strong> 0.9005</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_26_densepile_valid_0011_11_crop.jpg' alt='c2_26_densepile_valid_0011_11'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_26_densepile_valid_0011_11</div>
+                <div><strong>File:</strong> densepile_valid_0011.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8664 | <strong>IoU:</strong> 0.8374</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_27_densepile_valid_0011_16_crop.jpg' alt='c2_27_densepile_valid_0011_16'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_27_densepile_valid_0011_16</div>
+                <div><strong>File:</strong> densepile_valid_0011.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8308 | <strong>IoU:</strong> 0.923</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_28_densepile_valid_0012_4_crop.jpg' alt='c2_28_densepile_valid_0012_4'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_28_densepile_valid_0012_4</div>
+                <div><strong>File:</strong> densepile_valid_0012.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8513 | <strong>IoU:</strong> 0.7798</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_29_densepile_valid_0012_13_crop.jpg' alt='c2_29_densepile_valid_0012_13'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_29_densepile_valid_0012_13</div>
+                <div><strong>File:</strong> densepile_valid_0012.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8672 | <strong>IoU:</strong> 0.7328</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c2_30_densepile_valid_0013_0_crop.jpg' alt='c2_30_densepile_valid_0013_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c2_30_densepile_valid_0013_0</div>
+                <div><strong>File:</strong> densepile_valid_0013.jpg</div>
+                <div><span class='badge badge-gt2'>GT ID: 2 (ROTTEN)</span></div>
+                <div><strong>Predicted V7:</strong> rotten (ID 3)</div>
+                <div><strong>Conf:</strong> 0.8785 | <strong>IoU:</strong> 0.7816</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+</div>
+<h2>Visual Review: Class 3 Ground Truth (Candidate: SPROUTED)</h2>
+<div class='grid'>
+
+        <div class='card'>
+            <img src='crops/c3_31_veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425_37_crop.jpg' alt='c3_31_veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425_37'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_31_veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425_37</div>
+                <div><strong>File:</strong> veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> NO_DETECTION (ID None)</div>
+                <div><strong>Conf:</strong> 0.0 | <strong>IoU:</strong> 0.0</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_32_veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425_44_crop.jpg' alt='c3_32_veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425_44'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_32_veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425_44</div>
+                <div><strong>File:</strong> veg1_WhatsApp-Image-2024-10-09-at-1-58-52-PM_jpeg.rf.66565b1fdba66d0e24229114f7756425.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> NO_DETECTION (ID None)</div>
+                <div><strong>Conf:</strong> 0.0 | <strong>IoU:</strong> 0.0</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_33_veg1_WhatsApp-Image-2024-10-14-at-1-55-46-PM_jpeg.rf.35ee81575c29f403df04a101c5028773_9_crop.jpg' alt='c3_33_veg1_WhatsApp-Image-2024-10-14-at-1-55-46-PM_jpeg.rf.35ee81575c29f403df04a101c5028773_9'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_33_veg1_WhatsApp-Image-2024-10-14-at-1-55-46-PM_jpeg.rf.35ee81575c29f403df04a101c5028773_9</div>
+                <div><strong>File:</strong> veg1_WhatsApp-Image-2024-10-14-at-1-55-46-PM_jpeg.rf.35ee81575c29f403df04a101c5028773.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.5704 | <strong>IoU:</strong> 0.7312</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_34_cropbad_20230121_084837_train_4551f94b_1_0_crop.jpg' alt='c3_34_cropbad_20230121_084837_train_4551f94b_1_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_34_cropbad_20230121_084837_train_4551f94b_1_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084837_train_4551f94b_1.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.4902 | <strong>IoU:</strong> 0.8655</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_35_cropbad_20230121_084837_train_4551f94b_3_augflip_h_0_crop.jpg' alt='c3_35_cropbad_20230121_084837_train_4551f94b_3_augflip_h_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_35_cropbad_20230121_084837_train_4551f94b_3_augflip_h_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084837_train_4551f94b_3_augflip_h.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.744 | <strong>IoU:</strong> 0.8806</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_36_cropbad_20230121_084837_train_4551f94b_5_0_crop.jpg' alt='c3_36_cropbad_20230121_084837_train_4551f94b_5_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_36_cropbad_20230121_084837_train_4551f94b_5_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084837_train_4551f94b_5.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.7198 | <strong>IoU:</strong> 0.8618</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_37_cropbad_20230121_084837_train_99295cff_0_0_crop.jpg' alt='c3_37_cropbad_20230121_084837_train_99295cff_0_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_37_cropbad_20230121_084837_train_99295cff_0_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084837_train_99295cff_0.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.709 | <strong>IoU:</strong> 0.8811</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_38_cropbad_20230121_084837_train_99295cff_3_augflip_h_0_crop.jpg' alt='c3_38_cropbad_20230121_084837_train_99295cff_3_augflip_h_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_38_cropbad_20230121_084837_train_99295cff_3_augflip_h_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084837_train_99295cff_3_augflip_h.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.6259 | <strong>IoU:</strong> 0.8614</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_39_cropbad_20230121_084837_train_99295cff_4_augflip_v_0_crop.jpg' alt='c3_39_cropbad_20230121_084837_train_99295cff_4_augflip_v_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_39_cropbad_20230121_084837_train_99295cff_4_augflip_v_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084837_train_99295cff_4_augflip_v.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.7837 | <strong>IoU:</strong> 0.8733</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_40_cropbad_20230121_084837_train_99295cff_5_0_crop.jpg' alt='c3_40_cropbad_20230121_084837_train_99295cff_5_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_40_cropbad_20230121_084837_train_99295cff_5_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084837_train_99295cff_5.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.3918 | <strong>IoU:</strong> 0.8722</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_41_cropbad_20230121_084837_train_f2f29947_2_0_crop.jpg' alt='c3_41_cropbad_20230121_084837_train_f2f29947_2_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_41_cropbad_20230121_084837_train_f2f29947_2_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084837_train_f2f29947_2.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.2918 | <strong>IoU:</strong> 0.8678</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_42_cropbad_20230121_084837_train_f2f29947_4_0_crop.jpg' alt='c3_42_cropbad_20230121_084837_train_f2f29947_4_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_42_cropbad_20230121_084837_train_f2f29947_4_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084837_train_f2f29947_4.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.2937 | <strong>IoU:</strong> 0.8719</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_43_cropbad_20230121_084849_train_a4058380_1_0_crop.jpg' alt='c3_43_cropbad_20230121_084849_train_a4058380_1_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_43_cropbad_20230121_084849_train_a4058380_1_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084849_train_a4058380_1.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.1173 | <strong>IoU:</strong> 0.8795</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_44_cropbad_20230121_084859_train_397d7bea_2_augflip_h_0_crop.jpg' alt='c3_44_cropbad_20230121_084859_train_397d7bea_2_augflip_h_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_44_cropbad_20230121_084859_train_397d7bea_2_augflip_h_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084859_train_397d7bea_2_augflip_h.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.1731 | <strong>IoU:</strong> 0.8681</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_45_cropbad_20230121_084859_train_397d7bea_4_augflip_h_0_crop.jpg' alt='c3_45_cropbad_20230121_084859_train_397d7bea_4_augflip_h_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_45_cropbad_20230121_084859_train_397d7bea_4_augflip_h_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084859_train_397d7bea_4_augflip_h.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.1406 | <strong>IoU:</strong> 0.8845</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_46_cropbad_20230121_084859_train_68c44765_0_augflip_h_0_crop.jpg' alt='c3_46_cropbad_20230121_084859_train_68c44765_0_augflip_h_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_46_cropbad_20230121_084859_train_68c44765_0_augflip_h_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084859_train_68c44765_0_augflip_h.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.7513 | <strong>IoU:</strong> 0.8757</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_47_cropbad_20230121_084859_train_68c44765_2_0_crop.jpg' alt='c3_47_cropbad_20230121_084859_train_68c44765_2_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_47_cropbad_20230121_084859_train_68c44765_2_0</div>
+                <div><strong>File:</strong> cropbad_20230121_084859_train_68c44765_2.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.2033 | <strong>IoU:</strong> 0.8645</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_48_densepile_valid_0000_8_crop.jpg' alt='c3_48_densepile_valid_0000_8'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_48_densepile_valid_0000_8</div>
+                <div><strong>File:</strong> densepile_valid_0000.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.881 | <strong>IoU:</strong> 0.9587</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_49_densepile_valid_0001_12_crop.jpg' alt='c3_49_densepile_valid_0001_12'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_49_densepile_valid_0001_12</div>
+                <div><strong>File:</strong> densepile_valid_0001.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.6203 | <strong>IoU:</strong> 0.9192</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_50_densepile_valid_0002_0_crop.jpg' alt='c3_50_densepile_valid_0002_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_50_densepile_valid_0002_0</div>
+                <div><strong>File:</strong> densepile_valid_0002.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.4617 | <strong>IoU:</strong> 0.9117</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_51_densepile_valid_0003_7_crop.jpg' alt='c3_51_densepile_valid_0003_7'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_51_densepile_valid_0003_7</div>
+                <div><strong>File:</strong> densepile_valid_0003.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.7742 | <strong>IoU:</strong> 0.9166</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_52_densepile_valid_0004_2_crop.jpg' alt='c3_52_densepile_valid_0004_2'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_52_densepile_valid_0004_2</div>
+                <div><strong>File:</strong> densepile_valid_0004.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> healthy (ID 0)</div>
+                <div><strong>Conf:</strong> 0.7786 | <strong>IoU:</strong> 0.7429</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_53_densepile_valid_0005_7_crop.jpg' alt='c3_53_densepile_valid_0005_7'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_53_densepile_valid_0005_7</div>
+                <div><strong>File:</strong> densepile_valid_0005.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.8689 | <strong>IoU:</strong> 0.9151</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_54_densepile_valid_0007_7_crop.jpg' alt='c3_54_densepile_valid_0007_7'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_54_densepile_valid_0007_7</div>
+                <div><strong>File:</strong> densepile_valid_0007.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.2259 | <strong>IoU:</strong> 0.8627</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_55_densepile_valid_0008_0_crop.jpg' alt='c3_55_densepile_valid_0008_0'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_55_densepile_valid_0008_0</div>
+                <div><strong>File:</strong> densepile_valid_0008.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.8621 | <strong>IoU:</strong> 0.9422</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_56_densepile_valid_0009_11_crop.jpg' alt='c3_56_densepile_valid_0009_11'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_56_densepile_valid_0009_11</div>
+                <div><strong>File:</strong> densepile_valid_0009.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.8896 | <strong>IoU:</strong> 0.9688</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_57_densepile_valid_0010_3_crop.jpg' alt='c3_57_densepile_valid_0010_3'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_57_densepile_valid_0010_3</div>
+                <div><strong>File:</strong> densepile_valid_0010.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> damaged (ID 1)</div>
+                <div><strong>Conf:</strong> 0.7598 | <strong>IoU:</strong> 0.786</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-mismatch'>DISCREPANCY</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_58_densepile_valid_0011_1_crop.jpg' alt='c3_58_densepile_valid_0011_1'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_58_densepile_valid_0011_1</div>
+                <div><strong>File:</strong> densepile_valid_0011.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.8293 | <strong>IoU:</strong> 0.9331</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_59_densepile_valid_0012_2_crop.jpg' alt='c3_59_densepile_valid_0012_2'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_59_densepile_valid_0012_2</div>
+                <div><strong>File:</strong> densepile_valid_0012.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.1175 | <strong>IoU:</strong> 0.946</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+
+        <div class='card'>
+            <img src='crops/c3_60_densepile_valid_0013_1_crop.jpg' alt='c3_60_densepile_valid_0013_1'>
+            <div class='card-meta'>
+                <div><strong>ID:</strong> c3_60_densepile_valid_0013_1</div>
+                <div><strong>File:</strong> densepile_valid_0013.jpg</div>
+                <div><span class='badge badge-gt3'>GT ID: 3 (SPROUTED)</span></div>
+                <div><strong>Predicted V7:</strong> sprouted (ID 2)</div>
+                <div><strong>Conf:</strong> 0.8397 | <strong>IoU:</strong> 0.9155</div>
+                <div><strong>Semantic Match:</strong> <span class='badge badge-match'>CONSISTENT</span></div>
+            </div>
+        </div>
+        
+</div>
+
+    <h2>Failure Case Deep Dive: cropbad_20230121_084837_train_4551f94b_1.jpg</h2>
+    <div class='header-box'>
+        <img src='failure_audit_cropbad.png' style='max-width: 100%; border-radius: 8px;' alt='Failure Diagnostic'>
+        <p><strong>Diagnosis:</strong> Dual detection overlap (IoU = 0.9854) on single bulb.</p>
+        <ul>
+            <li><strong>Detection A:</strong> class 'damaged' (confidence 0.4902)</li>
+            <li><strong>Detection B:</strong> class 'sprouted' (confidence 0.4800)</li>
+            <li><strong>Image Quality:</strong> Blur score 47.98 (borderline sharpness), low-resolution 256x256.</li>
+            <li><strong>Root Cause:</strong> Co-occurrence of surface blemish/peel with apical shoot, combined with per-class NMS in YOLO (classes evaluated independently, allowing cross-class duplicate boxes).</li>
+        </ul>
+    </div>
+    </body>
+    </html>
+    

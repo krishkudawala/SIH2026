@@ -1,0 +1,31 @@
+# Python environment
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Testing & Linting
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local IDE
+.vscode/
+.idea/
+
+# Data artifacts (preserve raw evidence directory structure while ignoring large/ephemeral dumps if needed)
+# Keep data folder structure via .gitkeep
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Android & Gradle
+.gradle/
+local.properties
+*.iml

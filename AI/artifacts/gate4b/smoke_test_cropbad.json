@@ -1,0 +1,117 @@
+{
+  "pipeline_version": "0.1.0-phase0.dev",
+  "capture_id": "gate4b_smoke_cropbad",
+  "image_path": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\training\\merged_v2\\valid\\images\\cropbad_20230121_084837_train_4551f94b_1.jpg",
+  "image_metadata": {
+    "width": 256,
+    "height": 256,
+    "channels": 3,
+    "sha256": "a28232b50b1b177d950c66d329a536e40e7d9e7f8d2371fe17cd3b42d7a312db"
+  },
+  "quality": {
+    "width": 256,
+    "height": 256,
+    "mean_luminance": 78.93,
+    "blur_score": 47.98,
+    "exposure_clipped_ratio": 0.0,
+    "grade": "WARN",
+    "reasons": [
+      "Borderline sharpness: blur score 48.0 < threshold 100.0"
+    ]
+  },
+  "raw_detection_count": 2,
+  "reconciled_observation_count": 1,
+  "conflict_count": 1,
+  "detections": [
+    {
+      "detection_id": "gate4b_smoke_cropbad_det_0",
+      "class_id_external": 1,
+      "class_name_external": "damaged",
+      "canonical_label": "DAMAGED",
+      "mapping_status": "VERIFIED",
+      "confidence": 0.4902,
+      "x1": 0.42,
+      "y1": 0.04,
+      "x2": 255.23,
+      "y2": 250.45,
+      "width_px": 254.81,
+      "height_px": 250.42
+    },
+    {
+      "detection_id": "gate4b_smoke_cropbad_det_1",
+      "class_id_external": 2,
+      "class_name_external": "sprouted",
+      "canonical_label": "SPROUTED",
+      "mapping_status": "VERIFIED",
+      "confidence": 0.48,
+      "x1": 1.44,
+      "y1": 0.0,
+      "x2": 256.0,
+      "y2": 251.51,
+      "width_px": 254.56,
+      "height_px": 251.51
+    }
+  ],
+  "observations": [
+    {
+      "observation_id": "obs_gate4b_smoke_cropbad_0",
+      "capture_id": "gate4b_smoke_cropbad",
+      "bbox": [
+        0.42,
+        0.04,
+        255.23,
+        250.45
+      ],
+      "class_semantic": "CLASS_CONFLICT",
+      "confidence": 0.4902,
+      "observation_status": "CLASS_CONFLICT",
+      "visibility_status": "CLASS_CONFLICT",
+      "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+      "provenance": {
+        "model_checkpoint": "onion-grading-v7.pt",
+        "model_version": "0.1.0-phase0.dev",
+        "raw_class_id": 1,
+        "raw_class_name": "damaged",
+        "created_at_iso": "2026-09-24T17:08:16.891582+00:00"
+      },
+      "candidate_classes": [
+        "DAMAGED",
+        "SPROUTED"
+      ],
+      "candidate_confidences": [
+        0.4902,
+        0.48
+      ],
+      "source_detection_ids": [
+        "gate4b_smoke_cropbad_det_0",
+        "gate4b_smoke_cropbad_det_1"
+      ],
+      "reconciliation_iou": 0.9887,
+      "reconciliation_rule": "gate4b.reconcile.v1.cross_class_conflict"
+    }
+  ],
+  "calibration_status": "CALIBRATION_NOT_AVAILABLE",
+  "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+  "onion_diameter_feasibility": "ONION_DIAMETER_UNVALIDATED",
+  "mapping_status": "VERIFIED",
+  "model_metadata": {
+    "checkpoint_path": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\onion-grading-v7.pt",
+    "task": "detect",
+    "architecture": "DetectionModel",
+    "classes_exposed": {
+      "0": "healthy",
+      "1": "damaged",
+      "2": "sprouted",
+      "3": "rotten"
+    },
+    "num_classes": 4
+  },
+  "pipeline_status": "QUALITY_WARN",
+  "limitations": [
+    "2D planar bounding boxes only; 3D height/elevation geometry is unmodeled.",
+    "Defect and bulb classification subject to experimental class mapping validation.",
+    "Image quality has warnings (blur or clipping). Proceed with manual inspection review.",
+    "Physical calibration marker not configured or detected; metric millimetres unavailable.",
+    "1 cross-class detection conflict(s) detected and retained as CLASS_CONFLICT for review."
+  ]
+}

@@ -1,0 +1,545 @@
+{
+  "replayed_session": {
+    "session_id": "ses_6dedd72b",
+    "lot_id": "lot_scenario_b_conflict",
+    "status": "MANUAL_REVIEW",
+    "captures": [
+      {
+        "capture_id": "cap_lot_001",
+        "status": "QUALITY_WARN",
+        "image_path": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\training\\merged_v2\\valid\\images\\cropbad_20230121_084837_train_4551f94b_1.jpg",
+        "image_sha256": "a28232b50b1b177d950c66d329a536e40e7d9e7f8d2371fe17cd3b42d7a312db",
+        "captured_at_iso": "2026-09-25T04:38:20.542528+00:00",
+        "raw_detection_count": 2,
+        "reconciled_observation_count": 1,
+        "conflict_count": 1,
+        "visible_condition_counts": {
+          "CLASS_CONFLICT": 1
+        },
+        "quality_status": "WARN",
+        "mapping_status": "VERIFIED",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "calibration_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_ids": [
+          "obs_cap_lot_001_0"
+        ],
+        "model_version": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\onion-grading-v7.pt",
+        "provenance": {
+          "pipeline_version": "0.1.0-phase0.dev",
+          "mapping_status": "VERIFIED",
+          "checkpoint_path": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\onion-grading-v7.pt",
+          "task": "detect",
+          "architecture": "DetectionModel",
+          "classes_exposed": {
+            "0": "healthy",
+            "1": "damaged",
+            "2": "sprouted",
+            "3": "rotten"
+          },
+          "num_classes": 4
+        }
+      },
+      {
+        "capture_id": "cap_lot_002",
+        "status": "QUALITY_WARN",
+        "image_path": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\training\\merged_v2\\valid\\images\\densepile_valid_0000.jpg",
+        "image_sha256": "6de8cbb2206d4c5977acec4690a7b1582299e1eed209176c4e6940a7c00ef7ab",
+        "captured_at_iso": "2026-09-25T04:38:20.687455+00:00",
+        "raw_detection_count": 10,
+        "reconciled_observation_count": 10,
+        "conflict_count": 0,
+        "visible_condition_counts": {
+          "SPROUTED": 1,
+          "ROTTEN": 3,
+          "HEALTHY": 3,
+          "DAMAGED": 3
+        },
+        "quality_status": "WARN",
+        "mapping_status": "VERIFIED",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "calibration_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_ids": [
+          "obs_cap_lot_002_0",
+          "obs_cap_lot_002_1",
+          "obs_cap_lot_002_2",
+          "obs_cap_lot_002_3",
+          "obs_cap_lot_002_4",
+          "obs_cap_lot_002_5",
+          "obs_cap_lot_002_6",
+          "obs_cap_lot_002_7",
+          "obs_cap_lot_002_8",
+          "obs_cap_lot_002_9"
+        ],
+        "model_version": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\onion-grading-v7.pt",
+        "provenance": {
+          "pipeline_version": "0.1.0-phase0.dev",
+          "mapping_status": "VERIFIED",
+          "checkpoint_path": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\onion-grading-v7.pt",
+          "task": "detect",
+          "architecture": "DetectionModel",
+          "classes_exposed": {
+            "0": "healthy",
+            "1": "damaged",
+            "2": "sprouted",
+            "3": "rotten"
+          },
+          "num_classes": 4
+        }
+      },
+      {
+        "capture_id": "cap_lot_003",
+        "status": "QUALITY_WARN",
+        "image_path": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\training\\merged_v2\\valid\\images\\densepile_valid_0005.jpg",
+        "image_sha256": "c51ec77062e639c995d4f41bc10eff5fad85f33c040e8d4762347456280ab8c8",
+        "captured_at_iso": "2026-09-25T04:38:20.815926+00:00",
+        "raw_detection_count": 11,
+        "reconciled_observation_count": 11,
+        "conflict_count": 0,
+        "visible_condition_counts": {
+          "HEALTHY": 5,
+          "DAMAGED": 3,
+          "SPROUTED": 2,
+          "ROTTEN": 1
+        },
+        "quality_status": "WARN",
+        "mapping_status": "VERIFIED",
+        "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+        "calibration_status": "CALIBRATION_NOT_AVAILABLE",
+        "observation_ids": [
+          "obs_cap_lot_003_0",
+          "obs_cap_lot_003_1",
+          "obs_cap_lot_003_2",
+          "obs_cap_lot_003_3",
+          "obs_cap_lot_003_4",
+          "obs_cap_lot_003_5",
+          "obs_cap_lot_003_6",
+          "obs_cap_lot_003_7",
+          "obs_cap_lot_003_8",
+          "obs_cap_lot_003_9",
+          "obs_cap_lot_003_10"
+        ],
+        "model_version": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\onion-grading-v7.pt",
+        "provenance": {
+          "pipeline_version": "0.1.0-phase0.dev",
+          "mapping_status": "VERIFIED",
+          "checkpoint_path": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\onion-grading-v7.pt",
+          "task": "detect",
+          "architecture": "DetectionModel",
+          "classes_exposed": {
+            "0": "healthy",
+            "1": "damaged",
+            "2": "sprouted",
+            "3": "rotten"
+          },
+          "num_classes": 4
+        }
+      }
+    ],
+    "observation_set": {
+      "observation_set_id": "obs_set_replay_6dedd72b",
+      "status": "HAS_CONFLICTS",
+      "capture_ids": [
+        "cap_lot_001",
+        "cap_lot_002",
+        "cap_lot_003"
+      ],
+      "total_raw_detections": 23,
+      "total_reconciled_observations": 22,
+      "conflict_count": 1,
+      "observations": [],
+      "visible_condition_counts": {
+        "CLASS_CONFLICT": 1,
+        "SPROUTED": 3,
+        "ROTTEN": 4,
+        "HEALTHY": 8,
+        "DAMAGED": 6
+      },
+      "version": "0.1.0-phase0.dev",
+      "created_at_iso": "2026-09-25T04:38:13.374058+00:00"
+    },
+    "sampling_result": {
+      "sampling_id": "smp_be8e2cf5",
+      "status": "MANUAL_REVIEW",
+      "target_sample_size": 20,
+      "observed_sample_size": 22,
+      "sampling_rule_version": "MANDI_NYAAY_SAMPLING_V1.0",
+      "reason": "Sample contains 1 cross-class conflict(s) where overlapping detections disagree. Manual review required before sampling sufficiency can be affirmed.",
+      "limitations": [
+        "Bulb mass and 3D volumetric sizing are UNVALIDATED in current field conditions.",
+        "Sampling sufficiency is determined strictly from 2D physical bulb observation counts."
+      ],
+      "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+    },
+    "aggregation": {
+      "aggregation_id": "agg_9c4f6323",
+      "status": "VALID",
+      "aggregation_mode": "COUNT_BASED",
+      "total_count": 22,
+      "total_observations": 22,
+      "healthy_count": 8,
+      "damaged_count": 6,
+      "sprouted_count": 3,
+      "rotten_count": 4,
+      "class_conflict_count": 1,
+      "unresolved_identity_count": 22,
+      "count_distribution": {
+        "CLASS_CONFLICT": {
+          "count": 1,
+          "percentage": 4.55
+        },
+        "SPROUTED": {
+          "count": 3,
+          "percentage": 13.64
+        },
+        "ROTTEN": {
+          "count": 4,
+          "percentage": 18.18
+        },
+        "HEALTHY": {
+          "count": 8,
+          "percentage": 36.36
+        },
+        "DAMAGED": {
+          "count": 6,
+          "percentage": 27.27
+        }
+      },
+      "mass_status": "UNVALIDATED",
+      "mass_distribution": null,
+      "disclaimer": "Aggregation is based strictly on physical bulb count. Calibrated individual bulb mass is UNVALIDATED and cannot be used for procurement settlement.",
+      "version": "0.1.0-phase0.dev",
+      "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+    },
+    "review_signals": [
+      {
+        "signal_id": "sig_2639ef43",
+        "code": "CLASS_CONFLICT",
+        "severity": "CRITICAL",
+        "message": "1 cross-class detection conflict(s) detected during physical bulb reconciliation. This is a review signal, not proof of fraud.",
+        "source": "observation_reconciliation",
+        "requires_action": true,
+        "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+      },
+      {
+        "signal_id": "sig_9a7ab85b",
+        "code": "LOW_IMAGE_QUALITY",
+        "severity": "WARNING",
+        "message": "Image quality screening emitted warning (borderline sharpness or illumination). This is a review signal, not proof of fraud.",
+        "source": "quality_screening",
+        "requires_action": false,
+        "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+      },
+      {
+        "signal_id": "sig_d2e7a1c6",
+        "code": "CALIBRATION_UNAVAILABLE",
+        "severity": "INFO",
+        "message": "Planar calibration marker state is 'CALIBRATION_NOT_AVAILABLE'. Metric millimeter scaling is unavailable. This is a review signal, not proof of fraud.",
+        "source": "marker_calibration",
+        "requires_action": false,
+        "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+      },
+      {
+        "signal_id": "sig_fc6082fa",
+        "code": "ONION_DIAMETER_UNVALIDATED",
+        "severity": "INFO",
+        "message": "3D bulb equatorial diameter estimation from 2D bounding boxes is unvalidated in field conditions. This is a review signal, not proof of fraud.",
+        "source": "measurement_engine",
+        "requires_action": false,
+        "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+      },
+      {
+        "signal_id": "sig_52577770",
+        "code": "MASS_UNVALIDATED",
+        "severity": "INFO",
+        "message": "Volumetric mass estimation is unvalidated. Grading must remain count-based and not mass-based. This is a review signal, not proof of fraud.",
+        "source": "aggregation_engine",
+        "requires_action": false,
+        "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+      }
+    ],
+    "decision": {
+      "decision_id": "dec_5958cad8",
+      "status": "REFERRED_TO_MANUAL_REVIEW",
+      "procurement_grade": "MANUAL_REVIEW",
+      "decision_rule_version": "MANDI_NYAAY_PROCUREMENT_RULES_V1.0",
+      "decision_reasons": [
+        "Automated procurement grading halted and diverted to MANUAL_REVIEW due to active blocking conditions."
+      ],
+      "blocking_reasons": [
+        "Cross-class detection conflict detected on 1 or more physical bulbs; manual adjudication required.",
+        "Sampling status is MANUAL_REVIEW: Sample contains 1 cross-class conflict(s) where overlapping detections disagree. Manual review required before sampling sufficiency can be affirmed."
+      ],
+      "input_capture_ids": [
+        "cap_lot_001",
+        "cap_lot_002",
+        "cap_lot_003"
+      ],
+      "input_observation_ids": [
+        "obs_cap_lot_001_0",
+        "obs_cap_lot_002_0",
+        "obs_cap_lot_002_1",
+        "obs_cap_lot_002_2",
+        "obs_cap_lot_002_3",
+        "obs_cap_lot_002_4",
+        "obs_cap_lot_002_5",
+        "obs_cap_lot_002_6",
+        "obs_cap_lot_002_7",
+        "obs_cap_lot_002_8",
+        "obs_cap_lot_002_9",
+        "obs_cap_lot_003_0",
+        "obs_cap_lot_003_1",
+        "obs_cap_lot_003_2",
+        "obs_cap_lot_003_3",
+        "obs_cap_lot_003_4",
+        "obs_cap_lot_003_5",
+        "obs_cap_lot_003_6",
+        "obs_cap_lot_003_7",
+        "obs_cap_lot_003_8",
+        "obs_cap_lot_003_9",
+        "obs_cap_lot_003_10"
+      ],
+      "review_signals": [
+        {
+          "signal_id": "sig_2639ef43",
+          "code": "CLASS_CONFLICT",
+          "severity": "CRITICAL",
+          "message": "1 cross-class detection conflict(s) detected during physical bulb reconciliation. This is a review signal, not proof of fraud.",
+          "source": "observation_reconciliation",
+          "requires_action": true,
+          "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+        },
+        {
+          "signal_id": "sig_9a7ab85b",
+          "code": "LOW_IMAGE_QUALITY",
+          "severity": "WARNING",
+          "message": "Image quality screening emitted warning (borderline sharpness or illumination). This is a review signal, not proof of fraud.",
+          "source": "quality_screening",
+          "requires_action": false,
+          "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+        },
+        {
+          "signal_id": "sig_d2e7a1c6",
+          "code": "CALIBRATION_UNAVAILABLE",
+          "severity": "INFO",
+          "message": "Planar calibration marker state is 'CALIBRATION_NOT_AVAILABLE'. Metric millimeter scaling is unavailable. This is a review signal, not proof of fraud.",
+          "source": "marker_calibration",
+          "requires_action": false,
+          "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+        },
+        {
+          "signal_id": "sig_fc6082fa",
+          "code": "ONION_DIAMETER_UNVALIDATED",
+          "severity": "INFO",
+          "message": "3D bulb equatorial diameter estimation from 2D bounding boxes is unvalidated in field conditions. This is a review signal, not proof of fraud.",
+          "source": "measurement_engine",
+          "requires_action": false,
+          "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+        },
+        {
+          "signal_id": "sig_52577770",
+          "code": "MASS_UNVALIDATED",
+          "severity": "INFO",
+          "message": "Volumetric mass estimation is unvalidated. Grading must remain count-based and not mass-based. This is a review signal, not proof of fraud.",
+          "source": "aggregation_engine",
+          "requires_action": false,
+          "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+        }
+      ],
+      "override_info": null,
+      "decided_at_iso": "2026-09-25T04:38:20.815926+00:00"
+    },
+    "evidence_summary": {
+      "evidence_id": "evi_replay_6dedd72b",
+      "lot_id": "lot_scenario_b_conflict",
+      "session_id": "ses_6dedd72b",
+      "status": "RECORDED",
+      "capture_ids": [
+        "cap_lot_001",
+        "cap_lot_002",
+        "cap_lot_003"
+      ],
+      "image_hashes": [
+        "a28232b50b1b177d950c66d329a536e40e7d9e7f8d2371fe17cd3b42d7a312db",
+        "6de8cbb2206d4c5977acec4690a7b1582299e1eed209176c4e6940a7c00ef7ab",
+        "c51ec77062e639c995d4f41bc10eff5fad85f33c040e8d4762347456280ab8c8"
+      ],
+      "observation_ids": [
+        "obs_cap_lot_001_0",
+        "obs_cap_lot_002_0",
+        "obs_cap_lot_002_1",
+        "obs_cap_lot_002_2",
+        "obs_cap_lot_002_3",
+        "obs_cap_lot_002_4",
+        "obs_cap_lot_002_5",
+        "obs_cap_lot_002_6",
+        "obs_cap_lot_002_7",
+        "obs_cap_lot_002_8",
+        "obs_cap_lot_002_9",
+        "obs_cap_lot_003_0",
+        "obs_cap_lot_003_1",
+        "obs_cap_lot_003_2",
+        "obs_cap_lot_003_3",
+        "obs_cap_lot_003_4",
+        "obs_cap_lot_003_5",
+        "obs_cap_lot_003_6",
+        "obs_cap_lot_003_7",
+        "obs_cap_lot_003_8",
+        "obs_cap_lot_003_9",
+        "obs_cap_lot_003_10"
+      ],
+      "model_version": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\onion-grading-v7.pt",
+      "mapping_version": "VERIFIED",
+      "sampling_version": "MANDI_NYAAY_SAMPLING_V1.0",
+      "rule_version": "MANDI_NYAAY_PROCUREMENT_RULES_V1.0",
+      "measurement_status": "CALIBRATION_NOT_AVAILABLE",
+      "calibration_status": "CALIBRATION_NOT_AVAILABLE",
+      "review_signals": [
+        {
+          "signal_id": "sig_2639ef43",
+          "code": "CLASS_CONFLICT",
+          "severity": "CRITICAL",
+          "message": "1 cross-class detection conflict(s) detected during physical bulb reconciliation. This is a review signal, not proof of fraud.",
+          "source": "observation_reconciliation",
+          "requires_action": true,
+          "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+        },
+        {
+          "signal_id": "sig_9a7ab85b",
+          "code": "LOW_IMAGE_QUALITY",
+          "severity": "WARNING",
+          "message": "Image quality screening emitted warning (borderline sharpness or illumination). This is a review signal, not proof of fraud.",
+          "source": "quality_screening",
+          "requires_action": false,
+          "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+        },
+        {
+          "signal_id": "sig_d2e7a1c6",
+          "code": "CALIBRATION_UNAVAILABLE",
+          "severity": "INFO",
+          "message": "Planar calibration marker state is 'CALIBRATION_NOT_AVAILABLE'. Metric millimeter scaling is unavailable. This is a review signal, not proof of fraud.",
+          "source": "marker_calibration",
+          "requires_action": false,
+          "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+        },
+        {
+          "signal_id": "sig_fc6082fa",
+          "code": "ONION_DIAMETER_UNVALIDATED",
+          "severity": "INFO",
+          "message": "3D bulb equatorial diameter estimation from 2D bounding boxes is unvalidated in field conditions. This is a review signal, not proof of fraud.",
+          "source": "measurement_engine",
+          "requires_action": false,
+          "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+        },
+        {
+          "signal_id": "sig_52577770",
+          "code": "MASS_UNVALIDATED",
+          "severity": "INFO",
+          "message": "Volumetric mass estimation is unvalidated. Grading must remain count-based and not mass-based. This is a review signal, not proof of fraud.",
+          "source": "aggregation_engine",
+          "requires_action": false,
+          "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+        }
+      ],
+      "decision": {
+        "decision_id": "dec_5958cad8",
+        "status": "REFERRED_TO_MANUAL_REVIEW",
+        "procurement_grade": "MANUAL_REVIEW",
+        "decision_rule_version": "MANDI_NYAAY_PROCUREMENT_RULES_V1.0",
+        "decision_reasons": [
+          "Automated procurement grading halted and diverted to MANUAL_REVIEW due to active blocking conditions."
+        ],
+        "blocking_reasons": [
+          "Cross-class detection conflict detected on 1 or more physical bulbs; manual adjudication required.",
+          "Sampling status is MANUAL_REVIEW: Sample contains 1 cross-class conflict(s) where overlapping detections disagree. Manual review required before sampling sufficiency can be affirmed."
+        ],
+        "input_capture_ids": [
+          "cap_lot_001",
+          "cap_lot_002",
+          "cap_lot_003"
+        ],
+        "input_observation_ids": [
+          "obs_cap_lot_001_0",
+          "obs_cap_lot_002_0",
+          "obs_cap_lot_002_1",
+          "obs_cap_lot_002_2",
+          "obs_cap_lot_002_3",
+          "obs_cap_lot_002_4",
+          "obs_cap_lot_002_5",
+          "obs_cap_lot_002_6",
+          "obs_cap_lot_002_7",
+          "obs_cap_lot_002_8",
+          "obs_cap_lot_002_9",
+          "obs_cap_lot_003_0",
+          "obs_cap_lot_003_1",
+          "obs_cap_lot_003_2",
+          "obs_cap_lot_003_3",
+          "obs_cap_lot_003_4",
+          "obs_cap_lot_003_5",
+          "obs_cap_lot_003_6",
+          "obs_cap_lot_003_7",
+          "obs_cap_lot_003_8",
+          "obs_cap_lot_003_9",
+          "obs_cap_lot_003_10"
+        ],
+        "review_signals": [
+          {
+            "signal_id": "sig_2639ef43",
+            "code": "CLASS_CONFLICT",
+            "severity": "CRITICAL",
+            "message": "1 cross-class detection conflict(s) detected during physical bulb reconciliation. This is a review signal, not proof of fraud.",
+            "source": "observation_reconciliation",
+            "requires_action": true,
+            "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+          },
+          {
+            "signal_id": "sig_9a7ab85b",
+            "code": "LOW_IMAGE_QUALITY",
+            "severity": "WARNING",
+            "message": "Image quality screening emitted warning (borderline sharpness or illumination). This is a review signal, not proof of fraud.",
+            "source": "quality_screening",
+            "requires_action": false,
+            "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+          },
+          {
+            "signal_id": "sig_d2e7a1c6",
+            "code": "CALIBRATION_UNAVAILABLE",
+            "severity": "INFO",
+            "message": "Planar calibration marker state is 'CALIBRATION_NOT_AVAILABLE'. Metric millimeter scaling is unavailable. This is a review signal, not proof of fraud.",
+            "source": "marker_calibration",
+            "requires_action": false,
+            "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+          },
+          {
+            "signal_id": "sig_fc6082fa",
+            "code": "ONION_DIAMETER_UNVALIDATED",
+            "severity": "INFO",
+            "message": "3D bulb equatorial diameter estimation from 2D bounding boxes is unvalidated in field conditions. This is a review signal, not proof of fraud.",
+            "source": "measurement_engine",
+            "requires_action": false,
+            "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+          },
+          {
+            "signal_id": "sig_52577770",
+            "code": "MASS_UNVALIDATED",
+            "severity": "INFO",
+            "message": "Volumetric mass estimation is unvalidated. Grading must remain count-based and not mass-based. This is a review signal, not proof of fraud.",
+            "source": "aggregation_engine",
+            "requires_action": false,
+            "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+          }
+        ],
+        "override_info": null,
+        "decided_at_iso": "2026-09-25T04:38:20.815926+00:00"
+      },
+      "override_information": null,
+      "evidence_root_hash": "aeba16004d0da81deed6b417b8a106b75d38fd4dd0a9824735cd89a5bc69b07f",
+      "evidence_ledger_term": "tamper-evident/replayable",
+      "created_at_iso": "2026-09-25T04:38:20.815926+00:00"
+    },
+    "created_at_iso": "2026-09-25T04:38:13.374058+00:00",
+    "updated_at_iso": "2026-09-25T04:38:20.815926+00:00",
+    "pipeline_version": "0.1.0-phase0.dev"
+  },
+  "ledger_verified": true,
+  "state_matches": true
+}

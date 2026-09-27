@@ -1,0 +1,42 @@
+{
+  "checkpoint": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\onion-grading-v7.pt",
+  "source_valid_dir": "C:\\Users\\S\\OneDrive\\Desktop\\Onion_grading_system\\training\\merged_v2\\valid",
+  "variant_A": {
+    "precision": 0.459919,
+    "recall": 0.466886,
+    "mAP50": 0.529444,
+    "mAP50-95": 0.449757,
+    "per_class_ap50": {
+      "healthy": 0.956588,
+      "damaged": 0.925922,
+      "sprouted": 0.062386,
+      "rotten": 0.17288
+    },
+    "all_metrics": {
+      "metrics/precision(B)": 0.459919,
+      "metrics/recall(B)": 0.466886,
+      "metrics/mAP50(B)": 0.529444,
+      "metrics/mAP50-95(B)": 0.449757,
+      "fitness": 0.449757
+    }
+  },
+  "variant_B": {
+    "precision": 0.88458,
+    "recall": 0.796897,
+    "mAP50": 0.896856,
+    "mAP50-95": 0.754745,
+    "per_class_ap50": {
+      "healthy": 0.956588,
+      "damaged": 0.925922,
+      "sprouted": 0.877302,
+      "rotten": 0.827614
+    },
+    "all_metrics": {
+      "metrics/precision(B)": 0.88458,
+      "metrics/recall(B)": 0.796897,
+      "metrics/mAP50(B)": 0.896856,
+      "metrics/mAP50-95(B)": 0.754745,
+      "fitness": 0.754745
+    }
+  }
+}
