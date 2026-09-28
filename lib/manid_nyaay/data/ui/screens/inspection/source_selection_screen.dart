@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:sih2631/manid_nyaay/data/domain/model/inspection_session.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
@@ -35,9 +36,36 @@ class _SourceSelectionScreenState extends State<SourceSelectionScreen> {
   int? _selectedBagNum;
   BagTier _selectedTier = BagTier.middle;
 
+  // Returns how many bags to sample from a lot of size n
+  int _computeSampleBagCount(int n) {
+    final sq = sqrt(n.toDouble()).ceil();
+    return sq.clamp(4, 10);
+  }
+
+  // Generate spread-out bag numbers across the lot
+  List<int> _generateSpreadBags(int n, int k) {
+    final rng = Random();
+    final step = n ~/ k;
+    return List.generate(k, (i) {
+      final base = i * step + 1;
+      final jitter = rng.nextInt(step.clamp(1, step));
+      return (base + jitter).clamp(1, n);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final bagNumbers = [8, 15, 22, 31];
+    // Compute suggested bag numbers from the real declared bag count.
+    // AGMARK guidance: inspect ≥5 bags or sqrt(N) bags, min 4, max 10.
+    final n = widget.uiState.declaredBagCount;
+    final List<int> bagNumbers;
+    if (n > 0) {
+      final sampleSize = _computeSampleBagCount(n);
+      final rng = n > 10 ? _generateSpreadBags(n, sampleSize) : List.generate(n, (i) => i + 1);
+      bagNumbers = rng.take(sampleSize).toList()..sort();
+    } else {
+      bagNumbers = [1, 2, 3, 4]; // fallback if bag count unknown
+    }
 
     return Scaffold(
       backgroundColor: backgroundGray,
@@ -101,14 +129,14 @@ class _SourceSelectionScreenState extends State<SourceSelectionScreen> {
             ),
             const SizedBox(height: 12.0),
             Row(
-              children: bagNumbers.map((num) {
-                final isSelected = _selectedBagNum == num;
+              children: bagNumbers.map((bag) {
+                final isSelected = _selectedBagNum == bag;
                 return Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        _selectedBagNum = num;
+                        _selectedBagNum = bag;
                       });
                     },
                     child: Container(
@@ -124,7 +152,7 @@ class _SourceSelectionScreenState extends State<SourceSelectionScreen> {
                       ),
                       alignment: Alignment.center,
                       child: Text(
-                        num.toString(),
+                        bag.toString(),
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: isSelected ? textOnBlue : textPrimary,

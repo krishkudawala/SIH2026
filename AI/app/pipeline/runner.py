@@ -5,6 +5,8 @@ Coordinates capture ingestion, image validation, marker detection, quality asses
 and produces auditable typed InspectionObservation artifacts.
 """
 
+from __future__ import annotations
+
 from pathlib import Path
 import cv2
 

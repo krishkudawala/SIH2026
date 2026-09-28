@@ -4,6 +4,8 @@ Domain models and contracts for Mandi Nyaay inspection observations.
 Enforces strict typing, explicit provenance, and zero data fabrication.
 """
 
+from __future__ import annotations
+
 from datetime import datetime
 from typing import Any
 from pydantic import BaseModel, ConfigDict, Field

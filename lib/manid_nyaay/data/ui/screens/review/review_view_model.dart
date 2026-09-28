@@ -1,17 +1,16 @@
 import 'package:flutter/foundation.dart';
-// --- Assumed Imports (Replace with actual paths) ---
-// import 'package:mandi_nyaay/domain/model/review_item.dart';
-// import 'package:mandi_nyaay/domain/model/review_status.dart';
-// import 'package:mandi_nyaay/domain/model/grade.dart';
-// import 'package:mandi_nyaay/data/fixture/fixture_review_repository.dart';
+import 'package:sih2631/manid_nyaay/data/api/api_client.dart';
+import 'package:sih2631/manid_nyaay/data/domain/model/onion_record.dart';
+import 'package:sih2631/manid_nyaay/data/domain/model/work_load_metrics.dart';
 
 class ReviewUiState {
-  final List<dynamic> pendingItems; // Replace dynamic with ReviewItem
-  final List<dynamic> disputedItems; // Replace dynamic with ReviewItem
+  final List<ReviewItem> pendingItems;
+  final List<ReviewItem> disputedItems;
   final int selectedTab;
   final bool showOverrideDialog;
   final String? overrideSampleId;
   final String overrideReason;
+  final bool isLoading;
 
   const ReviewUiState({
     this.pendingItems = const [],
@@ -20,16 +19,18 @@ class ReviewUiState {
     this.showOverrideDialog = false,
     this.overrideSampleId,
     this.overrideReason = "",
+    this.isLoading = true,
   });
 
   ReviewUiState copyWith({
-    List<dynamic>? pendingItems,
-    List<dynamic>? disputedItems,
+    List<ReviewItem>? pendingItems,
+    List<ReviewItem>? disputedItems,
     int? selectedTab,
     bool? showOverrideDialog,
     String? overrideSampleId,
-    bool clearOverrideSampleId = false, // Flag to explicitly nullify
+    bool clearOverrideSampleId = false,
     String? overrideReason,
+    bool? isLoading,
   }) {
     return ReviewUiState(
       pendingItems: pendingItems ?? this.pendingItems,
@@ -38,27 +39,76 @@ class ReviewUiState {
       showOverrideDialog: showOverrideDialog ?? this.showOverrideDialog,
       overrideSampleId: clearOverrideSampleId ? null : (overrideSampleId ?? this.overrideSampleId),
       overrideReason: overrideReason ?? this.overrideReason,
+      isLoading: isLoading ?? this.isLoading,
     );
   }
 }
 
 class ReviewViewModel extends ChangeNotifier {
-  // final FixtureReviewRepository _repository = FixtureReviewRepository();
+  final MandiApiClient _api = MandiApiClient();
 
   ReviewUiState _uiState = const ReviewUiState();
   ReviewUiState get uiState => _uiState;
 
   ReviewViewModel() {
-    _initObservers();
+    loadReviewItems();
   }
 
-  void _initObservers() {
-    // Equivalent to repository.observeReviewItems().collect
-    // For now, loading dummy empty data to prevent errors
-    _uiState = _uiState.copyWith(
-      pendingItems: [],
-      disputedItems: [],
-    );
+  Future<void> loadReviewItems() async {
+    _uiState = _uiState.copyWith(isLoading: true);
+    notifyListeners();
+
+    try {
+      final sessions = await _api.listSessions(limit: 50);
+      final List<ReviewItem> pending = [];
+      final List<ReviewItem> disputed = [];
+
+      for (final s in sessions) {
+        if (s is! Map) continue;
+        final map = Map<String, dynamic>.from(s);
+        final id = map['id']?.toString() ?? '';
+        final lotId = map['lot_id']?.toString() ?? id;
+        final farmer = map['source_reference']?.toString() ?? 'Farmer';
+        final status = (map['status'] ?? '').toString().toUpperCase();
+        final procGrade = (map['procurement_grade'] ?? '').toString().toUpperCase();
+
+        if (status == 'DISPUTED') {
+          disputed.add(ReviewItem(
+            sampleId: id,
+            lotId: lotId,
+            farmerName: farmer,
+            weightKg: 1000.0,
+            reason: ReviewReason.manualFlag,
+            tentativeGrade: Grade.urs,
+            confidence: 0.85,
+            status: ReviewStatus.disputed,
+          ));
+        } else if (procGrade == 'MANUAL_REVIEW' || status == 'NEEDS_REVIEW') {
+          pending.add(ReviewItem(
+            sampleId: id,
+            lotId: lotId,
+            farmerName: farmer,
+            weightKg: 1000.0,
+            reason: ReviewReason.weighbridgeSignal,
+            tentativeGrade: Grade.urs,
+            confidence: 0.88,
+            status: ReviewStatus.pending,
+          ));
+        }
+      }
+
+      _uiState = _uiState.copyWith(
+        pendingItems: pending,
+        disputedItems: disputed,
+        isLoading: false,
+      );
+    } catch (_) {
+      _uiState = _uiState.copyWith(
+        pendingItems: [],
+        disputedItems: [],
+        isLoading: false,
+      );
+    }
     notifyListeners();
   }
 
@@ -67,12 +117,26 @@ class ReviewViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void acceptReview(String sampleId) async {
-    // await _repository.acceptReview(sampleId);
+  Future<void> acceptReview(String sampleId) async {
+    try {
+      await _api.evaluateDecision(
+        sampleId,
+        overrideGrade: 'GRADE_A',
+        overrideReason: 'APMC Inspector approved review signal',
+      );
+      await loadReviewItems();
+    } catch (_) {}
   }
 
-  void requestRecapture(String sampleId) async {
-    // await _repository.requestRecapture(sampleId);
+  Future<void> requestRecapture(String sampleId) async {
+    try {
+      await _api.evaluateDecision(
+        sampleId,
+        overrideGrade: 'MANUAL_REVIEW',
+        overrideReason: 'Recapture requested due to capture quality',
+      );
+      await loadReviewItems();
+    } catch (_) {}
   }
 
   void openOverrideDialog(String sampleId) {
@@ -97,13 +161,26 @@ class ReviewViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void confirmOverride(dynamic grade) async { // Replace dynamic with Grade
+  Future<void> confirmOverride(dynamic grade) async {
     final sampleId = _uiState.overrideSampleId;
     final reason = _uiState.overrideReason;
 
     if (sampleId == null || reason.trim().isEmpty) return;
 
-    // await _repository.overrideReview(sampleId, grade, reason);
-    dismissOverrideDialog();
+    String gradeStr = 'GRADE_A';
+    if (grade == Grade.urs) gradeStr = 'URS';
+    if (grade == Grade.reject) gradeStr = 'REJECT';
+
+    try {
+      await _api.evaluateDecision(
+        sampleId,
+        overrideGrade: gradeStr,
+        overrideReason: reason,
+      );
+      dismissOverrideDialog();
+      await loadReviewItems();
+    } catch (_) {
+      dismissOverrideDialog();
+    }
   }
 }

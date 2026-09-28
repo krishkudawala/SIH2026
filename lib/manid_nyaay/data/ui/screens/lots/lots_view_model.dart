@@ -48,6 +48,10 @@ class LotsViewModel extends ChangeNotifier {
     _applyFilters();
   }
 
+  Future<void> refresh() async {
+    await _loadLots();
+  }
+
   void onSearchQueryChanged(String query) {
     _uiState = _uiState.copyWith(searchQuery: query);
     _applyFilters();

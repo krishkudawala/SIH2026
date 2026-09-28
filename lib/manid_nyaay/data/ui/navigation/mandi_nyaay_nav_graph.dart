@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sih2631/manid_nyaay/data/ui/navigation/AppShell.dart';
 import 'package:sih2631/manid_nyaay/data/ui/navigation/ScanScreen.dart';

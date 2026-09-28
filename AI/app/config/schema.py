@@ -4,6 +4,8 @@ Configuration schema for Mandi Nyaay inspection engine.
 Ensures all configuration parameters are strongly typed and validated.
 """
 
+from __future__ import annotations
+
 from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 

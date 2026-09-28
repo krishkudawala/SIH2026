@@ -9,6 +9,8 @@ Distinguishes PLANAR METRIC MEASUREMENT (valid strictly on the tray/marker plane
 from 3D OBJECT MEASUREMENT. Does NOT claim a planar marker provides true 3D dimensions.
 """
 
+from __future__ import annotations
+
 from typing import Any, Final
 import cv2
 import numpy as np

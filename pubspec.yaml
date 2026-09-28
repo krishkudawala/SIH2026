@@ -43,6 +43,7 @@ dependencies:
   google_fonts: ^8.2.1
   lucide_icons_flutter: ^3.1.20
   camera_android: ^0.10.11+1
+  http: ^1.2.0
 
 
 dev_dependencies:
@@ -71,6 +72,7 @@ flutter:
   assets:
    - assets/images/splash/splash_background.png
    - assets/logos/splash/mandi_nyaay_logo.png
+   - assets/sample_produce/01_mixed_damaged_rotten_healthy.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

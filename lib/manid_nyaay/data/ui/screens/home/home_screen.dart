@@ -70,9 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         const SizedBox(height: 14.0),
 
-                        // ── Weather & Location Widget ────────────────────────
+                        // ── Live Backend Status Card ──────────────────────────
                         Container(
-                          padding: const EdgeInsets.all(12.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
                           decoration: BoxDecoration(
                             color: surfaceWhite,
                             borderRadius: BorderRadius.circular(12.0),
@@ -85,56 +85,57 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
+                              // Connection dot
+                              Container(
+                                width: 10, height: 10,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: state.syncStatus.isOnline
+                                      ? onlineIndicator
+                                      : Colors.red,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      state.syncStatus.isOnline
+                                          ? "Backend Connected"
+                                          : "Backend Offline",
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold,
+                                        color: state.syncStatus.isOnline
+                                            ? onlineIndicator
+                                            : Colors.red,
+                                      ),
+                                    ),
+                                    Text(
+                                      state.syncStatus.lastSyncedAt ?? "Not synced yet",
+                                      style: const TextStyle(fontSize: 11, color: textSecondary),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              // Inspector badge
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  const Icon(Icons.wb_sunny, color: Colors.amber, size: 28.0),
-                                  const SizedBox(width: 10.0),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "24°C",
-                                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: textPrimary,
-                                        ),
-                                      ),
-                                      Text(
-                                        "H: 32° L: 18°",
-                                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                          color: textSecondary,
-                                        ),
-                                      ),
-                                    ],
+                                  Text(
+                                    state.inspector.name,
+                                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: textPrimary),
+                                  ),
+                                  Text(
+                                    state.inspector.apmc,
+                                    style: const TextStyle(fontSize: 11, color: textSecondary),
                                   ),
                                 ],
                               ),
-                              Row(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "Lasalgaon, Nashik",
-                                        style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: textPrimary,
-                                        ),
-                                      ),
-                                      Text(
-                                        "Mostly Sunny",
-                                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                          color: textSecondary,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(width: 6.0),
-                                  const Icon(Icons.location_on, color: institutionalBlue, size: 18.0),
-                                ],
-                              ),
+                              const SizedBox(width: 6),
+                              const Icon(Icons.badge_outlined, color: institutionalBlue, size: 18),
                             ],
                           ),
                         ),
@@ -325,7 +326,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(height: 20.0),
 
                         // ── Continue Inspection ──────────────────────────────
-                        if (state.activeLots.isNotEmpty) ...[
+                        if (state.recentSessions.isNotEmpty) ...[
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -349,7 +350,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           const SizedBox(height: 10.0),
-                          for (final lot in state.activeLots) ...[
+                          for (final lot in state.recentSessions) ...[
                             LotCard(
                               lot: lot,
                               onContinue: () => context.push(

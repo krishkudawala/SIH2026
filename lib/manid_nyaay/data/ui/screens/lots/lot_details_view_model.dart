@@ -23,7 +23,7 @@ class LotDetailsViewModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    _lot = (await _repository.getLotById(lotId)) as Lot?;
+    _lot = await _repository.getLotById(lotId);
 
     _isLoading = false;
     notifyListeners();

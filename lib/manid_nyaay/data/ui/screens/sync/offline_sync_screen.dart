@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sih2631/manid_nyaay/data/api/api_config.dart';
+import 'package:sih2631/manid_nyaay/data/domain/model/work_load_metrics.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
-
-// --- Assumed Imports (Replace with actual paths) ---
-// import 'package:mandi_nyaay/ui/components/mandi_top_app_bar.dart';
-// import 'package:mandi_nyaay/domain/model/sync_status.dart';
-// import 'package:mandi_nyaay/data/fixture/fixture_sync_repository.dart';
 
 // --- Theme Constants Placeholder ---
 const Color backgroundGray = Color(0xFFF4F5F7);
@@ -16,39 +13,12 @@ const Color textOnBlue = Colors.white;
 const Color statusGreen = Color(0xFF4CAF50);
 const Color statusOrange = Color(0xFFFF9800);
 
-// --- Mock Data Class (Remove if importing real SyncStatus) ---
-class SyncStatus {
-  final bool isOnline;
-  final int pendingRecords;
-  final String? lastSyncedAt;
-
-  const SyncStatus({
-    required this.isOnline,
-    required this.pendingRecords,
-    this.lastSyncedAt,
-  });
-
-  SyncStatus copyWith({
-    bool? isOnline,
-    int? pendingRecords,
-    String? lastSyncedAt,
-  }) {
-    return SyncStatus(
-      isOnline: isOnline ?? this.isOnline,
-      pendingRecords: pendingRecords ?? this.pendingRecords,
-      lastSyncedAt: lastSyncedAt ?? this.lastSyncedAt,
-    );
-  }
-}
-
 // --- ViewModel ---
 class SyncViewModel extends ChangeNotifier {
-  // final FixtureSyncRepository _repository = FixtureSyncRepository();
-
-  SyncStatus _syncStatus = const SyncStatus(
-    isOnline: true,
-    pendingRecords: 3,
-    lastSyncedAt: "Sep 21, 2026, 09:42 AM",
+  SyncStatus _syncStatus = SyncStatus(
+    isOnline: ApiConfig.isConnectedNotifier.value,
+    pendingRecords: 0,
+    lastSyncedAt: ApiConfig.isConnectedNotifier.value ? "Live Synchronized" : "Local Air-Gap",
   );
 
   SyncStatus get syncStatus => _syncStatus;
@@ -58,20 +28,22 @@ class SyncViewModel extends ChangeNotifier {
   }
 
   void _initObservers() {
-    // Mimic the flow observation from FixtureSyncRepository
-    // _repository.observeSyncStatus().listen((status) {
-    //   _syncStatus = status;
-    //   notifyListeners();
-    // });
+    ApiConfig.isConnectedNotifier.addListener(() {
+      final isOnline = ApiConfig.isConnectedNotifier.value;
+      _syncStatus = _syncStatus.copyWith(
+        isOnline: isOnline,
+        lastSyncedAt: isOnline ? "Live Synchronized" : "Local Air-Gap",
+      );
+      notifyListeners();
+    });
   }
 
-  void triggerSync() {
-    // _repository.triggerSync();
-
-    // Mocking the sync update for the UI visualization
+  Future<void> triggerSync() async {
+    final ok = await ApiConfig.checkConnection();
     _syncStatus = _syncStatus.copyWith(
+      isOnline: ok,
       pendingRecords: 0,
-      lastSyncedAt: "Just now",
+      lastSyncedAt: ok ? "Synchronized just now" : "Offline / Unreachable",
     );
     notifyListeners();
   }
@@ -87,15 +59,18 @@ class OfflineSyncScreen extends StatefulWidget {
 
 class _OfflineSyncScreenState extends State<OfflineSyncScreen> {
   late final SyncViewModel _viewModel;
+  late final TextEditingController _urlController;
 
   @override
   void initState() {
     super.initState();
     _viewModel = SyncViewModel();
+    _urlController = TextEditingController(text: ApiConfig.baseUrl);
   }
 
   @override
   void dispose() {
+    _urlController.dispose();
     _viewModel.dispose();
     super.dispose();
   }
@@ -266,6 +241,65 @@ class _OfflineSyncScreenState extends State<OfflineSyncScreen> {
                       ),
                     ),
                   ),
+
+                const SizedBox(height: 16.0),
+
+                // ── Server URL Settings ───────────────────────────────────────
+                Card(
+                  margin: EdgeInsets.zero,
+                  elevation: 1.0,
+                  color: surfaceWhite,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Backend Server URL",
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: textPrimary),
+                        ),
+                        const SizedBox(height: 4),
+                        const Text(
+                          "Connects mobile client to FastAPI inference engine on your local network.",
+                          style: TextStyle(fontSize: 11, color: textSecondary),
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                controller: _urlController,
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  border: OutlineInputBorder(),
+                                  hintText: "http://<PC_IP>:8000",
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            ElevatedButton(
+                              onPressed: () {
+                                ApiConfig.setBaseUrl(_urlController.text.trim());
+                                _viewModel.triggerSync();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text("Server URL updated")),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: institutionalBlue,
+                                foregroundColor: Colors.white,
+                              ),
+                              child: const Text("SAVE"),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

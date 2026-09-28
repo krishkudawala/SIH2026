@@ -2,6 +2,8 @@
 Configuration loader for Mandi Nyaay inspection engine.
 """
 
+from __future__ import annotations
+
 from pathlib import Path
 import yaml
 

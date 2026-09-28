@@ -143,32 +143,72 @@ class _LotsScreenState extends State<LotsScreen> {
               const SizedBox(height: 8.0),
 
               // ── Lot list ───────────────────────────────────────────────────
-              Expanded( // Modifier.weight(1f)
-                child: ListView.separated(
-                  itemCount: state.filteredLots.length,
-                  separatorBuilder: (context, index) => const Divider(
-                    indent: 16.0,
-                    endIndent: 16.0,
-                    height: 1.0,
-                    thickness: 0.5,
-                    color: dividerGray,
-                  ),
-                  itemBuilder: (context, index) {
-                    final lot = state.filteredLots[index];
+              Expanded(
+                child: RefreshIndicator(
+                  color: institutionalBlue,
+                  onRefresh: _viewModel.refresh,
+                  child: state.filteredLots.isEmpty
+                      ? ListView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          children: [
+                            const SizedBox(height: 80),
+                            Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.inventory_2_outlined, size: 54, color: textHint),
+                                  const SizedBox(height: 12),
+                                  Text(
+                                    "No lots found",
+                                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: textPrimary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  const Text(
+                                    "Pull down to refresh or create a new lot below.",
+                                    style: TextStyle(fontSize: 12, color: textSecondary),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      : ListView.separated(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          itemCount: state.filteredLots.length,
+                          separatorBuilder: (context, index) => const Divider(
+                            indent: 16.0,
+                            endIndent: 16.0,
+                            height: 1.0,
+                            thickness: 0.5,
+                            color: dividerGray,
+                          ),
+                          itemBuilder: (context, index) {
+                            final lot = state.filteredLots[index];
 
-                    return Material(
-                      color: surfaceWhite,
-                      child: LotListRow(
-                        lot: lot,
-                        onClick: () => context.push(
-                          Screen.createLotDetailsRoute(lot.id),
+                            return Material(
+                              color: surfaceWhite,
+                              child: LotListRow(
+                                lot: lot,
+                                onClick: () => context.push(
+                                  Screen.createLotDetailsRoute(lot.id),
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      ),
-                    );
-                  },
                 ),
               ),
             ],
+          ),
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () => context.push(Screen.newLot),
+            backgroundColor: institutionalBlue,
+            foregroundColor: textOnBlue,
+            icon: const Icon(Icons.add),
+            label: const Text("New Lot", style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         );
       },

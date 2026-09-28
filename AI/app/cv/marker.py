@@ -5,6 +5,8 @@ Uses genuine OpenCV ArUco detector routines to find, decode, and validate
 physical reference markers. Never fabricates coordinates or detections.
 """
 
+from __future__ import annotations
+
 from pathlib import Path
 from typing import Final
 import cv2

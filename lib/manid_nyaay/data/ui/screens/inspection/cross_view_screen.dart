@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:sih2631/manid_nyaay/data/domain/model/inspection_session.dart';
-import 'package:sih2631/manid_nyaay/data/domain/model/onion_record.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
 import 'package:sih2631/manid_nyaay/data/ui/screens/inspection/inspection_view_model.dart';
 
-// --- Theme Colors Placeholder ---
 const Color backgroundGray = Color(0xFFF4F5F7);
 const Color blueLight = Color(0xFFE1F5FE);
 const Color institutionalBlue = Color(0xFF1565C0);
 const Color textSecondary = Color(0xFF64748B);
 const Color textPrimary = Color(0xFF1E293B);
 const Color surfaceWhite = Colors.white;
-const Color statusAmberLight = Color(0xFFFFF8E1);
 const Color statusAmber = Color(0xFFFFA000);
 const Color statusGreen = Color(0xFF4CAF50);
 const Color textHint = Color(0xFF94A3B8);
@@ -31,29 +28,37 @@ class CrossViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fixtureOnions = List.generate(8, (index) {
-      final idx = index + 1;
-      final isUncertain = idx == 4;
+    final completed = uiState.completedOrientations;
+    final bag = uiState.selectedBag;
+    final subtitle = bag != null ? "BAG ${bag.bagNumber} · ${bag.tier.displayLabel}" : "";
 
-      return (
-      "Onion #${idx.toString().padLeft(2, '0')}",
-      isUncertain ? CorrespondenceStatus.uncertain : CorrespondenceStatus.confirmed,
-      [
+    final views = [
+      (
         CaptureOrientation.top,
+        "Top View (Primary Sample Mat)",
+        "Planar detection for produce counting, diameter measurement & major surface defect segmentation.",
+        completed.contains(CaptureOrientation.top),
+      ),
+      (
         CaptureOrientation.side,
-        if (!isUncertain) CaptureOrientation.underside
-      ],
-      );
-    });
+        "Side View (Equatorial Profile)",
+        "Profile view for equatorial thickness and lateral defect observation.",
+        completed.contains(CaptureOrientation.side),
+      ),
+      (
+        CaptureOrientation.underside,
+        "Underside View (Basal Plate & Root)",
+        "Basal view for root rot, sprouting initiation and basal decay detection.",
+        completed.contains(CaptureOrientation.underside),
+      ),
+    ];
 
-    final subtitle = uiState.selectedBag != null
-        ? "BAG ${uiState.selectedBag!.bagNumber} · ${uiState.selectedBag!.tier.displayLabel}"
-        : "";
+    final hasPrimary = completed.contains(CaptureOrientation.top) || completed.isNotEmpty;
 
     return Scaffold(
       backgroundColor: backgroundGray,
       appBar: MandiTopAppBar(
-        title: "Cross-View Correspondence",
+        title: "Multi-Angle Correspondence",
         subtitle: subtitle,
         showBack: true,
         onBack: onBack,
@@ -75,7 +80,7 @@ class CrossViewScreen extends StatelessWidget {
                   const SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
-                      "Verify that each onion identity is consistent across Top, Side and Underside captures. If correspondence is uncertain, it will be routed to the Review queue.",
+                      "Review captured angles before triggering ONNX neural inference. All multi-angle captures are hashed and linked to this active session.",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: textSecondary,
                       ),
@@ -88,71 +93,69 @@ class CrossViewScreen extends StatelessWidget {
 
             Expanded(
               child: ListView.separated(
-                itemCount: fixtureOnions.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 6.0),
+                itemCount: views.length,
+                separatorBuilder: (context, index) => const SizedBox(height: 8.0),
                 itemBuilder: (context, index) {
-                  final (label, status, views) = fixtureOnions[index];
-                  final isUncertain = status == CorrespondenceStatus.uncertain;
+                  final (orientation, title, desc, isCaptured) = views[index];
 
                   return Card(
                     margin: EdgeInsets.zero,
                     elevation: 1.0,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-                    color: isUncertain ? statusAmberLight : surfaceWhite,
+                    color: surfaceWhite,
                     child: Padding(
-                      padding: const EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(14.0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                label,
-                                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: textPrimary,
-                                ),
-                              ),
-                              const SizedBox(height: 4.0),
-                              Row(
-                                children: CaptureOrientation.values.map((orientation) {
-                                  final captured = views.contains(orientation);
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: Text(
-                                      "${orientation.displayLabel.substring(0, 3)} ${captured ? "✓" : "–"}",
-                                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                        color: captured ? statusGreen : textHint,
+                          Icon(
+                            isCaptured ? Icons.check_circle : Icons.radio_button_unchecked,
+                            color: isCaptured ? statusGreen : textHint,
+                            size: 24.0,
+                          ),
+                          const SizedBox(width: 12.0),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      title,
+                                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: textPrimary,
                                       ),
                                     ),
-                                  );
-                                }).toList(),
-                              ),
-                            ],
-                          ),
-                          if (isUncertain)
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
-                              decoration: BoxDecoration(
-                                color: statusAmberLight,
-                                borderRadius: BorderRadius.circular(4.0),
-                              ),
-                              child: Row(
-                                children: [
-                                  const Icon(Icons.warning, color: statusAmber, size: 12.0),
-                                  const SizedBox(width: 4.0),
-                                  Text(
-                                    "Uncertain",
-                                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                      color: statusAmber,
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                                      decoration: BoxDecoration(
+                                        color: isCaptured ? const Color(0xFFE8F5E9) : const Color(0xFFF1F5F9),
+                                        borderRadius: BorderRadius.circular(4.0),
+                                      ),
+                                      child: Text(
+                                        isCaptured ? "UPLOADED" : "PENDING",
+                                        style: TextStyle(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: isCaptured ? statusGreen : textSecondary,
+                                        ),
+                                      ),
                                     ),
+                                  ],
+                                ),
+                                const SizedBox(height: 4.0),
+                                Text(
+                                  desc,
+                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: textSecondary,
+                                    fontSize: 11.5,
                                   ),
-                                ],
-                              ),
-                            )
-                          else
-                            const Icon(Icons.check_circle, color: statusGreen, size: 22.0),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -165,19 +168,18 @@ class CrossViewScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               height: 48.0,
-              child: ElevatedButton(
-                onPressed: onConfirm,
+              child: ElevatedButton.icon(
+                onPressed: hasPrimary ? onConfirm : null,
+                icon: const Icon(Icons.analytics_outlined),
+                label: const Text(
+                  "EXECUTE REAL ONNX INFERENCE",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: institutionalBlue,
+                  foregroundColor: textOnBlue,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                child: Text(
-                  "CONFIRM & VIEW PER-ONION RESULTS",
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: textOnBlue,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

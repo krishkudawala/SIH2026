@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -18,12 +19,16 @@ class BatchCaptureScreen extends StatefulWidget {
   final InspectionUiState uiState;
   final VoidCallback onCaptureComplete;
   final VoidCallback onBack;
+  final void Function(File file, CaptureOrientation orientation)? onImageCaptured;
+  final void Function(Uint8List bytes, String filename, CaptureOrientation orientation)? onBytesCaptured;
 
   const BatchCaptureScreen({
     super.key,
     required this.uiState,
     required this.onCaptureComplete,
     required this.onBack,
+    this.onImageCaptured,
+    this.onBytesCaptured,
   });
 
   @override
@@ -64,27 +69,30 @@ class _BatchCaptureScreenState extends State<BatchCaptureScreen> with WidgetsBin
   }
 
   Future<void> _initializeCamera() async {
-    final status = await Permission.camera.request();
-    setState(() => _hasCameraPermission = status.isGranted);
+    if (kIsWeb) return;
+    try {
+      final status = await Permission.camera.request();
+      setState(() => _hasCameraPermission = status.isGranted);
 
-    if (status.isGranted) {
-      try {
+      if (status.isGranted) {
         final cameras = await availableCameras();
-        final backCamera = cameras.firstWhere(
-              (c) => c.lensDirection == CameraLensDirection.back,
-          orElse: () => cameras.first,
-        );
+        if (cameras.isNotEmpty) {
+          final backCamera = cameras.firstWhere(
+            (c) => c.lensDirection == CameraLensDirection.back,
+            orElse: () => cameras.first,
+          );
 
-        _cameraController = CameraController(
-          backCamera,
-          ResolutionPreset.max,
-          enableAudio: false,
-        );
+          _cameraController = CameraController(
+            backCamera,
+            ResolutionPreset.max,
+            enableAudio: false,
+          );
 
-        await _cameraController!.initialize();
-        if (mounted) setState(() {});
-      } catch (_) {}
-    }
+          await _cameraController!.initialize();
+          if (mounted) setState(() {});
+        }
+      }
+    } catch (_) {}
   }
 
   Future<void> _toggleFlash() async {
@@ -106,23 +114,61 @@ class _BatchCaptureScreenState extends State<BatchCaptureScreen> with WidgetsBin
 
     try {
       final XFile image = await _cameraController!.takePicture();
-
-      final directory = await getExternalStorageDirectory();
-      final outputDir = Directory('${directory?.path}/mandiproof_captures');
-      if (!await outputDir.exists()) {
-        await outputDir.create(recursive: true);
-      }
-
       final timestamp = "${DateTime.now().year}${DateTime.now().month}${DateTime.now().day}_${DateTime.now().hour}${DateTime.now().minute}${DateTime.now().second}";
       final fileName = "bag${bag.bagNumber}_${orientation.name}_$timestamp.jpg";
-      final savedImage = File('${outputDir.path}/$fileName');
 
-      await File(image.path).copy(savedImage.path);
-
-      widget.onCaptureComplete();
-    } catch (_) {
+      if (widget.onBytesCaptured != null) {
+        final bytes = await image.readAsBytes();
+        widget.onBytesCaptured!(bytes, fileName, orientation);
+      } else if (!kIsWeb) {
+        final directory = await getExternalStorageDirectory();
+        final outputDir = Directory('${directory?.path}/mandiproof_captures');
+        if (!await outputDir.exists()) {
+          await outputDir.create(recursive: true);
+        }
+        final savedImage = File('${outputDir.path}/$fileName');
+        await File(image.path).copy(savedImage.path);
+        if (widget.onImageCaptured != null) {
+          widget.onImageCaptured!(savedImage, orientation);
+        } else {
+          widget.onCaptureComplete();
+        }
+      } else {
+        widget.onCaptureComplete();
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Capture failed: $e")));
+      }
     } finally {
       if (mounted) setState(() => _isCapturing = false);
+    }
+  }
+
+  Future<void> _useSampleAsset(BagSelection bag, CaptureOrientation orientation) async {
+    try {
+      final byteData = await DefaultAssetBundle.of(context).load('assets/sample_produce/01_mixed_damaged_rotten_healthy.jpg');
+      final bytes = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+      final fileName = "sample_produce_${orientation.name}.jpg";
+
+      if (widget.onBytesCaptured != null) {
+        widget.onBytesCaptured!(bytes, fileName, orientation);
+      } else if (!kIsWeb) {
+        final tempDir = await getTemporaryDirectory();
+        final tempFile = File('${tempDir.path}/$fileName');
+        await tempFile.writeAsBytes(bytes);
+        if (widget.onImageCaptured != null) {
+          widget.onImageCaptured!(tempFile, orientation);
+        } else {
+          widget.onCaptureComplete();
+        }
+      } else {
+        widget.onCaptureComplete();
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error loading sample: $e")));
+      }
     }
   }
 
@@ -220,10 +266,57 @@ class _BatchCaptureScreenState extends State<BatchCaptureScreen> with WidgetsBin
         ),
       ),
       body: _selectedTab == 1
-          ? Center(
-              child: Text(
-                "Gallery selection mode",
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
+          ? Container(
+              color: const Color(0xFFF4F5F7),
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: Card(
+                  elevation: 2.0,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  color: surfaceWhite,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.photo_library_outlined, size: 48, color: institutionalBlue),
+                        const SizedBox(height: 12),
+                        const Text(
+                          "Verified 17-Onion Tray Sample",
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: textPrimary),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          "Use real APMC marketplace produce capture (Healthy, Damaged & Sprouted onions) for instant AI inference testing.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: textSecondary, fontSize: 13),
+                        ),
+                        const SizedBox(height: 16),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            'assets/sample_produce/01_mixed_damaged_rotten_healthy.jpg',
+                            height: 140,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        ElevatedButton.icon(
+                          icon: const Icon(Icons.upload_file),
+                          label: Text("USE TEST SAMPLE (${currentOrientation.displayLabel})"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: institutionalBlue,
+                            foregroundColor: Colors.white,
+                            minimumSize: const Size(double.infinity, 44),
+                          ),
+                          onPressed: widget.uiState.isUploading ? null : () => _useSampleAsset(bag, currentOrientation),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             )
           : Column(

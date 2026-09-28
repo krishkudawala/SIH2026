@@ -97,7 +97,9 @@ class CreateSessionRequest(BaseModel):
 
 
 class AddCaptureRequest(BaseModel):
-    image_path: str = Field(..., description="Local filesystem path to captured produce photo")
+    image_path: Optional[str] = Field(default=None, description="Local filesystem path to captured produce photo")
+    image_base64: Optional[str] = Field(default=None, description="Base64 encoded image content for remote/mobile upload")
+    filename: Optional[str] = Field(default=None, description="Optional filename for uploaded image")
     capture_role: str = Field(default="PRIMARY_SAMPLE_CAPTURE", description="PRIMARY_SAMPLE_CAPTURE or DETAIL_RECAPTURE")
     view_angle: str = Field(default="TOP", description="PRIMARY, TOP, SIDE, DETAIL, UNDERSIDE")
     target_sample_unit_id: Optional[str] = Field(default=None, description="Existing SampleUnit ID if DETAIL_RECAPTURE")
@@ -216,9 +218,23 @@ def add_capture(
 ) -> CaptureModel:
     """Add a photographic capture and execute real optical image quality screening."""
     try:
+        target_path = payload.image_path
+        if payload.image_base64:
+            import base64
+            import uuid
+            captures_dir = Path("data/captures") / id
+            captures_dir.mkdir(parents=True, exist_ok=True)
+            fname = payload.filename or f"cap_{uuid.uuid4().hex[:8]}.jpg"
+            saved_file = captures_dir / fname
+            saved_file.write_bytes(base64.b64decode(payload.image_base64))
+            target_path = str(saved_file.resolve())
+
+        if not target_path:
+            raise HTTPException(status_code=400, detail="Either image_path or image_base64 must be provided.")
+
         return engine.add_capture(
             session_id=id,
-            image_path=payload.image_path,
+            image_path=target_path,
             capture_role=payload.capture_role,
             view_angle=payload.view_angle,
             target_sample_unit_id=payload.target_sample_unit_id,

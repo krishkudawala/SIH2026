@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
+import 'package:sih2631/manid_nyaay/data/ui/navigation/screen.dart';
 import 'package:sih2631/manid_nyaay/data/ui/screens/result/result_view_model.dart';
 
 // --- Assumed Imports (Replace with actual paths) ---
@@ -74,17 +75,52 @@ class _GradingResultScreenState extends State<GradingResultScreen> {
         listenable: _viewModel,
         builder: (context, _) {
           final state = _viewModel.uiState;
-
-          // Note: using a mock result here since the VM currently mocks null.
-          // Replace `mockResult` with `state.result` once hooked up.
-          final result = state.result ?? _getMockResult();
-          final lot = state.lot;
-
           if (state.isLoading) {
             return const Center(
               child: CircularProgressIndicator(color: institutionalBlue),
             );
           }
+
+          if (state.result == null) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.analytics_outlined, size: 64, color: textSecondary),
+                    const SizedBox(height: 16),
+                    Text(
+                      "No Inspection Results Yet",
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      "This lot has not undergone AI camera capture and ONNX inference.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: textSecondary, fontSize: 13),
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton.icon(
+                      onPressed: () => context.push(Screen.createInspectionRoute(widget.lotId)),
+                      icon: const Icon(Icons.camera_alt),
+                      label: const Text("Launch Inspection"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: institutionalBlue,
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+
+          final result = state.result!;
+          final lot = state.lot;
 
           // ── Calculate Primary Grade ────────────────────────────────────────
           final Grade primaryGrade;
@@ -242,7 +278,7 @@ class _GradingResultScreenState extends State<GradingResultScreen> {
                               ],
                             ),
                           );
-                        }).toList(),
+                        }),
 
                         const SizedBox(height: 8.0),
                         const Divider(color: dividerGray, thickness: 0.5, height: 1.0),
@@ -414,7 +450,7 @@ class _GradingResultScreenState extends State<GradingResultScreen> {
                               ],
                             ),
                           );
-                        }).toList(),
+                        }),
 
                         const SizedBox(height: 8.0),
 
@@ -482,24 +518,6 @@ class _GradingResultScreenState extends State<GradingResultScreen> {
           );
         },
       ),
-    );
-  }
-
-  // Temporary mock function - replace with actual GradingResult model data mapping
-  dynamic _getMockResult() {
-    return (
-    gradeAByWeight: 0.68,
-    ursByWeight: 0.22,
-    rejectByWeight: 0.10,
-    gradeAByCount: 0.65,
-    countToWeightDivergencePp: 3.0,
-    ci95Low: 0.62,
-    ci95High: 0.74,
-    sampleCount: 72,
-    isSufficient: true,
-    rulePackVersion: "1.4.2",
-    wbFlagged: false,
-    wbLabel: "Match",
     );
   }
 }

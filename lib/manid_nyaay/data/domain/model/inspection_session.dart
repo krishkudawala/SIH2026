@@ -38,8 +38,15 @@ enum InspectionState {
   batchSideCapture,
   batchUndersideCapture,
   crossViewCorrespondence,
+  aiInference,
   perOnionResult,
   samplingSufficiency,
+  measurementWeight,
+  reviewQueue,
+  decision,
+  evidenceReplay,
+  reportReceipt,
+  dispute,
   finalResult,
 }
 

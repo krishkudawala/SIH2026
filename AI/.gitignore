@@ -24,6 +24,8 @@ data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+data/captures/*
+!data/captures/.gitkeep
 
 # Android & Gradle
 .gradle/
