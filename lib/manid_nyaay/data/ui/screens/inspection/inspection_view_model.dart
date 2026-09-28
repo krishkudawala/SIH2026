@@ -8,6 +8,7 @@ import 'package:sih2631/manid_nyaay/data/domain/model/inspection_session.dart';
 import 'package:sih2631/manid_nyaay/data/domain/model/lot.dart';
 import 'package:sih2631/manid_nyaay/data/domain/model/onion_record.dart';
 import 'package:sih2631/manid_nyaay/data/fixture/lot_repository.dart';
+import 'package:sih2631/manid_nyaay/data/services/on_device_inference_service.dart';
 
 class InspectionUiState {
   final String lotId;
@@ -47,6 +48,8 @@ class InspectionUiState {
   final int declaredBagCount;
   final double certifiedLotWeightKg;
   final String farmerName;
+  final bool isInferenceOnDevice;
+  final String inferenceEngineLabel;
 
   const InspectionUiState({
     this.lotId = "",
@@ -80,6 +83,8 @@ class InspectionUiState {
     this.declaredBagCount = 0,
     this.certifiedLotWeightKg = 0.0,
     this.farmerName = '',
+    this.isInferenceOnDevice = false,
+    this.inferenceEngineLabel = 'Backend ONNX Engine',
   });
 
   InspectionUiState copyWith({
@@ -116,6 +121,8 @@ class InspectionUiState {
     int? declaredBagCount,
     double? certifiedLotWeightKg,
     String? farmerName,
+    bool? isInferenceOnDevice,
+    String? inferenceEngineLabel,
   }) {
     return InspectionUiState(
       lotId: lotId ?? this.lotId,
@@ -149,6 +156,8 @@ class InspectionUiState {
       declaredBagCount: declaredBagCount ?? this.declaredBagCount,
       certifiedLotWeightKg: certifiedLotWeightKg ?? this.certifiedLotWeightKg,
       farmerName: farmerName ?? this.farmerName,
+      isInferenceOnDevice: isInferenceOnDevice ?? this.isInferenceOnDevice,
+      inferenceEngineLabel: inferenceEngineLabel ?? this.inferenceEngineLabel,
     );
   }
 }
@@ -348,14 +357,6 @@ class InspectionViewModel extends ChangeNotifier {
   }
 
   Future<void> runAIInference() async {
-    if (_uiState.sessionId.isEmpty) {
-      _uiState = _uiState.copyWith(
-        errorMessage: "Cannot run inference: No active backend session.",
-      );
-      notifyListeners();
-      return;
-    }
-
     _uiState = _uiState.copyWith(
       isInferenceRunning: true,
       currentState: InspectionState.aiInference,
@@ -363,56 +364,124 @@ class InspectionViewModel extends ChangeNotifier {
     );
     notifyListeners();
 
+    final effectiveSessionId = _uiState.sessionId.isNotEmpty
+        ? _uiState.sessionId
+        : 'sess_local_${DateTime.now().millisecondsSinceEpoch % 100000}';
+
+    // 1. If backend server is reachable and user hasn't forced on-device
+    if (!OnDeviceInferenceService.instance.isPreferOnDevice && ApiConfig.isConnectedNotifier.value) {
+      try {
+        await _api.runInference(effectiveSessionId);
+        final rawObs = await _api.getObservations(effectiveSessionId);
+        final rawUnits = await _api.getSampleUnits(effectiveSessionId);
+        final sampling = await _api.getSampling(effectiveSessionId);
+        final meas = await _api.getMeasurement(effectiveSessionId);
+        final weight = await _api.getWeight(effectiveSessionId);
+
+        final obsList = rawObs.map((e) => Map<String, dynamic>.from(e)).toList();
+        final unitsList = rawUnits.map((e) => Map<String, dynamic>.from(e)).toList();
+
+        final records = obsList.asMap().entries.map((entry) {
+          final idx = entry.key + 1;
+          final o = entry.value;
+          final cond = o['condition'] ?? 'HEALTHY';
+          Grade g = Grade.gradeA;
+          if (cond == 'DAMAGED' || cond == 'SPROUTED') g = Grade.urs;
+          if (cond == 'ROTTEN') g = Grade.reject;
+
+          return OnionRecord(
+            id: o['id'] ?? "obs_$idx",
+            sessionId: effectiveSessionId,
+            batchCaptureIds: const [],
+            diameterMm: (o['size_mm'] as num?)?.toDouble() ?? 0.0,
+            estimatedWeightGrams: (o['weight_g'] as num?)?.toDouble() ?? 0.0,
+            grade: g,
+            defects: const [],
+          );
+        }).toList();
+
+        _uiState = _uiState.copyWith(
+          sessionId: effectiveSessionId,
+          isInferenceRunning: false,
+          isInferenceOnDevice: false,
+          inferenceEngineLabel: 'Server ONNX Engine (onion-grading-v7.onnx)',
+          rawObservations: obsList,
+          rawSampleUnits: unitsList,
+          samplingData: sampling,
+          measurementData: meas,
+          weightData: weight,
+          onionRecords: records,
+          currentState: InspectionState.perOnionResult,
+        );
+        notifyListeners();
+        return;
+      } catch (e) {
+        debugPrint('[InspectionViewModel] Server inference failed, falling back to on-device: $e');
+      }
+    }
+
+    // 2. Fallback / Native execution: Standalone On-Device Inference Engine (Mobile CPU/NPU)
     try {
-      // 1. Run ONNX inference
-      await _api.runInference(_uiState.sessionId);
+      final onDeviceResult = await OnDeviceInferenceService.instance.runInference(
+        sessionId: effectiveSessionId,
+        imageBytes: _uiState.lastCapturedBytes,
+        targetSampleSize: 20,
+      );
 
-      // 2. Fetch observations & sample units
-      final rawObs = await _api.getObservations(_uiState.sessionId);
-      final rawUnits = await _api.getSampleUnits(_uiState.sessionId);
-
-      // 3. Fetch sampling, measurement, weight
-      final sampling = await _api.getSampling(_uiState.sessionId);
-      final meas = await _api.getMeasurement(_uiState.sessionId);
-      final weight = await _api.getWeight(_uiState.sessionId);
-
-      final obsList = rawObs.map((e) => Map<String, dynamic>.from(e)).toList();
-      final unitsList = rawUnits.map((e) => Map<String, dynamic>.from(e)).toList();
-
-      // Map to OnionRecord models for backward compatibility if needed
-      final records = obsList.asMap().entries.map((entry) {
-        final idx = entry.key + 1;
+      final obsList = onDeviceResult.observations.map((o) => o.toJson()).toList();
+      final records = onDeviceResult.observations.asMap().entries.map((entry) {
         final o = entry.value;
-        final cond = o['condition'] ?? 'HEALTHY';
         Grade g = Grade.gradeA;
-        if (cond == 'DAMAGED' || cond == 'SPROUTED') g = Grade.urs;
-        if (cond == 'ROTTEN') g = Grade.reject;
+        if (o.condition == 'DAMAGED' || o.condition == 'SPROUTED') g = Grade.urs;
+        if (o.condition == 'ROTTEN') g = Grade.reject;
 
         return OnionRecord(
-          id: o['id'] ?? "obs_$idx",
-          sessionId: _uiState.sessionId,
+          id: o.id,
+          sessionId: effectiveSessionId,
           batchCaptureIds: const [],
-          diameterMm: (o['size_mm'] as num?)?.toDouble() ?? 0.0,
-          estimatedWeightGrams: (o['weight_g'] as num?)?.toDouble() ?? 0.0,
+          diameterMm: (o.lengthMm + o.widthMm) / 2.0,
+          estimatedWeightGrams: o.estimatedWeightGrams,
           grade: g,
           defects: const [],
         );
       }).toList();
 
+      final sessionMap = onDeviceResult.toSessionMap();
+
       _uiState = _uiState.copyWith(
+        sessionId: effectiveSessionId,
         isInferenceRunning: false,
+        isInferenceOnDevice: true,
+        inferenceEngineLabel: 'On-Device Mobile CPU/NPU (Offline Standalone)',
         rawObservations: obsList,
-        rawSampleUnits: unitsList,
-        samplingData: sampling,
-        measurementData: meas,
-        weightData: weight,
+        rawSampleUnits: obsList,
+        samplingData: Map<String, dynamic>.from(sessionMap['sampling'] as Map),
+        measurementData: {
+          'session_id': effectiveSessionId,
+          'status': 'COMPLETED',
+          'observations': obsList,
+          'weighbridge_review_signal': 'NORMAL',
+          'calibrated_geometry_units': 'MILLIMETERS',
+        },
+        weightData: {
+          'session_id': effectiveSessionId,
+          'status': 'COMPLETED',
+          'total_estimated_weight_g': onDeviceResult.observations.fold<double>(0.0, (acc, o) => acc + o.estimatedWeightGrams),
+          'variance_review_signal': 'NORMAL',
+          'confidence_interval_95': [onDeviceResult.ci95Lower, onDeviceResult.ci95Upper],
+        },
+        decisionData: Map<String, dynamic>.from(sessionMap['decision'] as Map),
+        evidenceData: {
+          'session_id': effectiveSessionId,
+          'merkle_root': onDeviceResult.merkleRootSha256,
+        },
         onionRecords: records,
         currentState: InspectionState.perOnionResult,
       );
     } catch (e) {
       _uiState = _uiState.copyWith(
         isInferenceRunning: false,
-        errorMessage: "Inference failed: $e",
+        errorMessage: "On-device inference failed: $e",
         currentState: InspectionState.sourceSelection,
       );
     }

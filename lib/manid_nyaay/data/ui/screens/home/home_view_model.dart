@@ -7,12 +7,15 @@ import 'package:sih2631/manid_nyaay/data/domain/model/lot.dart';
 import 'package:sih2631/manid_nyaay/data/domain/model/work_load_metrics.dart';
 import 'package:sih2631/manid_nyaay/data/fixture/lot_repository.dart';
 
+import 'package:sih2631/manid_nyaay/data/services/mandi_price_service.dart';
+
 // --- State Data Class ---
 class HomeUiState {
   final Inspector inspector;
   final SyncStatus syncStatus;
   final WorkloadMetrics workloadMetrics;
   final List<Lot> recentSessions;
+  final List<MandiPriceRecord> mandiPrices;
   final bool isLoading;
   final String? errorMessage;
 
@@ -21,6 +24,7 @@ class HomeUiState {
     required this.syncStatus,
     required this.workloadMetrics,
     this.recentSessions = const [],
+    this.mandiPrices = const [],
     this.isLoading = true,
     this.errorMessage,
   });
@@ -30,6 +34,7 @@ class HomeUiState {
     SyncStatus? syncStatus,
     WorkloadMetrics? workloadMetrics,
     List<Lot>? recentSessions,
+    List<MandiPriceRecord>? mandiPrices,
     bool? isLoading,
     String? errorMessage,
     bool clearError = false,
@@ -39,6 +44,7 @@ class HomeUiState {
       syncStatus: syncStatus ?? this.syncStatus,
       workloadMetrics: workloadMetrics ?? this.workloadMetrics,
       recentSessions: recentSessions ?? this.recentSessions,
+      mandiPrices: mandiPrices ?? this.mandiPrices,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
     );
@@ -111,9 +117,18 @@ class HomeViewModel extends ChangeNotifier {
       // Recent = last 5 sessions regardless of status
       final recent = allLots.take(5).toList();
 
+      // Fetch live Data.gov.in Agmarknet prices
+      List<MandiPriceRecord> livePrices = _uiState.mandiPrices;
+      try {
+        livePrices = await MandiPriceService.instance.fetchLivePrices(commodity: 'Onion');
+      } catch (e) {
+        debugPrint('[HomeViewModel] Price fetch error: $e');
+      }
+
       final isConnected = ApiConfig.isConnectedNotifier.value;
       _uiState = _uiState.copyWith(
         recentSessions: recent,
+        mandiPrices: livePrices,
         syncStatus: SyncStatus(
           isOnline: isConnected,
           pendingRecords: 0,

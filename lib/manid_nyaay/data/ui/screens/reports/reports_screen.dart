@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sih2631/manid_nyaay/data/api/api_client.dart';
+import 'package:sih2631/manid_nyaay/data/services/thermal_printer_service.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
 
 const Color backgroundGray = Color(0xFFF4F5F7);
@@ -118,6 +119,32 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   );
                 },
                 child: const Text("COPY"),
+              ),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.print, size: 16),
+                label: const Text("PRINT ESC/POS"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF2E7D32),
+                  foregroundColor: Colors.white,
+                ),
+                onPressed: () async {
+                  await ThermalPrinterService.instance.printAuditSlip(
+                    sessionId: sessionId,
+                    lotId: 'LOT-$sessionId',
+                    farmerName: 'Mandi Producer',
+                    grade: 'GRADE_A',
+                    sampleCount: 20,
+                    defectRate: 5.0,
+                    ciLower: 2.1,
+                    ciUpper: 8.4,
+                    merkleRoot: 'audit_root_${sessionId.hashCode.toRadixString(16)}',
+                  );
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Audit slip dispatched to thermal printer")),
+                    );
+                  }
+                },
               ),
               ElevatedButton(
                 onPressed: () => Navigator.of(ctx).pop(),

@@ -252,9 +252,12 @@ class MandiApiClient {
   }
 
   // OCR
-  Future<Map<String, dynamic>> scanOcr(String imagePath) async {
+  Future<Map<String, dynamic>> scanOcr({String? imagePath, String? imageBase64}) async {
     final uri = Uri.parse('$_base/ocr/scan');
-    final body = jsonEncode({'image_path': imagePath});
+    final body = jsonEncode({
+      if (imagePath != null) 'image_path': imagePath,
+      if (imageBase64 != null) 'image_base64': imageBase64,
+    });
     final res = await http.post(uri, headers: _headers, body: body).timeout(const Duration(seconds: 15));
     return Map<String, dynamic>.from(await _handleResponse(res));
   }

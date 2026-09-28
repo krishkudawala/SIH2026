@@ -237,7 +237,7 @@ class _PerOnionResultScreenState extends State<PerOnionResultScreen> {
                     child: Text(
                       totalCount == 0
                           ? 'No produce detected — retry capture or check lighting'
-                          : 'ONNX: $totalCount detected  •  $healthyCount Healthy  •  $defectCount Defect',
+                          : '${widget.uiState.isInferenceOnDevice ? "⚡ On-Device" : "🌐 ONNX Server"}: $totalCount detected  •  $healthyCount Healthy  •  $defectCount Defect',
                       style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
                       textAlign: TextAlign.center,
                     ),

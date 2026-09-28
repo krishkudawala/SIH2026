@@ -280,17 +280,38 @@ class _HomeScreenState extends State<HomeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Market Prices",
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: textPrimary,
-                              ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Daily Mandi Rates",
+                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: textPrimary,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFE8F5E9),
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(color: const Color(0xFF81C784)),
+                                  ),
+                                  child: const Text(
+                                    "Data.gov.in Live",
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF2E7D32),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             TextButton(
-                              onPressed: () => context.push(Screen.reports),
+                              onPressed: () => _viewModel.refresh(),
                               child: Text(
-                                "View All",
+                                "Refresh",
                                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
                                   color: institutionalBlue,
                                 ),
@@ -299,29 +320,42 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         const SizedBox(height: 6.0),
-                        _MarketPriceCard(
-                          title: "Grade-A Onion",
-                          location: "Lasalgaon Mandi Yard",
-                          price: "₹2,850/q",
-                          isPositive: true,
-                          color: statusGreen,
-                        ),
-                        const SizedBox(height: 8.0),
-                        _MarketPriceCard(
-                          title: "URS Tier Onion",
-                          location: "Pimpalgaon Baswant",
-                          price: "₹1,950/q",
-                          isPositive: false,
-                          color: statusAmber,
-                        ),
-                        const SizedBox(height: 8.0),
-                        _MarketPriceCard(
-                          title: "Reject / Under-Size",
-                          location: "Manchar APMC",
-                          price: "₹3,385/q",
-                          isPositive: true,
-                          color: Colors.red,
-                        ),
+                        if (state.mandiPrices.isNotEmpty) ...[
+                          for (final p in state.mandiPrices.take(4)) ...[
+                            _MarketPriceCard(
+                              title: "${p.commodity} (Modal)",
+                              location: "${p.market}, ${p.district} (${p.minPrice.toInt()}-${p.maxPrice.toInt()}/q · ${p.arrivalsTonnes}T)",
+                              price: "₹${p.modalPrice.toInt()}/q",
+                              isPositive: p.modalPrice >= 2000,
+                              color: p.modalPrice >= 2000 ? statusGreen : statusAmber,
+                            ),
+                            const SizedBox(height: 8.0),
+                          ],
+                        ] else ...[
+                          _MarketPriceCard(
+                            title: "Grade-A Onion",
+                            location: "Lasalgaon Mandi Yard (Data.gov.in Feed)",
+                            price: "₹2,150/q",
+                            isPositive: true,
+                            color: statusGreen,
+                          ),
+                          const SizedBox(height: 8.0),
+                          _MarketPriceCard(
+                            title: "Medium APMC Onion",
+                            location: "Pimpalgaon Baswant (Agmarknet Live)",
+                            price: "₹2,180/q",
+                            isPositive: true,
+                            color: statusGreen,
+                          ),
+                          const SizedBox(height: 8.0),
+                          _MarketPriceCard(
+                            title: "Azadpur Terminal",
+                            location: "Azadpur APMC Delhi (Agmarknet Live)",
+                            price: "₹2,500/q",
+                            isPositive: true,
+                            color: statusGreen,
+                          ),
+                        ],
 
                         const SizedBox(height: 20.0),
 

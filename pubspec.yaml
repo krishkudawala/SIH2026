@@ -44,6 +44,10 @@ dependencies:
   lucide_icons_flutter: ^3.1.20
   camera_android: ^0.10.11+1
   http: ^1.2.0
+  google_mlkit_text_recognition: ^0.17.1
+  print_bluetooth_thermal: ^1.2.4
+  onnxruntime: ^1.4.1
+  crypto: ^3.0.6
 
 
 dev_dependencies:

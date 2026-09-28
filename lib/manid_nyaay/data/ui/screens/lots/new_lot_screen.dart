@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sih2631/manid_nyaay/data/api/api_client.dart';
 import 'package:sih2631/manid_nyaay/data/domain/model/lot.dart';
 import 'package:sih2631/manid_nyaay/data/fixture/lot_repository.dart';
+import 'package:sih2631/manid_nyaay/data/services/ocr_service.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/chevron_row.dart';
 import 'package:sih2631/manid_nyaay/data/ui/navigation/screen.dart';
 
@@ -32,37 +32,23 @@ class _NewLotScreenState extends State<NewLotScreen> {
   final TextEditingController _weighbridgeRefController = TextEditingController();
 
   bool _isScanningOcr = false;
-  final MandiApiClient _api = MandiApiClient();
 
   Future<void> _handleOcrScan() async {
     setState(() => _isScanningOcr = true);
     try {
-      final res = await _api.scanOcr('AI/data/raw/01_mixed_damaged_rotten_healthy.jpg');
-      final candidates = (res['candidates'] as List<dynamic>?) ?? [];
+      final ocrResult = await OcrService.instance.scanWeighbridgeSlip(
+        filePath: 'assets/sample_produce/01_mixed_damaged_rotten_healthy.jpg',
+      );
 
-      String detectedLotId = '';
+      String detectedLotId = 'LOT-MH-${DateTime.now().millisecondsSinceEpoch % 10000}';
       String detectedBags = '50';
-      String detectedWeight = '1250.0';
-      String detectedSlip = 'WB-98124';
-
-      for (final c in candidates) {
-        if (c is Map) {
-          final type = (c['field_type'] ?? '').toString();
-          final text = (c['text'] ?? '').toString();
-          if (type == 'LOT_ID' && detectedLotId.isEmpty) {
-            detectedLotId = text.startsWith('LOT') ? text : 'LOT-$text';
-          } else if (type == 'WEIGHT') {
-            detectedWeight = text;
-          } else if (type == 'BAG_TAG') {
-            detectedBags = text;
-          } else if (type == 'SLIP_NUM') {
-            detectedSlip = 'WB-$text';
-          }
-        }
-      }
-      if (detectedLotId.isEmpty) {
-        detectedLotId = 'LOT-MH-${DateTime.now().millisecondsSinceEpoch % 10000}';
-      }
+      String detectedWeight = ocrResult.netWeightKg != null
+          ? ocrResult.netWeightKg!.toStringAsFixed(1)
+          : '1250.0';
+      String detectedSlip = ocrResult.slipId != null
+          ? 'WB-${ocrResult.slipId}'
+          : 'WB-${DateTime.now().millisecondsSinceEpoch % 10000}';
+      String engineLabel = ocrResult.engineUsed;
 
       if (!mounted) return;
 
@@ -90,6 +76,7 @@ class _NewLotScreenState extends State<NewLotScreen> {
               _OcrCandidateRow(label: "Bag Count", value: detectedBags),
               _OcrCandidateRow(label: "Certified Weight", value: "$detectedWeight kg"),
               _OcrCandidateRow(label: "Slip Reference", value: detectedSlip),
+              _OcrCandidateRow(label: "Engine", value: engineLabel),
             ],
           ),
           actions: [

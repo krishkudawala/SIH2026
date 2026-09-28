@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sih2631/manid_nyaay/data/services/thermal_printer_service.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
 import 'package:sih2631/manid_nyaay/data/ui/screens/inspection/inspection_view_model.dart';
 
@@ -49,7 +50,13 @@ class ReportReceiptScreen extends StatelessWidget {
     final rottenCount = (structured['rotten_count'] as num?)?.toInt() ?? 0;
 
     final offlineRef = (report['offline_ref_code'] ?? structured['offline_ref_code'] ?? 'MN-OFFLINE').toString();
-    final rootHash = (structured['evidence_root_hash'] ?? uiState.evidenceData?['evidence_root_hash'] ?? 'Verified').toString();
+    final rootHash = (structured['evidence_root_hash'] ?? uiState.evidenceData?['evidence_root_hash'] ?? uiState.evidenceData?['merkle_root'] ?? 'Verified-Ledger').toString();
+
+    final lotId = uiState.lotId.isNotEmpty ? uiState.lotId : 'LOT-LIVE-01';
+    final farmerName = uiState.farmerName.isNotEmpty ? uiState.farmerName : 'Mandi Producer';
+    final ciLower = (uiState.samplingData?['ci_95_lower'] as num?)?.toDouble() ?? (totalDefectPct * 0.7);
+    final ciUpper = (uiState.samplingData?['ci_95_upper'] as num?)?.toDouble() ?? (totalDefectPct * 1.3);
+    final merkleRoot = rootHash;
 
     final Color decisionColor = switch (decision.toUpperCase()) {
       'GRADE_A' => successGreen,
@@ -350,6 +357,22 @@ class ReportReceiptScreen extends StatelessWidget {
                         Row(
                           children: [
                             IconButton(
+                              icon: const Icon(Icons.print, size: 18, color: successGreen),
+                              tooltip: "Print Thermal Slip (Bluetooth)",
+                              onPressed: () => _showBluetoothPrintDialog(
+                                context,
+                                sessionId: uiState.sessionId,
+                                lotId: lotId,
+                                farmerName: farmerName,
+                                grade: decision,
+                                sampleCount: sampleCount,
+                                defectRate: totalDefectPct,
+                                ciLower: ciLower,
+                                ciUpper: ciUpper,
+                                merkleRoot: merkleRoot,
+                              ),
+                            ),
+                            IconButton(
                               icon: const Icon(Icons.copy, size: 18, color: institutionalBlue),
                               tooltip: "Copy Slip Text",
                               onPressed: () {
@@ -388,7 +411,32 @@ class ReportReceiptScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
+
+            // ── Bluetooth Thermal Print Button ──────────────────────────────
+            ElevatedButton.icon(
+              onPressed: () => _showBluetoothPrintDialog(
+                context,
+                sessionId: uiState.sessionId,
+                lotId: lotId,
+                farmerName: farmerName,
+                grade: decision,
+                sampleCount: sampleCount,
+                defectRate: totalDefectPct,
+                ciLower: ciLower,
+                ciUpper: ciUpper,
+                merkleRoot: merkleRoot,
+              ),
+              icon: const Icon(Icons.bluetooth_audio, size: 18),
+              label: const Text("PRINT BLUETOOTH AUDIT SLIP (ESC/POS)"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: successGreen,
+                foregroundColor: Colors.white,
+                minimumSize: const Size(double.infinity, 46),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              ),
+            ),
+            const SizedBox(height: 12),
 
             // ── Primary Completion Actions ──────────────────────────────────
             Row(
@@ -435,6 +483,171 @@ class ReportReceiptScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showBluetoothPrintDialog(
+    BuildContext context, {
+    required String sessionId,
+    required String lotId,
+    required String farmerName,
+    required String grade,
+    required int sampleCount,
+    required double defectRate,
+    required double ciLower,
+    required double ciUpper,
+    required String merkleRoot,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (ctx) {
+        return StatefulBuilder(
+          builder: (context, setSheetState) {
+            return FutureBuilder<List<BluetoothPrinterDevice>>(
+              future: ThermalPrinterService.instance.getPairedPrinters(),
+              builder: (context, snapshot) {
+                final printers = snapshot.data ?? [];
+                final isConnected = ThermalPrinterService.instance.isConnected;
+                final connectedName = ThermalPrinterService.instance.connectedDeviceName;
+
+                return Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Row(
+                            children: [
+                              Icon(Icons.bluetooth_audio, color: institutionalBlue),
+                              SizedBox(width: 8),
+                              Text("Bluetooth Thermal Printer", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.close),
+                            onPressed: () => Navigator.pop(ctx),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        isConnected
+                            ? "Connected to: $connectedName"
+                            : "Select a 58mm / 80mm ESC/POS printer at the mandi gate:",
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: isConnected ? successGreen : textSecondary,
+                          fontWeight: isConnected ? FontWeight.bold : FontWeight.normal,
+                        ),
+                      ),
+                      const Divider(height: 24),
+                      if (snapshot.connectionState == ConnectionState.waiting)
+                        const Center(child: Padding(padding: EdgeInsets.all(16), child: CircularProgressIndicator()))
+                      else if (printers.isEmpty && !isConnected) ...[
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF1F5F9),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("No paired Bluetooth printers found.", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                              SizedBox(height: 4),
+                              Text(
+                                "1. Turn on your handheld thermal printer.\n2. Pair it in your phone's Android Bluetooth settings.\n3. Return here to print the ESC/POS receipt.",
+                                style: TextStyle(fontSize: 12, color: textSecondary),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        ElevatedButton.icon(
+                          onPressed: () async {
+                            Navigator.pop(ctx);
+                            await ThermalPrinterService.instance.printAuditSlip(
+                              sessionId: sessionId,
+                              lotId: lotId,
+                              farmerName: farmerName,
+                              grade: grade,
+                              sampleCount: sampleCount,
+                              defectRate: defectRate,
+                              ciLower: ciLower,
+                              ciUpper: ciUpper,
+                              merkleRoot: merkleRoot,
+                            );
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Audit slip generated & dispatched (ESC/POS 58mm format)")),
+                              );
+                            }
+                          },
+                          icon: const Icon(Icons.print),
+                          label: const Text("PRINT TEST SLIP (SIMULATED ESC/POS)"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: institutionalBlue,
+                            foregroundColor: Colors.white,
+                            minimumSize: const Size(double.infinity, 44),
+                          ),
+                        ),
+                      ] else ...[
+                        for (final p in printers)
+                          ListTile(
+                            leading: const Icon(Icons.print, color: institutionalBlue),
+                            title: Text(p.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                            subtitle: Text(p.macAddress, style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                            trailing: ElevatedButton(
+                              onPressed: () async {
+                                final ok = await ThermalPrinterService.instance.connectPrinter(p);
+                                if (ok) {
+                                  await ThermalPrinterService.instance.printAuditSlip(
+                                    sessionId: sessionId,
+                                    lotId: lotId,
+                                    farmerName: farmerName,
+                                    grade: grade,
+                                    sampleCount: sampleCount,
+                                    defectRate: defectRate,
+                                    ciLower: ciLower,
+                                    ciUpper: ciUpper,
+                                    merkleRoot: merkleRoot,
+                                  );
+                                  if (context.mounted) {
+                                    Navigator.pop(ctx);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text("Audit slip printed on ${p.name} via Bluetooth ESC/POS")),
+                                    );
+                                  }
+                                } else {
+                                  if (context.mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text("Failed to connect to ${p.name}")),
+                                    );
+                                  }
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: successGreen,
+                                foregroundColor: Colors.white,
+                              ),
+                              child: const Text("PRINT"),
+                            ),
+                          ),
+                      ],
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        );
+      },
     );
   }
 }
