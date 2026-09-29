@@ -520,54 +520,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
 // ── Private Sub-Components ───────────────────────────────────────────────────
 
-class _QuickActionItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-
-  const _QuickActionItem({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Container(
-            width: context.sp(56),
-            height: context.sp(56),
-            decoration: BoxDecoration(
-              color: surfaceWhite,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 4.0,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            alignment: Alignment.center,
-            child: Icon(icon, color: institutionalBlue, size: context.sp(24)),
-          ),
-          const SizedBox(height: 6.0),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              color: textPrimary,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class _MarketPriceCard extends StatelessWidget {
   final String title;
   final String location;

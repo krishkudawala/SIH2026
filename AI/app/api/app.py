@@ -34,7 +34,9 @@ Runs 100% offline. Zero mocks. Zero fake values.
 
 from __future__ import annotations
 
+import json
 import logging
+import os
 from pathlib import Path
 from typing import Any, Optional
 
@@ -146,7 +148,9 @@ class TrainWeightModelRequest(BaseModel):
 
 
 class OCRScanRequest(BaseModel):
-    image_path: str = Field(..., description="Path to label, receipt, or weighbridge slip image")
+    image_path: Optional[str] = Field(default=None, description="Path to label, receipt, or weighbridge slip image")
+    image_base64: Optional[str] = Field(default=None, description="Base64-encoded image for mobile upload")
+    filename: Optional[str] = Field(default=None, description="Optional filename for uploaded image")
 
 
 class OCRConfirmRequest(BaseModel):
@@ -512,7 +516,21 @@ def scan_ocr(
 ) -> dict[str, Any]:
     """Scan image for candidate Lot IDs, bag labels, and weighbridge slips."""
     try:
-        res = engine.scan_ocr(payload.image_path)
+        target_path = payload.image_path
+        if payload.image_base64:
+            import base64
+            import uuid
+            ocr_dir = Path("data/ocr_uploads")
+            ocr_dir.mkdir(parents=True, exist_ok=True)
+            fname = payload.filename or f"ocr_{uuid.uuid4().hex[:8]}.jpg"
+            saved_file = ocr_dir / fname
+            saved_file.write_bytes(base64.b64decode(payload.image_base64))
+            target_path = str(saved_file.resolve())
+
+        if not target_path:
+            raise HTTPException(status_code=400, detail="Either image_path or image_base64 must be provided.")
+
+        res = engine.scan_ocr(target_path)
         return res.model_dump()
     except FileNotFoundError as e:
         raise HTTPException(status_code=404, detail=str(e))

@@ -6,7 +6,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sih2631/manid_nyaay/data/domain/model/inspection_session.dart';
 import 'package:sih2631/manid_nyaay/data/ui/screens/inspection/inspection_view_model.dart';
-import 'package:sih2631/manid_nyaay/data/ui/utils/responsive.dart';
 
 // --- Theme Colors ---
 const Color institutionalBlue = Color(0xFF1565C0);

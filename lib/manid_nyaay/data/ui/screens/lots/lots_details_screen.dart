@@ -6,7 +6,6 @@ import 'package:sih2631/manid_nyaay/data/ui/components/lot_card.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
 import 'package:sih2631/manid_nyaay/data/ui/navigation/screen.dart';
 import 'package:sih2631/manid_nyaay/data/ui/screens/lots/lot_details_view_model.dart';
-import 'package:sih2631/manid_nyaay/data/ui/utils/responsive.dart';
 
 // Import your components, models, theme, and router
 // import 'package:mandi_nyaay/domain/model/lot_status.dart';

@@ -5,7 +5,6 @@ import 'package:sih2631/manid_nyaay/data/services/mandi_price_service.dart';
 import 'package:sih2631/manid_nyaay/data/services/on_device_inference_service.dart';
 import 'package:sih2631/manid_nyaay/data/services/thermal_printer_service.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
-import 'package:sih2631/manid_nyaay/data/ui/utils/responsive.dart';
 
 // --- Theme Constants Placeholder ---
 const Color backgroundGray = Color(0xFFF4F5F7);

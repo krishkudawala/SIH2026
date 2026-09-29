@@ -32,7 +32,31 @@ class SamplingSufficiencyScreen extends StatelessWidget {
     final target = (sampling['target_sample_size'] as num?)?.toInt() ?? 15;
     final status = (sampling['status'] ?? 'CONTINUE').toString();
     final reason = (sampling['stopping_reason'] ?? sampling['reason'] ?? 'Statistical threshold evaluation').toString();
-    final wilson = (sampling['wilson_intervals'] as Map<String, dynamic>?) ?? {};
+
+    // ---------- FIX: wilson_intervals can be a Map OR a List ----------
+    final rawWilson = sampling['wilson_intervals'];
+    final Map<String, dynamic> wilson = {};
+
+    if (rawWilson is Map) {
+      // Format: { "Grade A": {...}, "Grade B": {...} }
+      rawWilson.forEach((k, v) => wilson[k.toString()] = v);
+    } else if (rawWilson is List) {
+      // Format: [ {"label": "Grade A", "lower_ci": ...}, ... ]
+      for (int i = 0; i < rawWilson.length; i++) {
+        final item = rawWilson[i];
+        if (item is Map) {
+          final label = (item['label'] ??
+              item['name'] ??
+              item['grade'] ??
+              item['category'] ??
+              item['class'] ??
+              'Item ${i + 1}')
+              .toString();
+          wilson[label] = item;
+        }
+      }
+    }
+    // -------------------------------------------------------------------
 
     final isStop = status == 'STOP';
 

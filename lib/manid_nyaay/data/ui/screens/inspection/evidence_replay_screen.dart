@@ -26,6 +26,19 @@ class EvidenceReplayScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ── MediaQuery values ────────────────────────────────────────────────
+    final Size size = MediaQuery.sizeOf(context);
+    final double safeBottom = MediaQuery.paddingOf(context).bottom;
+    final double scale = (size.width / 375).clamp(0.85, 1.3);
+
+    final double pagePadding = (size.width * 0.04).clamp(12.0, 24.0);
+    final double cardPadding = 16.0 * scale;
+    final double maxContentWidth = 600.0;
+    final double iconSize = 28.0 * scale;
+    final double smallIconSize = 20.0 * scale;
+    final double buttonHeight = (48.0 * scale).clamp(48.0, 60.0);
+    final double outlinedButtonHeight = (44.0 * scale).clamp(44.0, 56.0);
+
     final evidence = uiState.evidenceData ?? {};
     final replay = uiState.replayData ?? {};
 
@@ -42,153 +55,191 @@ class EvidenceReplayScreen extends StatelessWidget {
         showBack: true,
         onBack: onBack,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Replay Verification Banner
-            Card(
-              elevation: 2.0,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              color: surfaceWhite,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          isIdentical ? Icons.verified : Icons.warning_amber,
-                          color: isIdentical ? statusGreen : Colors.red,
-                          size: 28,
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: maxContentWidth),
+          child: SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(
+              pagePadding,
+              pagePadding,
+              pagePadding,
+              pagePadding + safeBottom,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Replay Verification Banner
+                Card(
+                  elevation: 2.0,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  color: surfaceWhite,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: EdgeInsets.all(cardPadding),
+                      child: Column(
+                        children: [
+                          Row(
                             children: [
-                              Text(
-                                isIdentical ? "BIT-FOR-BIT REPLAY VERIFIED" : "REPLAY PARITY UNVERIFIED",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  color: isIdentical ? statusGreen : Colors.red,
-                                ),
+                              Icon(
+                                isIdentical ? Icons.verified : Icons.warning_amber,
+                                color: isIdentical ? statusGreen : Colors.red,
+                                size: iconSize,
                               ),
-                              const SizedBox(height: 2),
-                              Text(
-                                isIdentical
-                                    ? "Deterministic replay matched stored SHA-256 evidence tree."
-                                    : "Replay hash does not match original chain.",
-                                style: const TextStyle(fontSize: 12, color: textSecondary),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      isIdentical ? "BIT-FOR-BIT REPLAY VERIFIED" : "REPLAY PARITY UNVERIFIED",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14 * scale,
+                                        color: isIdentical ? statusGreen : Colors.red,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      isIdentical
+                                          ? "Deterministic replay matched stored SHA-256 evidence tree."
+                                          : "Replay hash does not match original chain.",
+                                      style: TextStyle(fontSize: 12 * scale, color: textSecondary),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 14),
-
-            // Root Hash Card
-            Card(
-              elevation: 1.0,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              color: surfaceWhite,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "EVIDENCE ROOT DIGEST",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: textSecondary),
-                    ),
-                    const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF8FAFC),
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: const Color(0xFFE2E8F0)),
+                        ],
                       ),
-                      child: SelectableText(
-                        rootHash,
-                        style: const TextStyle(fontFamily: 'monospace', fontSize: 11, color: institutionalBlue),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Ledger Events: ${events.length}", style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
-                        const Text("Algorithm: SHA-256", style: TextStyle(fontSize: 12, color: textSecondary)),
-                      ],
-                    ),
-                    if (recomputedHash != rootHash)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 6.0),
-                        child: Text(
-                          "Recomputed: $recomputedHash",
-                          style: const TextStyle(fontSize: 10, color: Colors.red),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 14),
-
-            // Mandatory disclaimer
-            Container(
-              padding: const EdgeInsets.all(12.0),
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFF8E1),
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: const Color(0xFFFFE082)),
-              ),
-              child: const Row(
-                children: [
-                  Icon(Icons.lock_clock, color: Color(0xFFF57C00), size: 20),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      "Truthfulness Notice: Evidence chain is tamper-evident and replayable, not tamper-proof. Physical bag identity is not independently verified.",
-                      style: TextStyle(fontSize: 11, color: Color(0xFFE65100), fontWeight: FontWeight.w600),
                     ),
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
+                ),
+                const SizedBox(height: 14),
 
-            ElevatedButton(
-              onPressed: onProceed,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: institutionalBlue,
-                foregroundColor: textOnBlue,
-                minimumSize: const Size(double.infinity, 48),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-              ),
-              child: const Text("GENERATE OFFICIAL MANDI REPORT & RECEIPT", style: TextStyle(fontWeight: FontWeight.bold)),
-            ),
-            const SizedBox(height: 10),
+                // Root Hash Card
+                Card(
+                  elevation: 1.0,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  color: surfaceWhite,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: EdgeInsets.all(cardPadding),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "EVIDENCE ROOT DIGEST",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12 * scale, color: textSecondary),
+                          ),
+                          const SizedBox(height: 8),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10 * scale),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF8FAFC),
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(color: const Color(0xFFE2E8F0)),
+                            ),
+                            child: SelectableText(
+                              rootHash,
+                              style: TextStyle(fontFamily: 'monospace', fontSize: 11 * scale, color: institutionalBlue),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  "Ledger Events: ${events.length}",
+                                  style: TextStyle(fontSize: 12 * scale, fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Flexible(
+                                child: Text(
+                                  "Algorithm: SHA-256",
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(fontSize: 12 * scale, color: textSecondary),
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (recomputedHash != rootHash)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6.0),
+                              child: Text(
+                                "Recomputed: $recomputedHash",
+                                style: TextStyle(fontSize: 10 * scale, color: Colors.red),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
 
-            OutlinedButton.icon(
-              onPressed: onOpenDispute,
-              icon: const Icon(Icons.gavel_outlined, color: Color(0xFFE65100)),
-              label: const Text("CHALLENGE LOT / OPEN DISPUTE", style: TextStyle(color: Color(0xFFE65100), fontWeight: FontWeight.bold)),
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Color(0xFFFFA000)),
-                minimumSize: const Size(double.infinity, 44),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-              ),
+                // Mandatory disclaimer
+                Container(
+                  padding: EdgeInsets.all(12.0 * scale),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFF8E1),
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: const Color(0xFFFFE082)),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.lock_clock, color: const Color(0xFFF57C00), size: smallIconSize),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          "Truthfulness Notice: Evidence chain is tamper-evident and replayable, not tamper-proof. Physical bag identity is not independently verified.",
+                          style: TextStyle(fontSize: 11 * scale, color: const Color(0xFFE65100), fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                ElevatedButton(
+                  onPressed: onProceed,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: institutionalBlue,
+                    foregroundColor: textOnBlue,
+                    minimumSize: Size(double.infinity, buttonHeight),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                  child: const Text(
+                    "GENERATE OFFICIAL MANDI REPORT & RECEIPT",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(height: 10),
+
+                OutlinedButton.icon(
+                  onPressed: onOpenDispute,
+                  icon: const Icon(Icons.gavel_outlined, color: Color(0xFFE65100)),
+                  label: const Text(
+                    "CHALLENGE LOT / OPEN DISPUTE",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Color(0xFFE65100), fontWeight: FontWeight.bold),
+                  ),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Color(0xFFFFA000)),
+                    minimumSize: Size(double.infinity, outlinedButtonHeight),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

@@ -4,7 +4,6 @@ import 'package:sih2631/manid_nyaay/data/ui/components/chevron_row.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
 import 'package:sih2631/manid_nyaay/data/ui/navigation/screen.dart';
 import 'package:sih2631/manid_nyaay/data/ui/screens/farmer/farmer_view_model.dart';
-import 'package:sih2631/manid_nyaay/data/ui/utils/responsive.dart';
 
 // Import your components, theme, model, and ViewModel
 // import 'package:mandi_nyaay/domain/model/farmer.dart';

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sih2631/manid_nyaay/data/ui/utils/responsive.dart';
 
 // --- Theme Colors Placeholder ---
 const Color surfaceWhite = Colors.white;
