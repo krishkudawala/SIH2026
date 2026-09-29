@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sih2631/manid_nyaay/data/domain/model/lot.dart';
+import 'package:sih2631/manid_nyaay/data/ui/utils/responsive.dart';
 
 // Assuming your domain models are imported
 // import 'package:mandi_nyaay/domain/model/lot.dart';
@@ -46,7 +47,7 @@ class LotCard extends StatelessWidget {
         side: const BorderSide(color: dividerGray, width: 1.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(context.responsivePadding(16.0)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

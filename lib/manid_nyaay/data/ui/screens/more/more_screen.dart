@@ -5,6 +5,7 @@ import 'package:sih2631/manid_nyaay/data/ui/components/chevron_row.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
 import 'package:sih2631/manid_nyaay/data/ui/navigation/screen.dart';
 import 'package:sih2631/manid_nyaay/data/ui/screens/more/more_view_model.dart';
+import 'package:sih2631/manid_nyaay/data/ui/utils/responsive.dart';
 
 // --- Assumed Imports (Replace with actual paths) ---
 // import 'package:mandi_nyaay/ui/components/mandi_top_app_bar.dart';
@@ -420,10 +421,10 @@ class _CalibrationModalState extends State<_CalibrationModal> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       padding: EdgeInsets.only(
-        left: 20,
-        right: 20,
+        left: context.responsivePadding(20),
+        right: context.responsivePadding(20),
         top: 20,
-        bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+        bottom: context.bottomInset + 20,
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -594,4 +595,4 @@ class _CalibrationModalState extends State<_CalibrationModal> {
       ),
     );
   }
-}
+}

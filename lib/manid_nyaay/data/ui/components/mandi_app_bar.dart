@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sih2631/manid_nyaay/data/api/api_config.dart';
+import 'package:sih2631/manid_nyaay/data/ui/utils/responsive.dart';
 
 // Note: Replace these with your actual theme colors
 // equivalent to your com.mandiNyaay.ui.theme colors
@@ -31,12 +32,29 @@ class MandiTopAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onAvatar,
   });
 
-  // Implements PreferredSizeWidget so you can use it in Scaffold(appBar: ...)
+  // preferredSize has no BuildContext, so the bar height stays fixed at 64.
+  // Everything INSIDE the bar is scaled with MediaQuery in build().
   @override
   Size get preferredSize => const Size.fromHeight(64.0);
 
   @override
   Widget build(BuildContext context) {
+    // ── MediaQuery values ────────────────────────────────────────────────
+    final double width = MediaQuery.sizeOf(context).width;
+    // Capped at 1.15 so content always fits inside the fixed 64dp bar.
+    final double scale = (width / 375).clamp(0.85, 1.15);
+    final bool isCompact = width < 360; // very small phones
+
+    final double iconSize = 24.0 * scale;
+    final double avatarSize = 36.0 * scale;
+    final double statusIconSize = 14.0 * scale;
+    final double statusFontSize = 10.0 * scale;
+
+    final TextStyle? titleBase = Theme.of(context).textTheme.titleLarge;
+    final TextStyle? subtitleBase = Theme.of(context).textTheme.labelSmall;
+    final double titleFontSize = (titleBase?.fontSize ?? 22.0) * scale;
+    final double subtitleFontSize = (subtitleBase?.fontSize ?? 11.0) * scale;
+
     // Material perfectly replicates Compose's Surface
     return Material(
       color: blueDark,
@@ -45,7 +63,9 @@ class MandiTopAppBar extends StatelessWidget implements PreferredSizeWidget {
         bottom: false, // Replicates statusBarsPadding()
         child: Container(
           height: 64.0,
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: context.responsivePadding(8.0),
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center, // verticalAlignment = Alignment.CenterVertically
             children: [
@@ -53,6 +73,7 @@ class MandiTopAppBar extends StatelessWidget implements PreferredSizeWidget {
               if (showBack)
                 IconButton(
                   icon: const Icon(Icons.arrow_back), // Auto-mirrored natively in Flutter
+                  iconSize: iconSize,
                   color: textOnBlue,
                   onPressed: onBack,
                 )
@@ -67,18 +88,24 @@ class MandiTopAppBar extends StatelessWidget implements PreferredSizeWidget {
                   children: [
                     Text(
                       title,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: titleBase?.copyWith(
                         color: textOnBlue,
                         fontWeight: FontWeight.w800, // ExtraBold
                         letterSpacing: -0.5,
+                        fontSize: titleFontSize,
                       ),
                     ),
                     if (subtitle != null)
                       Text(
                         subtitle!,
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: subtitleBase?.copyWith(
                           color: textOnBlue.withOpacity(0.8),
                           fontWeight: FontWeight.w500, // Medium
+                          fontSize: subtitleFontSize,
                         ),
                       ),
                   ],
@@ -106,17 +133,20 @@ class MandiTopAppBar extends StatelessWidget implements PreferredSizeWidget {
                           Icon(
                             isConnected ? Icons.cloud_done : Icons.cloud_off,
                             color: Colors.white,
-                            size: 14,
+                            size: statusIconSize,
                           ),
-                          const SizedBox(width: 4),
-                          Text(
-                            isConnected ? "CONNECTED" : "DISCONNECTED",
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
+                          // On very small phones show only the icon to save space
+                          if (!isCompact) ...[
+                            const SizedBox(width: 4),
+                            Text(
+                              isConnected ? "CONNECTED" : "DISCONNECTED",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: statusFontSize,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
+                          ],
                         ],
                       ),
                     ),
@@ -128,6 +158,7 @@ class MandiTopAppBar extends StatelessWidget implements PreferredSizeWidget {
               if (showNotifications)
                 IconButton(
                   icon: const Icon(Icons.notifications),
+                  iconSize: iconSize,
                   color: textOnBlue,
                   onPressed: onNotifications,
                 ),
@@ -143,14 +174,15 @@ class MandiTopAppBar extends StatelessWidget implements PreferredSizeWidget {
                     child: InkWell(
                       onTap: onAvatar ?? () => _showConnectionDialog(context),
                       child: SizedBox(
-                        width: 36.0,
-                        height: 36.0,
+                        width: avatarSize,
+                        height: avatarSize,
                         child: Center(
                           child: Text(
                             avatarInitials,
                             style: Theme.of(context).textTheme.labelLarge?.copyWith(
                               color: textOnBlue,
                               fontWeight: FontWeight.bold,
+                              fontSize: (Theme.of(context).textTheme.labelLarge?.fontSize ?? 14.0) * scale,
                             ),
                           ),
                         ),
@@ -172,87 +204,104 @@ class MandiTopAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     showDialog(
       context: context,
-      builder: (ctx) => StatefulBuilder(
-        builder: (ctx, setState) => AlertDialog(
-          title: const Row(
-            children: [
-              Icon(Icons.settings_ethernet, color: Color(0xFF1565C0)),
-              SizedBox(width: 8),
-              Text("Mandi Backend LAN Setup"),
-            ],
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Configure PC FastAPI service address for phone-to-PC inspection sync over Wi-Fi:",
-                style: TextStyle(fontSize: 13, color: Color(0xFF64748B)),
-              ),
-              const SizedBox(height: 12),
-              TextField(
-                controller: controller,
-                decoration: const InputDecoration(
-                  labelText: "API Base URL",
-                  hintText: "http://192.168.x.x:8000",
-                  border: OutlineInputBorder(),
-                  isDense: true,
+      builder: (ctx) {
+        // ── MediaQuery values for the dialog ────────────────────────────
+        final double dialogWidth = MediaQuery.sizeOf(ctx).width;
+        final double dScale = (dialogWidth / 375).clamp(0.85, 1.2);
+        final double dialogSideInset = (dialogWidth * 0.06).clamp(16.0, 40.0);
+
+        return StatefulBuilder(
+          builder: (ctx, setState) => AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: dialogSideInset,
+              vertical: 24.0,
+            ),
+            scrollable: true, // keeps it usable with keyboard / landscape
+            title: Row(
+              children: [
+                Icon(Icons.settings_ethernet, color: const Color(0xFF1565C0), size: 24.0 * dScale),
+                const SizedBox(width: 8),
+                const Expanded(
+                  child: Text("Mandi Backend LAN Setup"),
                 ),
-              ),
-              const SizedBox(height: 8),
-              if (statusMsg != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 4.0),
-                  child: Text(
-                    statusMsg!,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: statusMsg!.startsWith("Connected") ? Colors.green : Colors.red,
+              ],
+            ),
+            content: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 480),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Configure PC FastAPI service address for phone-to-PC inspection sync over Wi-Fi:",
+                    style: TextStyle(fontSize: 13 * dScale, color: const Color(0xFF64748B)),
+                  ),
+                  const SizedBox(height: 12),
+                  TextField(
+                    controller: controller,
+                    decoration: const InputDecoration(
+                      labelText: "API Base URL",
+                      hintText: "http://192.168.x.x:8000",
+                      border: OutlineInputBorder(),
+                      isDense: true,
                     ),
                   ),
+                  const SizedBox(height: 8),
+                  if (statusMsg != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        statusMsg!,
+                        style: TextStyle(
+                          fontSize: 12 * dScale,
+                          fontWeight: FontWeight.bold,
+                          color: statusMsg!.startsWith("Connected") ? Colors.green : Colors.red,
+                        ),
+                      ),
+                    ),
+                  if (testing)
+                    const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
+                      child: Center(child: LinearProgressIndicator()),
+                    ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: testing
+                    ? null
+                    : () async {
+                  setState(() {
+                    testing = true;
+                    statusMsg = null;
+                  });
+                  ApiConfig.setBaseUrl(controller.text);
+                  final ok = await ApiConfig.checkConnection();
+                  setState(() {
+                    testing = false;
+                    statusMsg = ok
+                        ? "Connected! (Mandi Nyaay Core Active)"
+                        : "Failed: ${ApiConfig.lastErrorNotifier.value ?? 'Unreachable'}";
+                  });
+                },
+                child: const Text("TEST CONNECTION"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  ApiConfig.setBaseUrl(controller.text);
+                  Navigator.of(ctx).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF1565C0),
+                  foregroundColor: Colors.white,
                 ),
-              if (testing)
-                const Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                  child: Center(child: LinearProgressIndicator()),
-                ),
+                child: const Text("SAVE & CLOSE"),
+              ),
             ],
           ),
-          actions: [
-            TextButton(
-              onPressed: testing
-                  ? null
-                  : () async {
-                      setState(() {
-                        testing = true;
-                        statusMsg = null;
-                      });
-                      ApiConfig.setBaseUrl(controller.text);
-                      final ok = await ApiConfig.checkConnection();
-                      setState(() {
-                        testing = false;
-                        statusMsg = ok
-                            ? "Connected! (Mandi Nyaay Core Active)"
-                            : "Failed: ${ApiConfig.lastErrorNotifier.value ?? 'Unreachable'}";
-                      });
-                    },
-              child: const Text("TEST CONNECTION"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                ApiConfig.setBaseUrl(controller.text);
-                Navigator.of(ctx).pop();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1565C0),
-                foregroundColor: Colors.white,
-              ),
-              child: const Text("SAVE & CLOSE"),
-            ),
-          ],
-        ),
-      ),
+        );
+      },
     );
   }
 }

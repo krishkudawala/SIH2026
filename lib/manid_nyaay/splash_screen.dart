@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:sih2631/manid_nyaay/data/routes/route_paths.dart';
+import 'package:sih2631/manid_nyaay/data/ui/utils/responsive.dart';
 
 // Note: AppAssets import removed since we are using direct paths based on your folder structure.
 
@@ -78,7 +79,9 @@ class _SplashScreenState extends State<SplashScreen>
             child: SafeArea(
               bottom: false,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.responsivePadding(20),
+                ),
                 child: Column(
                   children: [
                     const SizedBox(height: 6),

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:sih2631/manid_nyaay/data/api/api_client.dart';
 import 'package:sih2631/manid_nyaay/data/services/thermal_printer_service.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
+import 'package:sih2631/manid_nyaay/data/ui/utils/responsive.dart';
 
 const Color backgroundGray = Color(0xFFF4F5F7);
 const Color surfaceWhite = Colors.white;

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
 import 'package:sih2631/manid_nyaay/data/ui/navigation/screen.dart';
 import 'package:sih2631/manid_nyaay/data/ui/screens/result/result_view_model.dart';
+import 'package:sih2631/manid_nyaay/data/ui/utils/responsive.dart';
 
 // --- Assumed Imports (Replace with actual paths) ---
 // import 'package:mandi_nyaay/domain/model/grade.dart';

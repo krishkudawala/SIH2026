@@ -4,6 +4,7 @@ import 'package:sih2631/manid_nyaay/data/ui/components/lot_card.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
 import 'package:sih2631/manid_nyaay/data/ui/navigation/screen.dart';
 import 'package:sih2631/manid_nyaay/data/ui/screens/lots/lots_view_model.dart';
+import 'package:sih2631/manid_nyaay/data/ui/utils/responsive.dart';
 
 // Import your components, theme, and router
 // import 'package:mandi_nyaay/ui/components/mandi_top_app_bar.dart';
@@ -69,7 +70,10 @@ class _LotsScreenState extends State<LotsScreen> {
             children: [
               // ── Search bar ─────────────────────────────────────────────────
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.responsivePadding(14.0),
+                  vertical: 10.0,
+                ),
                 child: TextField(
                   controller: _searchController,
                   onChanged: _viewModel.onSearchQueryChanged,

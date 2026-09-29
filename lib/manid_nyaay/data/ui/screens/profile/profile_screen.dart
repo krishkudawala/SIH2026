@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/chevron_row.dart';
 import 'package:sih2631/manid_nyaay/data/ui/components/mandi_app_bar.dart';
+import 'package:sih2631/manid_nyaay/data/ui/utils/responsive.dart';
 
 // --- Assumed Imports (Replace with actual paths) ---
 // import 'package:mandi_nyaay/domain/model/inspector.dart';
